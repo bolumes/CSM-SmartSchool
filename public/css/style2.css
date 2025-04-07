@@ -1,0 +1,54 @@
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 0 auto; 
+    margin-bottom: 10px;
+}
+
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+
+}
+
+th {
+    background-color: gray;
+}
+
+tr:hover {
+    background-color: silver;
+    color: blue;
+}
+img:hover {
+    border: 1px solid white;
+    background-color: white;
+    border-radius: 5px;
+}
+
+
+/* Media Query para dispositivos móveis */
+@media (max-width: 600px) {
+    .sidebar {
+        width: 100%;
+        left: -100%;
+    }
+
+    .sidebar.open {
+        left: 0;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    th, td {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
