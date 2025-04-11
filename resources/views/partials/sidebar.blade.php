@@ -2,7 +2,7 @@
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
 <div class="sidebar" id="sidebar">
-    <a href="#"><span class="icon">🏠</span> Início</a>
+    <a href="{{ route('home.welcome') }}"><span class="icon">🏠</span> Início</a>
     <hr>
 
     <!-- Edifícios -->
@@ -17,18 +17,18 @@
     <!-- Salas -->
     <a class="has-submenu" onclick="toggleSubmenu(this)"><span class="icon">🏫</span> Salas</a>
     <div class="submenu">
-        <a href="#"><i class="fas fa-search"></i> Pesquisar</a>
-        <a href="#"><i class="fas fa-plus"></i> Criar</a>
-        <a href="#"><i class="fas fa-list"></i> Listar</a>
+        <a href="{{ route('salas.search') }}"><i class="fas fa-search"></i> Pesquisar</a>
+        <a href="{{ route('salas.create') }}"><i class="fas fa-plus"></i> Criar</a>
+        <a href="{{ route('salas.listsalas') }}"><i class="fas fa-list"></i> Listar</a>
     </div>
     <hr>
 
     <!-- Disciplinas -->
     <a class="has-submenu" onclick="toggleSubmenu(this)"><span class="icon">📖</span> Disciplinas</a>
     <div class="submenu">
-        <a href="#"><i class="fas fa-search"></i> Pesquisar</a>
-        <a href="#"><i class="fas fa-plus"></i> Criar</a>
-        <a href="#"><i class="fas fa-list"></i> Listar</a>
+        <a href="{{ route('disciplinas.search') }}"><i class="fas fa-search"></i> Pesquisar</a>
+        <a href="{{ route('disciplinas.create') }}"><i class="fas fa-plus"></i> Criar</a>
+        <a href="{{ route('disciplinas.ldisciplinas') }}"><i class="fas fa-list"></i> Listar</a>
     </div>
     <hr>
 
@@ -42,11 +42,11 @@
     <hr>
 
     <!-- Professores -->
-    <a class="has-submenu" onclick="toggleSubmenu(this)"><span class="icon">👨‍🏫</span> Professores</a>
+    <a class="has-submenu" onclick="toggleSubmenu(this)"><span class="icon">👨‍🏫</span> Professors</a>
     <div class="submenu">
-        <a href="#"><i class="fas fa-search"></i> Pesquisar</a>
-        <a href="#"><i class="fas fa-plus"></i> Criar</a>
-        <a href="#"><i class="fas fa-list"></i> Listar</a>
+        <a href="{{ route('professors.search') }}"><i class="fas fa-search"></i> Pesquisar</a>
+        <a href="{{ route('professors.create') }}"><i class="fas fa-plus"></i> Criar</a>
+        <a href="{{ route('professors.listprofessors') }}"><i class="fas fa-list"></i> Listar</a>
     </div>
     <hr>
 

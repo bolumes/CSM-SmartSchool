@@ -30,6 +30,7 @@
 </head>
 
 <body>
+        
     <!-- header -->
     <header>
         <div class="container">
@@ -47,7 +48,7 @@
                             <a class="nav-link scroll" href="#about">about</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link scroll" href="" data-target="#modalLRForm" data-toggle="modal">Login/Signup</a>
+                            <a class="nav-link scroll" href="{{ route('home.welcome') }}" data-target="#modalLRForm" data-toggle="modal">Login/Signup</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link scroll" href="#contact">contact</a>
@@ -58,6 +59,7 @@
         </div>
     </header>
 
+   
     <!-- banner -->
     <div class="banner" id="home">
         <div class="container">

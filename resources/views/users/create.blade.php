@@ -31,13 +31,13 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">ADD USER</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">CREE USER</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
             <!-- Seção da Imagem -->
             <div class="form-image">
-                <img src="../../img/logo1.png" alt="Imagem do Formulário" style="height: 300px; margin-left: 40px;">
+                <img src="../../img/ajouter.png" alt="Imagem do Formulário" style="height: 80px; margin-left: 40px;">
             </div>
 
             <!-- Seção do Formulário -->
@@ -99,17 +99,17 @@
                     @endif
 
                     <div class="col-md-6">
-                        <label for="name" class="form-label">Nome</label>
+                        <label for="name" class="form-label">Nom</label>
                         <input type="text" class="form-control" name="firstname"  value="{{ old('firstname') }}">
                     </div>
 
                     <div class="col-md-6">
-                        <label for="lastname" class="form-label">Apelido</label>
+                        <label for="lastname" class="form-label">Prénom</label>
                         <input type="text" class="form-control" name="lastname"  value="{{ old('lastname') }}">
                     </div>
 
                     <div class="col-md-6">
-                        <label for="telephone" class="form-label">Tefone</label>
+                        <label for="telephone" class="form-label">Tephone</label>
                         <input type="text" class="form-control" name="telephone"  value="{{ old('telephone') }}">
                     </div>
 
@@ -119,32 +119,32 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label for="address" class="form-label">Endereço</label>
+                        <label for="address" class="form-label">Addresse</label>
                         <input type="text" class="form-control" name="address"  value="{{ old('address') }}">
                     </div>
 
                     <div class="col-md-6">
-                        <label for="function" class="form-label">Funçao</label>
+                        <label for="function" class="form-label">Fonction</label>
                         <select class="form-control" name="function"  value="{{ old('function') }}">
-                            <option value="">Escolha...</option>
-                            <option value="Norte">Direçao</option>
-                            <option value="Sul">Professor</option>
-                            <option value="Leste">Aluno</option>
-                            <option value="Oeste">Pais</option>
+                            <option value="">Choisir...</option>
+                            <option value="Norte">Direction</option>
+                            <option value="Sul">Professeur</option>
+                            <option value="Leste">Eleve</option>
+                            <option value="Oeste">Parent</option>
                         </select>
                     </div>
 
                     <div class="col-md-6">
-                        <label for="password" class="form-label">Senha</label>
+                        <label for="password" class="form-label">Mot de Passe</label>
                         <input type="password" class="form-control" name="password"  value="{{ old('password') }}">
                     </div>
 
                     <div class="col-md-12">
-                        <label for="description" class="form-label">Descrição</label>
+                        <label for="description" class="form-label">Description</label>
                         <textarea class="form-control" name="description" rows="4"  value="{{ old('description') }}"></textarea>
                     </div>
 
-                    <button type="submit" class="mt-3">Salvar</button>
+                    <button type="submit" class="mt-3">Enregistrer</button>
                 </form>
             </div>
         </div>

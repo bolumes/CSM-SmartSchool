@@ -31,13 +31,13 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">EDIT EDIFICIO</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">EDITER EDIFICE</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
             <!-- Seção da Imagem -->
             <div class="form-image">
-                <img src="../../img/logo1.png" alt="Imagem do Formulário" style="height: 300px; margin-left: 40px;">
+                <img src="../../img/modif01.png" alt="Imagem do Formulário" style="height: 80px; margin-left: 40px;">
             </div>
 
             <!-- Seção do Formulário -->
@@ -103,22 +103,22 @@
                     @endif
 
                     <div class="col-md-6">
-                        <label for="name" class="form-label">Nome</label>
+                        <label for="name" class="form-label">Nom</label>
                         <input type="text" class="form-control" name="name"  value="{{ old('name', $edificio->name) }}">
                     </div>
 
                     <div class="col-md-6">
-                        <label for="location" class="form-label">Apelido</label>
+                        <label for="location" class="form-label">Localisation</label>
                         <input type="text" class="form-control" name="location"  value="{{ old('location', $edificio->location) }}">
                     </div>
 
                     <div class="col-md-12">
-                        <label for="description" class="form-label">Descrição</label>
+                        <label for="description" class="form-label">description</label>
                         <textarea class="form-control" name="description" rows="5">{{ old('description', $edificio->description) }}</textarea>
                     </div>
                     
 
-                    <button type="submit" class="mt-3">Update</button>
+                    <button type="submit" class="mt-3">Actualizer</button>
                 </form>
             </div>
         </div>

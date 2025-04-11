@@ -31,20 +31,19 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">ADD EDIFICIO</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">CREER EDIFICE</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
             <!-- Seção da Imagem -->
             <div class="form-image">
-                <img src="../../img/logo1.png" alt="Imagem do Formulário" style="height: 300px; margin-left: 40px;">
+                <img src="../../img/ajouter.png" alt="Imagem do Formulário" style="height: 80px; margin-left: 40px;">
             </div>
 
             <!-- Seção do Formulário -->
             <div class="form-container">
                 <form action="{{ route('edificio-store') }}" method="POST">
                     @csrf
-                    @method('POST')
 
                      <!-- Mensagem flutuante -->
                 @if (session('success'))
@@ -99,21 +98,26 @@
                     @endif
 
                     <div class="col-md-6">
-                        <label for="name" class="form-label">Nome</label>
+                        <label for="name" class="form-label">Nom</label>
                         <input type="text" class="form-control" name="name"  value="{{ old('name') }}">
                     </div>
 
                     <div class="col-md-6">
-                        <label for="location" class="form-label">Localizaçao</label>
+                        <label for="apelido" class="form-label">Prenom</label>
+                        <input type="text" class="form-control" name="apelido"  value="{{ old('apelido') }}">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="location" class="form-label">Localisation</label>
                         <input type="text" class="form-control" name="location"  value="{{ old('location') }}">
                     </div>
 
                     <div class="col-md-12">
-                        <label for="description" class="form-label">Descrição</label>
-                        <textarea class="form-control" name="description" rows="4"  value="{{ old('description') }}"></textarea>
+                        <label for="adress" class="form-label">addresse</label>
+                        <textarea class="form-control" name="adress" rows="4"  value="{{ old('adress') }}"></textarea>
                     </div>
 
-                    <button type="submit" class="mt-3">Salvar</button>
+                    <button type="submit" class="mt-3">Enregistrer</button>
                 </form>
             </div>
         </div>

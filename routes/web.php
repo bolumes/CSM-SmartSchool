@@ -1,8 +1,21 @@
 <?php
 
+use App\Http\Controllers\DisciplinaController;
 use App\Http\Controllers\EdificioController;
+use App\Http\Controllers\ProfessorController;
+use App\Http\Controllers\SalaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
+//| Web Routes
+Route::get('lang/{lang}', function ($lang) {
+    if (in_array($lang, ['en', 'pt', 'fr'])) {
+        session(['locale' => $lang]);
+    }
+    return redirect()->back();
+});
+
+
 
 // Rotas de UserController
 Route::get('/', [UserController::class, 'index'])->name('home.index');
@@ -27,4 +40,38 @@ Route::get('show-edificio/{edificio}', [EdificioController::class, 'show'])->nam
 Route::get('/edit-edificio/{edificio}', [EdificioController::class, 'edit'])->name('edificios.edit'); 
 Route::put('/update-edificio/{edificio}', [EdificioController::class, 'update'])->name('edificios.update');
 Route::delete('/destroy-edificio/{edificio}', [EdificioController::class, 'destroy'])->name('edificios.destroy');
+
+
+// Rotas de SalaController
+Route::get('/salas/search', [SalaController::class, 'search'])->name('salas.search');
+Route::get('/salas/create', [SalaController::class, 'create'])->name('salas.create');
+Route::post('/store-sala', [SalaController::class, 'store'])->name('sala-store');
+Route::get('/salas/listsalas', [SalaController::class, 'listsalas'])->name('salas.listsalas');
+Route::get('show-sala/{sala}', [SalaController::class, 'show'])->name('salas.show');
+Route::get('/edit-sala/{sala}', [SalaController::class, 'edit'])->name('salas.edit');
+Route::put('/update-sala/{sala}', [SalaController::class, 'update'])->name('salas.update');
+Route::delete('/destroy-sala/{sala}', [SalaController::class, 'destroy'])->name('salas.destroy');
+
+
+//Rotas de DisciplinaController
+Route::get('/disciplinas/search', [DisciplinaController::class, 'search'])->name('disciplinas.search');
+Route::get('/disciplinas/create', [DisciplinaController::class, 'create'])->name('disciplinas.create');
+Route::post('/store-disciplina', [DisciplinaController::class, 'store'])->name('disciplina-store');
+Route::get('/disciplinas/listdisciplinas', [DisciplinaController::class, 'listdisciplinas'])->name('disciplinas.ldisciplinas');
+Route::get('show-disciplina/{disciplina}', [DisciplinaController::class, 'show'])->name('disciplinas.show');
+Route::get('/edit-disciplina/{disciplina}', [DisciplinaController::class, 'edit'])->name('disciplinas.edit');
+Route::put('/update-disciplina/{disciplina}', [DisciplinaController::class, 'update'])->name('disciplinas.update');
+Route::delete('/destroy-disciplina/{disciplina}', [DisciplinaController::class, 'destroy'])->name('disciplinas.destroy');
+
+
+// Rotas de ProfessorController
+Route::get('/professores/search', [ProfessorController::class, 'search'])->name('professors.search');
+Route::get('/professores/create', [ProfessorController::class, 'create'])->name('professors.create');
+Route::post('/store-professor', [ProfessorController::class, 'store'])->name('professor-store');
+Route::get('/professores/listprofessores', [ProfessorController::class, 'listprofessors'])->name('professors.listprofessors');
+Route::get('show-professor/{professor}', [ProfessorController::class, 'show'])->name('professors.show');
+Route::get('/edit-professor/{professor}', [ProfessorController::class, 'edit'])->name('professors.edit');
+Route::put('/update-professor/{professor}', [ProfessorController::class, 'update'])->name('professors.update');
+Route::delete('/destroy-professor/{professor}', [ProfessorController::class, 'destroy'])->name('professors.destroy');
+
 

@@ -31,13 +31,13 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">SEARCH USER</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">RECHERCHER USER</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
             <!-- Seção da Imagem -->
             <div class="form-image">
-                <img src="../../img/logo1.png" alt="Imagem do Formulário" style="height: 300px; margin-left: 40px;">
+                <img src="../../img/procurar.png" alt="Imagem do Formulário" style="height: 80px; margin-left: 40px;">
             </div>
 
             <!-- Seção do Formulário -->
@@ -112,9 +112,9 @@
                             <thead class="table-dark">
                                 <tr style="background-color: #34495e; color: white;">
                                     <th scope="col" style="width: 10%;">ID</th>
-                                    <th scope="col" style="width: 35%;">Nome</th>
+                                    <th scope="col" style="width: 35%;">Nom</th>
                                     <th scope="col" style="width: 35%;">Email</th>
-                                    <th colspan="2" scope="col" style="width: 70%;">Ações</th>
+                                    <th colspan="2" scope="col" style="width: 70%;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -147,7 +147,7 @@
                     @endif
                     @else
                     <div class="alert alert-info mt-4">
-                        Nenhum usuário encontrado.
+                        Aucun utilisateur trouvé.
                     </div>
                     @endif
                 @endif

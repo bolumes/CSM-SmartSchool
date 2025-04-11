@@ -56,7 +56,7 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">LISTA USERS</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">LISTE USERS</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
@@ -68,10 +68,10 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Nome</th>
-                            <th>Apelido</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
                             <th>Email</th>
-                            <th colspan="3">Ação</th>
+                            <th colspan="3">ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -152,3 +152,19 @@
     
 </body>
 </html>
+
+<script>
+    function toggleMenu() {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+
+        sidebar.classList.toggle("open");
+        overlay.classList.toggle("active");
+    }
+
+    function toggleSubmenu(element) {
+        element.classList.toggle("open");
+        const submenu = element.nextElementSibling;
+        submenu.style.display = submenu.style.display === "flex" ? "none" : "flex";
+    }
+</script>

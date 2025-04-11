@@ -62,7 +62,7 @@
         <div class="container">
             <!-- Seção da Imagem -->
             <div class="form-image">
-              <img src="../../img/sta1.jpg" alt="Imagem do Formulário">
+              <img src="../../img/Saladeaula_itapevi.jpg" alt="Imagem do Formulário">
             </div>
             
         </div>

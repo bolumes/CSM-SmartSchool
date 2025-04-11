@@ -31,13 +31,13 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">EDIT USER</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">EDITER USER</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
             <!-- Seção da Imagem -->
             <div class="form-image">
-                <img src="../../img/logo1.png" alt="Imagem do Formulário" style="height: 300px; margin-left: 40px;">
+                <img src="../../img/modif01.png" alt="Imagem do Formulário" style="height: 80px; margin-left: 40px;">
             </div>
 
             <!-- Seção do Formulário -->
@@ -64,17 +64,17 @@
                     @endif
 
                     <div class="col-md-6">
-                        <label for="name" class="form-label">Nome</label>
+                        <label for="name" class="form-label">Nom</label>
                         <input type="text" class="form-control" name="firstname"  value="{{ old('firstname', $user->firstname) }}">
                     </div>
 
                     <div class="col-md-6">
-                        <label for="lastname" class="form-label">Apelido</label>
+                        <label for="lastname" class="form-label">Prénom</label>
                         <input type="text" class="form-control" name="lastname"  value="{{ old('lastname', $user->lastname) }}">
                     </div>
 
                     <div class="col-md-6">
-                        <label for="telephone" class="form-label">Tefone</label>
+                        <label for="telephone" class="form-label">Tephone</label>
                         <input type="text" class="form-control" name="telephone"  value="{{ old('telephone', $user->telephone) }}">
                     </div>
 
@@ -84,11 +84,11 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label for="address" class="form-label">Endereço</label>
+                        <label for="address" class="form-label">Addresse</label>
                         <input type="text" class="form-control" name="address"  value="{{ old('address', $user->address) }}">
                     </div>
 
-                    <label for="function" class="form-label">Função</label>
+                    <label for="function" class="form-label">Fonction</label>
                     <select class="form-control" name="function">
                         <option value="">Escolha...</option>
                         <option value="Direcao" {{ old('function', $user->function) == 'Direcao' ? 'selected' : '' }}>Direção</option>
@@ -98,17 +98,17 @@
                     </select>
 
                     <div class="col-md-6">
-                        <label for="password" class="form-label">Senha</label>
+                        <label for="password" class="form-label">Mot de Passe</label>
                         <input type="password" class="form-control" name="password"  value="{{ old('password') }}">
                     </div>
 
                     <div class="col-md-12">
-                        <label for="description" class="form-label">Descrição</label>
+                        <label for="description" class="form-label">Description</label>
                         <textarea class="form-control" name="description" rows="5">{{ old('description', $user->description) }}</textarea>
                     </div>
                     
 
-                    <button type="submit" class="mt-3">Update</button>
+                    <button type="submit" class="mt-3">Actualiser</button>
                 </form>
             </div>
         </div>

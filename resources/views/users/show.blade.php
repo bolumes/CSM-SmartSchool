@@ -49,10 +49,15 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">DETALHES USER</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">DETAILS USER</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
+
+             <!-- Seção da Imagem -->
+             <div class="form-image">
+                <img src="../../img/det.png" alt="Imagem do Formulário" style="height: 80px; margin-left: 40px;">
+            </div>
 
             <!-- Seção do Formulário -->
             <div class="form-container">
@@ -99,7 +104,7 @@
                 @endif
 
                
-                <table border="1" style="width: 60%; margin: 0 auto; border-collapse: collapse;">
+                <table border="1" style="width: 100%; margin: 0 auto; border-collapse: collapse;">
                     <tbody>
                         <tr>
                             <td style="text-align: center; font-weight: bold; width: 40%;  background-color: #1c359d; color: white;">ATRIBUTO</td>
@@ -110,11 +115,11 @@
                             <td align="center">{{ $user->id }}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center; font-weight: bold;">Nome</td>
+                            <td style="text-align: center; font-weight: bold;">Nom</td>
                             <td align="center">{{ $user->firstname }}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center; font-weight: bold;">Apelido</td>
+                            <td style="text-align: center; font-weight: bold;">Prénom</td>
                             <td align="center">{{ $user->lastname }}</td>
                         </tr>
                         <tr>
@@ -122,23 +127,23 @@
                             <td align="center">{{ $user->email }}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center; font-weight: bold;">Telefone</td>
+                            <td style="text-align: center; font-weight: bold;">Telephone</td>
                             <td align="center">{{ $user->telephone }}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center; font-weight: bold;">Endereço</td>
+                            <td style="text-align: center; font-weight: bold;">Addresse</td>
                             <td align="center">{{ $user->address }}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center; font-weight: bold;">Funçao</td>
+                            <td style="text-align: center; font-weight: bold;">Fonction</td>
                             <td align="center">{{ $user->function }}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center; font-weight: bold;">Descriçao</td>
+                            <td style="text-align: center; font-weight: bold;">Description</td>
                             <td align="center">{{ $user->description }}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center; font-weight: bold;">Data de Criação</td>
+                            <td style="text-align: center; font-weight: bold;">Date de Creation</td>
                             <td align="center">{{ $user->created_at }}</td>
                         </tr>
                     </tbody>

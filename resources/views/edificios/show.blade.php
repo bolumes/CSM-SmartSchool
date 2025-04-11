@@ -49,10 +49,15 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">DETALHES EDIFICIO</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">DETAILS EDIFICE</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
+
+             <!-- Seção da Imagem -->
+             <div class="form-image">
+                <img src="../../img/det.png" alt="Imagem do Formulário" style="height: 80px; margin-left: 40px;">
+            </div>
 
             <!-- Seção do Formulário -->
             <div class="form-container">
@@ -99,7 +104,7 @@
                 @endif
 
                
-                <table border="1" style="width: 60%; margin: 0 auto; border-collapse: collapse;">
+                <table border="1" style="width: 100%; margin: 0 auto; border-collapse: collapse;">
                     <tbody>
                         <tr>
                             <td style="text-align: center; font-weight: bold; width: 40%;  background-color: #1c359d; color: white;">ATRIBUTO</td>
@@ -110,19 +115,19 @@
                             <td align="center">{{ $edificio->id }}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center; font-weight: bold;">Nome</td>
+                            <td style="text-align: center; font-weight: bold;">Nom</td>
                             <td align="center">{{ $edificio->name }}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center; font-weight: bold;">Localizaçao</td>
+                            <td style="text-align: center; font-weight: bold;">Localisation</td>
                             <td align="center">{{ $edificio->location }}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center; font-weight: bold;">Descriçao</td>
+                            <td style="text-align: center; font-weight: bold;">description</td>
                             <td align="center">{{ $edificio->description }}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center; font-weight: bold;">Data de Criação</td>
+                            <td style="text-align: center; font-weight: bold;">Date de creation</td>
                             <td align="center">{{ $edificio->created_at }}</td>
                         </tr>
                     </tbody>
