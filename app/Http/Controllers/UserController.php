@@ -14,8 +14,58 @@ class UserController extends Controller
         
         //dd("Index foi acessado!");
         return view('home.index');
-    
     }
+
+    // Exibe a página inicial 0
+    public function index0(){
+        
+        //dd("Index foi acessado!");
+        return view('home.index0');
+    }
+
+    // Exibe a página de contato
+    public function contact()
+    {
+        //dd("Contact foi acessado!");
+        return view('home.contact'); 
+    }
+    // Exibe a página sobre
+    public function about()
+    {
+        //dd("About foi acessado!");
+        return view('home.about'); 
+    }
+
+    // Exibe a página de serviços
+    public function services()
+    {
+        //dd("About foi acessado!");
+        return view('home.services'); 
+    }
+
+    // Exibe a página de login
+    public function login() 
+    {
+        if (Auth::check()) {
+            return redirect()->route('home.welcome'); // Redireciona para a página inicial se o usuário já estiver logado
+        }
+
+        // Adiciona uma mensagem de erro indicando que as credenciais precisam ser revisadas
+        session()->flash('error', 'Por favor, revise suas credenciais e tente novamente.');
+
+        return view('login'); // Retorna a view de login
+    }
+
+    // Exibe a página de sair
+    public function sair()
+    {
+        //dd("Sair foi acessado!");
+        return view('home.sair');
+    }   
+
+
+  
+
      // Metodo para buscar usuer
      public function search(Request $request)
      {

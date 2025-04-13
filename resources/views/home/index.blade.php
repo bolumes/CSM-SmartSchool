@@ -48,7 +48,7 @@
                             <a class="nav-link scroll" href="#about">about</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link scroll" href="{{ route('home.welcome') }}" data-target="#modalLRForm" data-toggle="modal">Login/Signup</a>
+                            <a class="nav-link scroll" href="{{ route('home.index0') }}" data-target="#modalLRForm" data-toggle="modal">Login/Signup</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link scroll" href="#contact">contact</a>

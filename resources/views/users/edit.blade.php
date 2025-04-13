@@ -25,7 +25,7 @@
     </div>
 
     <!--partials sidebar-->
-    @include('partials.sidebar1')
+    @include('partials.sidebarsettings')
 
 
     <!-- Conteúdo Principal -->

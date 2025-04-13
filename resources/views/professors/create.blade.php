@@ -27,9 +27,8 @@
         </div>
     </div>
 
-    <!--partials sidebar-->
-    @include('partials.sidebar')
-
+   <!--partials sidebar-->
+   @include('partials.sidebarwelcome')
 
     <!-- Conteúdo Principal -->
     <div class="main-content">

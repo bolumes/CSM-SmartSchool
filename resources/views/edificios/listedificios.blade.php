@@ -51,7 +51,7 @@
 
 
     <!--partials sidebar-->
-    @include('partials.sidebar')
+   @include('partials.sidebarwelcome')
 
     <!-- Conteúdo Principal -->
     <div class="main-content">

@@ -81,7 +81,7 @@
             padding: 8px 15px;
             text-decoration: none;
             color: #333;
-            font-size: 16px;
+            font-size: 18px;
             margin: 0;
         }
 
@@ -170,6 +170,107 @@
               font-size: 20px;
           }
 
+
+          /* Contact Section */
+    .contact-section {
+        background: #f8f9fa;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        overflow: hidden;
+        margin: 2rem auto;
+        padding: 2rem;
+    }
+
+    .contact-header {
+        position: relative;
+        margin-bottom: 2.5rem;
+    }
+
+    .contact-header h4 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #2c3e50;
+        position: relative;
+        display: inline-block;
+        background: linear-gradient(45deg, #4facfe, #00f2fe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .contact-info-item {
+        transition: all 0.3s ease;
+        padding: 1.2rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+    }
+
+    .contact-info-item:hover {
+        background: rgba(79, 172, 254, 0.05);
+        transform: translateX(10px);
+    }
+
+    .contact-info-item i {
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: linear-gradient(45deg, #4facfe, #00f2fe);
+        color: white;
+        font-size: 1.4rem;
+    }
+
+    .contact-form label {
+        font-weight: 600;
+        color: #4a5568;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    .contact-form .form-control {
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 0.75rem 1.25rem;
+        transition: all 0.3s ease;
+    }
+
+    .contact-form .form-control:focus {
+        border-color: #4facfe;
+        box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.25);
+    }
+
+    .submit-btn {
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 8px;
+        transition: all 0.3s ease !important;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+    }
+
+    @media (max-width: 768px) {
+        .contact-section {
+            padding: 1.5rem;
+            margin: 1rem;
+        }
+        
+        .contact-info-item {
+            margin-bottom: 1rem;
+        }
+        
+        .contact-form .row {
+            gap: 1rem;
+        }
+    }
+
     </style>
 </head>
 <body>
@@ -181,89 +282,24 @@
         <div class="search">
             <input type="text" placeholder="Pesquisar...">
         </div>
+        <div class="icons md:flex hidden">
+            <div class="icon" title="Notificações">🔔</div>
+            <div class="icon" title="Perfil">👤</div>
+            <div class="icon" title="Sair">🔓</div>
+        </div>
     </div>
 
-  
-    <!-- Overlay -->
-    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+   <!--partials sidebar-->
+   @include('partials.sidebarwelcome')
 
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <a href="#"><span class="icon">🏠</span> Acceuil</a>
-        <hr>
-
-        <!-- Edifícios -->
-        <a class="has-submenu" onclick="toggleSubmenu(this)"><span class="icon">🏢</span> Edifíces</a>
-        <div class="submenu">
-            <a href="{{ route('edificios.search') }}"><i class="fas fa-search"></i> Rechercher</a>
-            <a href="{{ route('edificios.create') }}"><i class="fas fa-plus"></i> Creer</a>
-            <a href="{{ route('edificios.listedificios') }}"><i class="fas fa-list"></i> Lister</a>
-        </div>
-        <hr>
-
-        <!-- Salas -->
-        <a class="has-submenu" onclick="toggleSubmenu(this)"><span class="icon">🏫</span> Salles</a>
-        <div class="submenu">
-            <a href="{{ route('salas.search') }}"><i class="fas fa-search"></i> Rechercher</a>
-            <a href="{{ route('salas.create') }}"><i class="fas fa-plus"></i> Creer</a>
-            <a href="{{ route('salas.listsalas') }}"><i class="fas fa-list"></i> Lister</a>
-        </div>
-        <hr>
-
-        <!-- Disciplinas -->
-        <a class="has-submenu" onclick="toggleSubmenu(this)"><span class="icon">📖</span> Matiere</a>
-        <div class="submenu">
-            <a href="{{ route('disciplinas.search') }}"><i class="fas fa-search"></i> Rechercher</a>
-            <a href="{{ route('disciplinas.create') }}"><i class="fas fa-plus"></i> Creer</a>
-            <a href="{{ route('disciplinas.ldisciplinas') }}"><i class="fas fa-list"></i> Lister</a>
-        </div>
-        <hr>
-
-         <!-- Forma -->
-         <a class="has-submenu" onclick="toggleSubmenu(this)"><span class="icon">🎓</span> Formation</a>
-         <div class="submenu">
-             <a href="#"><i class="fas fa-search"></i> Rechercher</a>
-             <a href="#"><i class="fas fa-plus"></i> Creer</a>
-             <a href="#"><i class="fas fa-list"></i> Lister</a>
-         </div>
-         <hr>
-
-        <!-- Professores -->
-        <a class="has-submenu" onclick="toggleSubmenu(this)"><span class="icon">👨‍🏫</span> Professeurs</a>
-        <div class="submenu">
-            <a href="{{ route('professors.search') }}"><i class="fas fa-search"></i> Rechercher</a>
-            <a href="{{ route('professors.create') }}"><i class="fas fa-plus"></i> Creer</a>
-            <a href="{{ route('professors.listprofessors') }}"><i class="fas fa-list"></i> Lister</a>
-        </div>
-        <hr>
-
-         <!-- Evento -->
-         <a class="has-submenu" onclick="toggleSubmenu(this)"><span class="icon">📅</span> Evenement</a>
-         <div class="submenu">
-              <a href="#"><i class="fas fa-search"></i> Rechercher</a>
-              <a href="#"><i class="fas fa-plus"></i> Creer</a>
-              <a href="#"><i class="fas fa-list"></i> Lister</a>
-         </div>
-         <hr>
-
-          <!-- Programar Evento -->
-          <a class="has-submenu" onclick="toggleSubmenu(this)"><span class="icon">📅</span> Prog-Evenement</a>
-          <div class="submenu">
-               <a href="#"><i class="fas fa-search"></i> Rechercher</a>
-               <a href="#"><i class="fas fa-plus"></i> Creer</a>
-               <a href="#"><i class="fas fa-list"></i> Lister</a>
-          </div>
-          <hr>
-
-        <a href="{{ route('home.settings') }}"><span class="icon">⚙️</span> Configurations</a>
-        <hr>
-        <a href="#"><span class="icon">✉️</span> Contacte</a>
-    </div>
-
+   
     <!-- Conteúdo Principal -->
     <div class="main-content" id="main-content">
         <h2 class="text-primary">Bienvenue au Csm-SmartSchool</h2>
         <p class="text-primary">Plataforme de Gestion - Complexe scolaire Multinacional</p>
+
+        <!-- Exibe o e-mail do usuário logado -->
+        <p>{{ __('Salut: ') }} <strong>{{ Auth::user()->email }}</strong></p>
 
         <!-- Carrossel -->
         <div id="carouselExampleIndicators" class="carousel slide">
@@ -500,6 +536,9 @@
   </div>
 </fieldset>
 
+<br>
+
+ 
 
    <script>
         function toggleMenu() {

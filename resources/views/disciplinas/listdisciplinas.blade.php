@@ -51,8 +51,8 @@
 
 
     <!--partials sidebar-->
-    @include('partials.sidebar')
-
+   @include('partials.sidebarwelcome')
+   
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue;">
