@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pla-moss</title>
     <link rel="stylesheet" href="../css/style1.css"> <!-- Link para o arquivo CSS externo -->
-    <link rel="icon" href="../../img/favicon.png">
+    <link rel="icon" href="../../img/books.png">
 </head>
 <body>
-
+   
     <!-- Navbar -->
     <div class="navbar">
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
@@ -44,7 +44,7 @@
             <div class="form-container">
                 
                 
-                <form action="{{ route('disciplinas.update', ['disciplina'=> $disciplina->id]) }}" method="POST">
+            <form action="{{ route('matieres.update', ['matiere' => $matiere->id]) }}" method="POST">
 
                     @csrf
                     @method('PUT')
@@ -103,17 +103,29 @@
                     @endif
                     <div class="col-md-6">
                         <label for="name" class="form-label">Nom</label>
-                        <input type="text" class="form-control" name="name"  value="{{ old('name', $disciplina->name) }}">
+                        <input type="text" class="form-control" name="name"  value="{{ old('name', $matiere->name) }}">
                     </div>
                     
                     <div class="col-md-6">
-                        <label for="codigo" class="form-label">CodE</label>
-                        <input type="text" class="form-control" name="codigo"  value="{{ old('codigo', $disciplina->codigo) }}">
+                        <label for="code" class="form-label">Code</label>
+                        <input type="text" class="form-control" name="code"  value="{{ old('code', $matiere->code) }}">
                     </div>
 
                     <div class="col-md-6">
-                        <label for="descricao" class="form-label">Description</label>
-                        <input type="text" class="form-control" name="descricao"  value="{{ old('descricao', $disciplina->descricao) }}">
+                        <label for="level" class="form-label">Niveau</label>
+                        <select name="level" id="level" class="form-control">
+                            <option value="">-- Sélectionner un niveau --</option>
+                            <option value="maternelle" {{ old('level', $matiere->level) == 'maternelle' ? 'selected' : '' }}>Maternelle</option>
+                            <option value="elementaire" {{ old('level', $matiere->level) == 'elementaire' ? 'selected' : '' }}>Élémentaire</option>
+                            <option value="college" {{ old('level', $matiere->level) == 'college' ? 'selected' : '' }}>Collège</option>
+                            <option value="lycee" {{ old('level', $matiere->level) == 'lycee' ? 'selected' : '' }}>Lycée</option>
+                        </select>
+                    </div>
+                
+
+                    <div class="col-md-6">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" class="form-control" name="description"  value="{{ old('description', $matiere->description) }}">
                     </div>
                  
                     <button type="submit" class="mt-3">Actualiser</button>

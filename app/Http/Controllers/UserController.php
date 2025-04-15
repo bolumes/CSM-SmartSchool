@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
@@ -14,6 +16,18 @@ class UserController extends Controller
         
         //dd("Index foi acessado!");
         return view('home.index');
+    }
+
+    // Exibe a página de signup
+
+    public function signup()
+    {
+        if (Auth::check()) {
+            // Se o usuário estiver logado, redireciona para a página inicial ou para o painel
+            return redirect()->route('home.welcome'); // Ou outra rota que você queira redirecionar
+        }
+
+        return view('home.signup'); // Retorna a view com o formulário de signup
     }
 
     // Exibe a página inicial 0
@@ -47,14 +61,37 @@ class UserController extends Controller
     public function login() 
     {
         if (Auth::check()) {
-            return redirect()->route('home.welcome'); // Redireciona para a página inicial se o usuário já estiver logado
+            return redirect()->route('home.welcome'); // Redireciona se já estiver logado
         }
 
-        // Adiciona uma mensagem de erro indicando que as credenciais precisam ser revisadas
-        session()->flash('error', 'Por favor, revise suas credenciais e tente novamente.');
-
-        return view('login'); // Retorna a view de login
+        return view('login'); // Só retorna a view limpa
     }
+        
+
+    // Método para processar a autenticação (POST)
+    public function authenticate(Request $request)
+    {
+        // Validação dos campos do formulário
+        $credentials = $request->validate([
+            'email'    => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        // Tentativa de autenticação com 'remember me'
+        if (Auth::attempt($credentials, $request->has('remember'))) {
+            // Regenera a sessão para evitar fixação de sessão
+            $request->session()->regenerate();
+
+            // Redireciona para a página desejada
+            return redirect()->intended(route('home.welcome'));
+        }
+
+        // Se a autenticação falhar, retorna para o login com uma mensagem de erro
+        return back()->withErrors([
+            'email' => 'As credenciais fornecidas estão incorretas. Por favor, tente novamente.',
+        ])->onlyInput('email');
+    }
+
 
     // Exibe a página de sair
     public function sair()
@@ -68,20 +105,22 @@ class UserController extends Controller
 
      // Metodo para buscar usuer
      public function search(Request $request)
-     {
-         $users = [];
-     
-         if ($request->filled('name')) {
-             $name = $request->input('name');
-     
-             // Pesquisa nos campos 'firstname' e 'lastname' usando 'orWhere' para procurar em qualquer parte do nome
-             $users = User::where('firstname', 'like', '%' . $name . '%')
-                 ->orWhere('lastname', 'like', '%' . $name . '%')
-                 ->get();
-         }
-     
-         return view('users.search', compact('users'));
-     }
+        {
+            // Inicialize a variável de usuários
+            $users = [];
+
+            if ($request->filled('name')) {
+                $name = $request->input('name');
+
+                // Pesquisa nos campos 'firstname' e 'lastname' usando 'orWhere' para procurar em qualquer parte do nome
+                $users = User::where('firstname', 'like', '%' . $name . '%')
+                            ->orWhere('lastname', 'like', '%' . $name . '%')
+                            ->paginate(10);  // Usando paginate para paginar os resultados, 10 por página
+            }
+
+            return view('users.search', compact('users'));
+        }
+
      
 
 
@@ -112,6 +151,29 @@ class UserController extends Controller
         //dd($user); // Exibe os dados do usuário
         return view('users.show', ['user' => $user]); // Retorna a view com os dados do usuário
     }
+
+    // storeSignup - Armazena os dados do usuário durante o signup
+
+    public function storeSignup(UserRequest $request)
+    {
+        // Valida os dados do formulário usando o UserRequest
+        $request->validated();
+    
+        // Cria o usuário
+        $user = User::create([
+            'firstname' => $request->input('firstname'),
+            'lastname' => $request->input('lastname'),
+            'telephone' => $request->input('telephone'),
+            'address' => $request->input('address'),
+            'function' => $request->input('function'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+        ]);
+        
+        // Redireciona direto pra home
+        return redirect()->route('login')->with('success', 'Cadastro realizado com sucesso!');
+    }
+
 
     // Armazena os dados do usuário
     public function store(UserRequest $request)
@@ -174,9 +236,26 @@ class UserController extends Controller
     // Remove o usuário do banco de dados
     public function destroy(User $user)
     {
-        $user->delete(); // Remove o usuário do banco de dados
-        return redirect()->route('users.listusers')->with('success', 'Usuário removido com sucesso!'); // Redireciona para a lista de usuários com uma mensagem de sucesso
+        // Impede a exclusão de usuários com função "Admin" ou "Direction"
+        if (in_array($user->role, ['Admin', 'Direction'])) {
+            return redirect()->back()->with('error', 'Você não pode excluir um usuário com privilégio de Admin ou Direction.');
+        }
+    
+        $currentUser = auth()->user();
+    
+        // Remove o usuário do banco de dados
+        $user->delete();
+    
+        // Se o usuário deletado for o usuário autenticado, faz logout
+        if ($currentUser->id === $user->id) {
+            auth()->logout();
+            return redirect()->route('login')->with('success', 'Sua conta foi excluída com sucesso.');
+        }
+    
+        // Redireciona para a lista de usuários com mensagem de sucesso
+        return redirect()->route('users.listusers')->with('success', 'Usuário removido com sucesso!');
     }
+    
     
 }
 

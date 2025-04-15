@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pla-moss</title>
     <link rel="stylesheet" href="../css/style1.css"> <!-- Link para o arquivo CSS externo -->
-    <link rel="icon" href="../../img/favicon.png">
+    <link rel="icon" href="../../img/books.png">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         /* Estilos adicionais para o botão de pesquisa */
@@ -64,54 +64,68 @@
             <!-- Seção do Formulário -->
             <div class="form-container">
 
-                <table border="1" style="width: 100%; border-collapse: collapse;">
-                    <thead>
+                @php
+                $userFunction = Auth::user()->function;
+                $isAdminOrDirection = $userFunction === 'Admin' || $userFunction === 'Direction';
+            @endphp
+            
+            <table border="1" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>LOCALISATION</th>
+                        <th>DESCRIPTION</th>
+                        <th colspan="3">Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($edificios as $edificio)
                         <tr>
-                            <th>ID</th>
-                            <th>Nom</th>
-                            <th>LOCALISATION</th>
-                            <th>DESCRIPTION</th>
-                            <th colspan="3">Ação</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($edificios as $edificio)
-                            <tr>
-                                <td align="center">{{ $edificio->id }}</td>
-                                <td align="center">{{ $edificio->name }}</td>
-                                <td align="center">{{ $edificio->location }}</td>
-                                <td align="center">{{ $edificio->description }}</td>
-                                
-                                {{-- Botão "Ver Detalhes" --}}
-                                <td align="center">
-                                    <a href="{{ route('edificios.show', $edificio->id) }}">
-                                        <img src="../../img/det.png" alt="Ver" style="width: 30px; height: 30px;">
-                                    </a>
-                                </td>
-                                
-                                {{-- Botão "Editar" --}}
+                            <td align="center">{{ $edificio->id }}</td>
+                            <td align="center">{{ $edificio->name }}</td>
+                            <td align="center">{{ $edificio->location }}</td>
+                            <td align="center">{{ $edificio->description }}</td>
+                            
+                            {{-- Ver Detalhes (todos podem ver) --}}
+                            <td align="center">
+                                <a href="{{ route('edificios.show', $edificio->id) }}">
+                                    <img src="../../img/det.png" alt="Ver" style="width: 30px; height: 30px;">
+                                </a>
+                            </td>
+            
+                            {{-- Editar (apenas Admin e Direction) --}}
+                            @if ($isAdminOrDirection)
                                 <td align="center">
                                     <a href="{{ route('edificios.edit', $edificio->id) }}">
                                         <img src="../../img/modif02.png" alt="Editar" style="width: 30px; height: 30px;">
                                     </a>
                                 </td>
-
-                                {{-- Botão "Suprimir" --}}
+                            @else
+                                <td></td>
+                            @endif
+            
+                            {{-- Excluir (apenas Admin e Direction) --}}
+                            @if ($isAdminOrDirection)
                                 <td align="center">
                                     <form id="delete-form-{{ $edificio->id }}" action="{{ route('edificios.destroy', ['edificio' => $edificio]) }}" method="POST" style="display: none;">
                                         @csrf
                                         @method('DELETE')
                                     </form>
-                                
+            
                                     <button type="button" onclick="confirmDelete({{ $edificio->id }})" style="background: none; border: none; cursor: pointer;">
                                         <img src="../../img/del0.png" alt="Suprimir" style="width: 30px; height: 30px;">
                                     </button>
-                                </td>                                
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-
+                                </td>
+                            @else
+                                <td></td>
+                            @endif
+            
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            
             </div>
         </div>
     </fieldset>

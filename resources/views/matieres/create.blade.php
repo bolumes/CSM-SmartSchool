@@ -7,24 +7,6 @@
     <title>Pla-moss</title>
     <link rel="stylesheet" href="../css/style1.css"> <!-- Link para o arquivo CSS externo -->
     <link rel="icon" href="../../img/books.png">
-    <style>
-        /* Estilos adicionais para o botão de pesquisa */
-        tr {
-            height: 40px;
-        }
-
-        tr:hover {
-            height: 40px;
-            background-color: #afc393;
-            cursor: pointer;
-            color: blue;
-        }
-
-        th {
-            background-color: #1c359d;
-            color: white;
-        }
-    </style>
 </head>
 <body>
 
@@ -43,31 +25,32 @@
     </div>
 
     <!--partials sidebar-->
-    @include('partials.sidebarsettings')
+   @include('partials.sidebarwelcome')
 
 
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">DETAILS USER</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">CREER MATIERE</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
-
-             <!-- Seção da Imagem -->
-             <div class="form-image">
-                <img src="../../img/det.png" alt="Imagem do Formulário" style="height: 80px; margin-left: 40px;">
+            <!-- Seção da Imagem -->
+            <div class="form-image">
+                <img src="../../img/ajouter.png" alt="Imagem do Formulário" style="height: 80px; margin-left: 40px;">
             </div>
 
             <!-- Seção do Formulário -->
             <div class="form-container">
-
-                <!-- Mensagem flutuante -->
-                @if (session('success'))
+                <form action="{{ route('matiere-store') }}" method="POST">
+                    @csrf
+                       
+                    <!-- Mensagem flutuante -->
+                    @if (session('success'))
                     <div id="toast-success" class="toast">
                         {{ session('success') }}
                     </div>
-
+                
                     <style>
                         .toast {
                             position: fixed;
@@ -81,7 +64,7 @@
                             z-index: 9999;
                             animation: slideIn 0.5s, fadeOut 0.5s 3.5s forwards;
                         }
-
+                
                         @keyframes slideIn {
                             from {
                                 opacity: 0;
@@ -92,7 +75,7 @@
                                 transform: translateY(0);
                             }
                         }
-
+                
                         @keyframes fadeOut {
                             to {
                                 opacity: 0;
@@ -101,53 +84,48 @@
                             }
                         }
                     </style>
-                @endif
+                    @endif
+                
+                    @if ($errors->any())
+                        <p style="color: red;">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </p>
+                    @endif
+                
+                    <div class="col-md-6">
+                        <label for="name" class="form-label">Nom</label>
+                        <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                    </div>
 
-               
-                <table border="1" style="width: 100%; margin: 0 auto; border-collapse: collapse;">
-                    <tbody>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold; width: 40%;  background-color: #1c359d; color: white;">ATRIBUTO</td>
-                            <td style="text-align: center; font-weight: bold; width: 40%;  background-color: #1c359d; color: white;">VALOR</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold; width: 40%;">ID</td>
-                            <td align="center">{{ $user->id }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Nom</td>
-                            <td align="center">{{ $user->firstname }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Prénom</td>
-                            <td align="center">{{ $user->lastname }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Email</td>
-                            <td align="center">{{ $user->email }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Telephone</td>
-                            <td align="center">{{ $user->telephone }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Addresse</td>
-                            <td align="center">{{ $user->address }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Fonction</td>
-                            <td align="center">{{ $user->function }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Description</td>
-                            <td align="center">{{ $user->description }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Date de Creation</td>
-                            <td align="center">{{ $user->created_at }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <div class="col-md-6">
+                        <label for="code" class="form-label">Code</label>
+                        <input type="text" class="form-control" name="code" value="{{ old('code') }}">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="level" class="form-label">Niveau</label>
+                        <select name="level" id="level" class="form-control">
+                            <option value="">-- Sélectionner un niveau --</option>
+                            <option value="maternelle">Maternelle</option>
+                            <option value="elementaire">Élémentaire</option>
+                            <option value="college">Collège</option>
+                            <option value="lycee">Lycée</option>
+                        </select>
+                    </div>                 
+                    
+                                             
+                    <div class="col-md-12">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" name="description" rows="4">{{ old('description') }}</textarea>
+                    </div>
+                
+                    <button type="submit" class="mt-3">Enregistrer</button>
+                </form>
+                
             </div>
         </div>
     </fieldset>
@@ -171,8 +149,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-

@@ -31,7 +31,7 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">EDITER PROFESSEUR</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">EDITER CLASSE</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
@@ -44,7 +44,7 @@
             <div class="form-container">
                 
                 
-                <form action="{{ route('professors.update', ['professor'=> $professor->id]) }}" method="POST">
+                <form action="{{ route('classes.update', ['classe'=> $classe->id]) }}" method="POST">
 
                     @csrf
                     @method('PUT')
@@ -101,33 +101,27 @@
                         </p>
                     
                     @endif
-
                     <div class="col-md-6">
                         <label for="name" class="form-label">Nom</label>
-                        <input type="text" class="form-control" name="name"  value="{{ old('name', $professor->name) }}">
+                        <input type="text" class="form-control" name="name"  value="{{ old('name', $classe->name) }}">
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <label for="code" class="form-label">Code</label>
+                        <input type="text" class="form-control" name="code"  value="{{ old('code', $classe->code) }}">
                     </div>
 
                     <div class="col-md-6">
-                        <label for="apelido" class="form-label">Prénom</label>
-                        <input type="text" class="form-control" name="apelido"  value="{{ old('apelido', $professor->apelido) }}">
+                        <label for="level" class="form-label">Code</label>
+                        <input type="text" class="form-control" name="level"  value="{{ old('level', $classe->level) }}">
                     </div>
 
                     <div class="col-md-6">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="text" class="form-control" name="email"  value="{{ old('rmail', $professor->email) }}">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" class="form-control" name="description"  value="{{ old('description', $classe->description) }}">
                     </div>
-
-                    <div class="col-md-6">
-                        <label for="telephone" class="form-label">Tephone</label>
-                        <input type="text" class="form-control" name="telephone"  value="{{ old('telephone', $professor->telephone) }}">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="address" class="form-label">Addresse</label>
-                        <input type="text" class="form-control" name="address"  value="{{ old('address', $professor->address) }}">
-                    </div>
-
-                    <button type="submit" class="mt-3">Enregistrer</button>
+                 
+                    <button type="submit" class="mt-3">Actualiser</button>
                 </form>
             </div>
         </div>

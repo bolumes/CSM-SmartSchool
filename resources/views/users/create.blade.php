@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pla-moss</title>
     <link rel="stylesheet" href="../css/style1.css"> <!-- Link para o arquivo CSS externo -->
-    <link rel="icon" href="../../img/favicon.png">
+    <link rel="icon" href="../../img/books.png">
 </head>
 <body>
 
@@ -125,15 +125,22 @@
 
                     <div class="col-md-6">
                         <label for="function" class="form-label">Fonction</label>
-                        <select class="form-control" name="function"  value="{{ old('function') }}">
+                        <select class="form-control" name="function" value="{{ old('function') }}">
                             <option value="">Choisir...</option>
-                            <option value="Norte">Direction</option>
-                            <option value="Sul">Professeur</option>
-                            <option value="Leste">Eleve</option>
-                            <option value="Oeste">Parent</option>
+                    
+                            {{-- Verifica se o usuário logado é Admin ou Direction --}}
+                            @if(optional(Auth::user())->function === 'Admin' || optional(Auth::user())->function === 'Direction')
+                                <option value="Admin">Admin</option>
+                                <option value="Direction">Direction</option>
+                            @endif
+                    
+                            {{-- As outras opções são visíveis para todos os usuários --}}
+                            <option value="Professeur">Professeur</option>
+                            <option value="Parent">Parent</option>
+                            <option value="Eleve">Eleve</option>
                         </select>
                     </div>
-
+                    
                     <div class="col-md-6">
                         <label for="password" class="form-label">Mot de Passe</label>
                         <input type="password" class="form-control" name="password"  value="{{ old('password') }}">

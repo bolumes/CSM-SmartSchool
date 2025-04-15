@@ -86,8 +86,10 @@
             margin: 0;
         }
 
+
         .sidebar a:hover {
-            background-color: #e5e5e5;
+            background-color: #afc393;
+            color: black;
         }
 
         .submenu a {
@@ -313,17 +315,73 @@
         @endif
 
         <fieldset style="border-radius: 10px; border: 2px solid #007bff; padding: 20px;">
-            <legend class="text-center" style="color: #007bff; font-size: 24px; font-weight: bold;">CONNEXION</legend>
-            <p class="text-center" style="color: #6c757d;">Connectez-vous à votre compte</p>
-
-            <!-- Formulário -->
+            <legend class="text-center" style="color: #007bff; font-size: 20px; font-weight: bold;">CONNEXION</legend>
+            <p class="text-center" style="color: #6c757d;">
+                <a href="{{ route('home.signup') }}" class="text-decoration-none text-primary">Veuillez vous inscrire ici ? </a>    
+            </p>
+            
+               
             <form method="POST" action="{{ route('login') }}">
-                @csrf
+                                    @csrf
+                                
+                        <!-- Mensagem flutuante -->
+                        @if (session('success'))
+                        <div id="toast-success" class="toast">
+                            {{ session('success') }}
+                        </div>
+
+                        <style>
+                            .toast {
+                                position: fixed;
+                                top: 20px;
+                                right: 20px;
+                                background-color: #38a169; /* verde */
+                                color: white;
+                                padding: 15px 25px;
+                                border-radius: 8px;
+                                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                                z-index: 9999;
+                                animation: slideIn 0.5s, fadeOut 0.5s 3.5s forwards;
+                            }
+
+                            @keyframes slideIn {
+                                from {
+                                    opacity: 0;
+                                    transform: translateY(-20px);
+                                }
+                                to {
+                                    opacity: 1;
+                                    transform: translateY(0);
+                                }
+                            }
+
+                            @keyframes fadeOut {
+                                to {
+                                    opacity: 0;
+                                    transform: translateY(-20px);
+                                    display: none;
+                                }
+                            }
+                        </style>
+                        @endif
+
+
+                        @if ($errors->any())
+                            <p style="color: red;">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </p>
+                        
+                        @endif
+
 
                 <div class="row">
                     <!-- Email -->
                     <div class="col-md-12 mb-3">
-                        <label for="email" class="form-label">Email</label>
+                        
                         <input 
                             type="email" 
                             class="form-control @error('email') is-invalid @enderror" 
@@ -342,7 +400,7 @@
 
                     <!-- Password -->
                     <div class="col-md-12 mb-3">
-                        <label for="password" class="form-label">Mot de passe</label>
+                        
                         <input 
                             type="password" 
                             class="form-control @error('password') is-invalid @enderror" 

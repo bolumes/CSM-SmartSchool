@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pla-moss</title>
     <link rel="stylesheet" href="../css/style1.css"> <!-- Link para o arquivo CSS externo -->
-    <link rel="icon" href="../../img/favicon.png">
+    <link rel="icon" href="../../img/books.png">
 </head>
 <body>
 
@@ -104,9 +104,9 @@
                 <hr style="width: 100%; height: 2px; background-color: blue; margin-top: 20px;">
                 <br>
                 
-                <!-- Exibe resultados apenas quando o campo de pesquisa estiver preenchido -->
+                                <!-- Exibe resultados apenas quando o campo de pesquisa estiver preenchido -->
                 @if(request()->filled('name'))
-                    @if(count($users))
+                @if($users->count()) <!-- Verifica se há usuários -->
                     <div class="table-responsive mt-4">
                         <table border="0" class="table table-striped align-middle">
                             <thead class="table-dark">
@@ -119,38 +119,50 @@
                             </thead>
                             <tbody>
                                 @foreach ($users as $user)
-                                <tr style="background-color: #d0d3d4 ; color: black;">
-                                    <td align="center">{{ $user->id }}</td>
-                                    <td align="center">{{ $user->firstname }}</td>
-                                    <td align="center">{{ $user->email }}</td>
-                                    <td align="center">
-                                        <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-primary me-1">
-                                            detalhes
-                                        </a>
-                                    </td>
-                                    <td align="center">
-                                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning">
-                                            editar
-                                        </a>
-                                    </td>
-                                </tr>
+                                    <tr style="background-color: #d0d3d4 ; color: black;">
+                                        <td align="center">{{ $user->id }}</td>
+                                        <td align="center">{{ $user->firstname }}</td>
+                                        <td align="center">{{ $user->email }}</td>
+                                        <td align="center">
+                                            <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-primary me-1">
+                                                detalhes
+                                            </a>
+                                        </td>
+
+                                        <!-- Exibe o botão de editar somente para Admin ou Direction -->
+                                        @if(Auth::user()->function === 'Admin' || Auth::user()->function === 'Direction')
+                                            <td align="center">
+                                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning">
+                                                    editar
+                                                </a>
+                                            </td>
+                                        @else
+                                            <td align="center">
+                                                <!-- Celula vazia ou uma mensagem alternativa -->
+                                                <span class="text-muted">Sem permissão</span>
+                                            </td>
+                                        @endif
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-                
+
                     <!-- Paginação -->
-                    @if(method_exists($users, 'links'))
-                    <div class="d-flex justify-content-center mt-4">
-                        {{ $users->appends(request()->query())->links() }}
-                    </div>
+                    @if($users->hasPages()) <!-- Verifica se há várias páginas -->
+                        <div class="d-flex justify-content-center mt-4">
+                            {{ $users->appends(request()->query())->links() }} <!-- Links de paginação -->
+                        </div>
                     @endif
-                    @else
+
+                @else
                     <div class="alert alert-info mt-4">
                         Aucun utilisateur trouvé.
                     </div>
-                    @endif
                 @endif
+                @endif
+
+
            
 
             </div>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pla-moss</title>
     <link rel="stylesheet" href="../css/style1.css"> <!-- Link para o arquivo CSS externo -->
-    <link rel="icon" href="../../img/favicon.png">
+    <link rel="icon" href="../../img/books.png">
 </head>
 <body>
 
@@ -90,11 +90,12 @@
 
                     <label for="function" class="form-label">Fonction</label>
                     <select class="form-control" name="function">
-                        <option value="">Escolha...</option>
-                        <option value="Direcao" {{ old('function', $user->function) == 'Direcao' ? 'selected' : '' }}>Direção</option>
-                        <option value="Professor" {{ old('function', $user->function) == 'Professor' ? 'selected' : '' }}>Professor</option>
-                        <option value="Aluno" {{ old('function', $user->function) == 'Aluno' ? 'selected' : '' }}>Aluno</option>
-                        <option value="Pais" {{ old('function', $user->function) == 'Pais' ? 'selected' : '' }}>Pais</option>
+                        <option value="">Choisir...</option>
+                        <option value="Admin" {{ old('function', $user->function) == 'Admin' ? 'selected' : '' }}>Admin</option>
+                        <option value="Direction" {{ old('function', $user->function) == 'Direction' ? 'selected' : '' }}>Direction</option>
+                        <option value="Professeur" {{ old('function', $user->function) == 'Professeur' ? 'selected' : '' }}>Professeur</option>
+                        <option value="Parent" {{ old('function', $user->function) == 'Parent' ? 'selected' : '' }}>Parent</option>
+                        <option value="Eleve" {{ old('function', $user->function) == 'Eleve' ? 'selected' : '' }}>Eleve</option>
                     </select>
 
                     <div class="col-md-6">

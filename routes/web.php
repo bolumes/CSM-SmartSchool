@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\ClasseController;
+use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\DisciplinaController;
 use App\Http\Controllers\EdificioController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\SalaController;
@@ -35,6 +36,18 @@ Route::get('/sair', [UserController::class, 'sair'])->name('home.sair');
 // Definir a rota de login
 //Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::get('/login', [UserController::class, 'login'])->name('home.login');
+
+// Rota para processar o login (POST)
+Route::post('/login', [UserController::class, 'authenticate'])->name('login.authenticate');
+
+
+// Rota para exibir a página de signup
+Route::middleware('guest')->get('/signup', [UserController::class, 'signup'])->name('home.signup');
+
+// Rota para salvar o novo usuário signup
+Route::post('/store-signup', [UserController::class, 'storeSignup'])->name('user-signup');
+
+
 
 
 
@@ -79,15 +92,15 @@ Route::get('/edit-sala/{sala}', [SalaController::class, 'edit'])->name('salas.ed
 Route::put('/update-sala/{sala}', [SalaController::class, 'update'])->name('salas.update');
 Route::delete('/destroy-sala/{sala}', [SalaController::class, 'destroy'])->name('salas.destroy');
 
-// Rotas de DisciplinaController
-Route::get('/disciplinas/search', [DisciplinaController::class, 'search'])->name('disciplinas.search');
-Route::get('/disciplinas/create', [DisciplinaController::class, 'create'])->name('disciplinas.create');
-Route::post('/store-disciplina', [DisciplinaController::class, 'store'])->name('disciplina-store');
-Route::get('/disciplinas/listdisciplinas', [DisciplinaController::class, 'listdisciplinas'])->name('disciplinas.ldisciplinas');
-Route::get('show-disciplina/{disciplina}', [DisciplinaController::class, 'show'])->name('disciplinas.show');
-Route::get('/edit-disciplina/{disciplina}', [DisciplinaController::class, 'edit'])->name('disciplinas.edit');
-Route::put('/update-disciplina/{disciplina}', [DisciplinaController::class, 'update'])->name('disciplinas.update');
-Route::delete('/destroy-disciplina/{disciplina}', [DisciplinaController::class, 'destroy'])->name('disciplinas.destroy');
+// Rotas de ClasseController
+Route::get('/classes/search', [ClasseController::class, 'search'])->name('classes.search');
+Route::get('/classes/create', [ClasseController::class, 'create'])->name('classes.create');
+Route::post('/store-classe', [ClasseController::class, 'store'])->name('classe-store');
+Route::get('/classes/listclasses', [ClasseController::class, 'listclasses'])->name('classes.listclasses');
+Route::get('show-classe/{classe}', [ClasseController::class, 'show'])->name('classes.show');
+Route::get('/edit-classe/{classe}', [ClasseController::class, 'edit'])->name('classes.edit');
+Route::put('/update-classe/{classe}', [ClasseController::class, 'update'])->name('classes.update');
+Route::delete('/destroy-classe/{classe}', [ClasseController::class, 'destroy'])->name('classes.destroy');
 
 // Rotas de ProfessorController
 Route::get('/professores/search', [ProfessorController::class, 'search'])->name('professors.search');
@@ -98,5 +111,18 @@ Route::get('show-professor/{professor}', [ProfessorController::class, 'show'])->
 Route::get('/edit-professor/{professor}', [ProfessorController::class, 'edit'])->name('professors.edit');
 Route::put('/update-professor/{professor}', [ProfessorController::class, 'update'])->name('professors.update');
 Route::delete('/destroy-professor/{professor}', [ProfessorController::class, 'destroy'])->name('professors.destroy');
+
+
+// Rotas de MatiereController
+Route::get('/matieres/search', [MatiereController::class, 'search'])->name('matieres.search');
+Route::get('/matieres/create', [MatiereController::class, 'create'])->name('matieres.create');
+Route::post('/store-matiere', [MatiereController::class, 'store'])->name('matiere-store');
+Route::get('/matieres/listmaterias', [MatiereController::class, 'listmatieres'])->name('matieres.listmatieres');
+Route::get('show-matiere/{matiere}', [MatiereController::class, 'show'])->name('matieres.show');
+Route::get('/edit-matiere/{matiere}', [MatiereController::class, 'edit'])->name('matieres.edit');
+Route::put('/update-matiere/{matiere}', [MatiereController::class, 'update'])->name('matieres.update');
+Route::delete('/destroy-matiere/{matiere}', [MatiereController::class, 'destroy'])->name('matieres.destroy');
+
+
 
 require __DIR__.'/auth.php';

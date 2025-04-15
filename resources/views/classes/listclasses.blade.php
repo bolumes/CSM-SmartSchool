@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pla-moss</title>
     <link rel="stylesheet" href="../css/style1.css"> <!-- Link para o arquivo CSS externo -->
-    <link rel="icon" href="../../img/favicon.png">
+    <link rel="icon" href="../../img/books.png">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         /* Estilos adicionais para o botão de pesquisa */
@@ -56,7 +56,7 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue;">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">LISTE MATIERE</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">LISTES CLASSES</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
@@ -64,54 +64,67 @@
             <!-- Seção do Formulário -->
             <div class="form-container">
 
-                <table border="1" style="width: 100%; border-collapse: collapse;">
-                    <thead>
+                @php
+                $userFunction = Auth::user()->function;
+                $isAdminOrDirection = $userFunction === 'Admin' || $userFunction === 'Direction';
+            @endphp
+            
+            <table border="1" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>CODE</th>
+                        <th>NOM</th>
+                        <th>DESCRIPTION</th>
+                        <th colspan="3">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($classes as $classe)
                         <tr>
-                            <th>ID</th>
-                            <th>NOM</th>
-                            <th>CODE</th>
-                            <th>DESCRIPTION</th>
-                            <th colspan="3">Ação</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($disciplinas as $disciplina)
-                            <tr>
-                                <td align="center">{{ $disciplina->id }}</td>
-                                <td align="center">{{ $disciplina->name }}</td>
-                                <td align="center">{{ $disciplina->codigo }}</td>
-                                <td align="center">{{ $disciplina->descricao }}</td>
-                                
-                                {{-- Botão "Ver Detalhes" --}}
+                            <td align="center">{{ $classe->id }}</td>
+                            <td align="center">{{ $classe->code }}</td>
+                            <td align="center">{{ $classe->name }}</td>
+                            <td align="center">{{ $classe->description }}</td>
+            
+                            {{-- Ver Detalhes (todos podem ver) --}}
+                            <td align="center">
+                                <a href="{{ route('classes.show', $classe->id) }}">
+                                    <img src="../../img/det.png" alt="Ver" style="width: 30px; height: 30px;">
+                                </a>
+                            </td>
+            
+                            {{-- Editar (somente Admin e Direction) --}}
+                            @if ($isAdminOrDirection)
                                 <td align="center">
-                                    <a href="{{ route('disciplinas.show', $disciplina->id) }}">
-                                        <img src="../../img/det.png" alt="Ver" style="width: 30px; height: 30px;">
-                                    </a>
-                                </td>
-                                
-                                {{-- Botão "Editar" --}}
-                                <td align="center">
-                                    <a href="{{ route('disciplinas.edit', $disciplina->id) }}">
+                                    <a href="{{ route('classes.edit', $classe->id) }}">
                                         <img src="../../img/modif02.png" alt="Editar" style="width: 30px; height: 30px;">
                                     </a>
                                 </td>
-
-                                {{-- Botão "Suprimir" --}}
+                            @else
+                                <td></td>
+                            @endif
+            
+                            {{-- Excluir (somente Admin e Direction) --}}
+                            @if ($isAdminOrDirection)
                                 <td align="center">
-                                    <form id="delete-form-{{ $disciplina->id }}" action="{{ route('disciplinas.destroy', ['disciplina' => $disciplina]) }}" method="POST" style="display: none;">
+                                    <form id="delete-form-{{ $classe->id }}" action="{{ route('classes.destroy', ['classe' => $classe]) }}" method="POST" style="display: none;">
                                         @csrf
                                         @method('DELETE')
                                     </form>
-                                
-                                    <button type="button" onclick="confirmDelete({{ $disciplina->id }})" style="background: none; border: none; cursor: pointer;">
+            
+                                    <button type="button" onclick="confirmDelete({{ $classe->id }})" style="background: none; border: none; cursor: pointer;">
                                         <img src="../../img/del0.png" alt="Suprimir" style="width: 30px; height: 30px;">
                                     </button>
-                                </td>                                
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-
+                                </td>
+                            @else
+                                <td></td>
+                            @endif
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            
             </div>
         </div>
     </fieldset>

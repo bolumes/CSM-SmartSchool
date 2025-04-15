@@ -86,7 +86,8 @@
         }
 
         .sidebar a:hover {
-            background-color: #e5e5e5;
+            background-color: #afc393;
+            color: black;
         }
 
         .submenu a {

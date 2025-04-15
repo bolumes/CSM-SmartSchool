@@ -41,6 +41,17 @@
     </div>
     <hr>
 
+    <!-- Type-Événement -->
+      <a class="has-submenu" onclick="toggleSubmenu(this)">
+        <span class="icon">📅</span> Prog-Événem
+    </a>
+    <div class="submenu">
+        <a href="#"><i class="fas fa-search"></i> Rechercher</a>
+        <a href="#"><i class="fas fa-plus"></i> Créer</a>
+        <a href="#"><i class="fas fa-list"></i> Lister</a>
+    </div>
+    <hr>
+
     <!-- Disponibilité des Salles -->
     <a class="has-submenu" onclick="toggleSubmenu(this)">
         <span class="icon">🚪</span> Dispo-Salles

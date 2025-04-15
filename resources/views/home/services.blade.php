@@ -86,7 +86,8 @@
         }
 
         .sidebar a:hover {
-            background-color: #e5e5e5;
+            background-color: #afc393;
+            color: black;
         }
 
         .submenu a {
@@ -416,12 +417,51 @@
                     </div>
                 </div>
             </div>
+
+
+             <!-- Maternelle -->
+             <div class="col">
+                <div class="card flex-md-row border-primary shadow-sm">
+                    <img src="{{ asset('img/autocarro1.png') }}" class="img-fluid rounded-start" alt="Maternelle"
+                        style="width: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">Bus à disposition</h5>
+                            <p class="card-text">
+                                Un service de transport scolaire sécurisé est mis à disposition pour assurer les trajets domicile-école en toute sérénité.
+                            </p>
+                            <a class="btn btn-link p-0 text-primary" data-bs-toggle="collapse" href="#maternelle" role="button" aria-expanded="false">
+                                Voir plus
+                            </a>
+                            <div class="collapse mt-2" id="maternelle">
+                                <p>
+                                    Nos bus sont modernes, confortables et répondent aux normes de sécurité les plus strictes.
+                                </p>
+                                <ul>
+                                    <li>Chauffeurs expérimentés et formés</li>
+                                    <li>Suivi en temps réel des trajets</li>
+                                    <li>Horaires adaptés aux emplois du temps scolaires</li>
+                                    <li>Encadrement à la montée et à la descente du bus</li>
+                                </ul>
+                                <p>
+                                    Ce service vise à offrir aux familles une solution fiable et pratique pour les déplacements quotidiens de leurs enfants.
+                                </p>
+                            </div>
+                        </div>
+                        
+                </div>
+            </div>
+            
         </div>
     </div>
+
+
     
 
     <br>
 </fieldset>
+
+
+
 
    <script>
         function toggleMenu() {

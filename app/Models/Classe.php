@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Disciplina extends Model
+class Classe extends Model
 {
-    /** @use HasFactory<\Database\Factories\DisciplinaFactory> */
+    /** @use HasFactory<\Database\Factories\ClasseFactory> */
     use HasFactory;
     protected $fillable = [
         'name',
-        'codigo',
-        'descricao',
+        'code',
+        'level',
+        'description',
     ];
 }

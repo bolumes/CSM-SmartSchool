@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pla-moss</title>
     <link rel="stylesheet" href="{{ asset('css/style1.css') }}">
-    <link rel="icon" href="../../img/favicon.png">
+    <link rel="icon" href="../../img/books.png">
 </head>
 <style>
       /* Estilo para a imagem */
@@ -42,11 +42,7 @@
         <div class="search">
             <input type="text" placeholder="Pesquisar...">
         </div>
-        <div class="icons">
-            <div class="icon" title="Notificações">🔔</div>
-            <div class="icon" title="Perfil">👤</div>
-            <div class="icon" title="Sair">🔓</div>
-        </div>
+       
     </div>
 
     <!--partials sidebar-->

@@ -87,7 +87,8 @@
         }
 
         .sidebar a:hover {
-            background-color: #e5e5e5;
+            background-color: #afc393;
+            color: black;
         }
 
         .submenu a {
@@ -327,14 +328,6 @@
                     {{ __('Oui') }}
                 </button>
             </form>
-
-            <!-- Botão de Annuler -->
-            <button type="submit"
-                    onclick="window.location.href='{{ route('home.welcome') }}'"
-                    onclick="window.history.back();"
-                    class="w-full px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-300 mb-3">
-                {{ __('Non') }}
-            </button>
 
         </fieldset>
     </div>

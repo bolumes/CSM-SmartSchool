@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+«<!DOCTYPE html>
 <html lang="pt-PT">
 <head>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pla-moss</title>
     <link rel="stylesheet" href="../css/style1.css"> <!-- Link para o arquivo CSS externo -->
-    <link rel="icon" href="../../img/favicon.png">
+    <link rel="icon" href="../../img/books.png">
 </head>
 <body>
 
@@ -42,7 +42,7 @@
 
             <!-- Seção do Formulário -->
             <div class="form-container">
-                <form class="d-flex align-items-center w-100 gap-2" action="{{ route('disciplinas.search') }}" method="GET">
+                <form class="d-flex align-items-center w-100 gap-2" action="{{ route('matieres.search') }}" method="GET">
                     @csrf
         
                      <!-- Mensagem flutuante -->
@@ -105,7 +105,7 @@
                 <br
 
                 @if(request()->filled('codigo')) <!-- Só exibe após a pesquisa -->
-                @if(count($disciplinas))
+                @if(count($classes))
                     <div class="table-responsive mt-4">
                         <table border="0" class="table table-striped align-middle">
                             <thead class="table-dark">
@@ -117,18 +117,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($disciplinas as $disciplina)
+                                @foreach ($matieres as $matiere)
                                     <tr style="background-color: #d0d3d4 ; color: black;">
-                                        <td align="center">{{ $disciplina->id }}</td>
-                                        <td align="center">{{ $disciplina->name }}</td>
-                                        <td align="center">{{ $disciplina->codigo }}</td>
+                                        <td align="center">{{ $matiere->id }}</td>
+                                        <td align="center">{{ $matiere->name }}</td>
+                                        <td align="center">{{ $matiere->codigo }}</td>
                                         <td align="center" >
-                                            <a href="{{ route('disciplinas.show', $disciplina->id) }}" class="btn btn-sm btn-primary me-1">
+                                            <a href="{{ route('matieres.show', $matiere->id) }}" class="btn btn-sm btn-primary me-1">
                                                 detalhes
                                             </a>
                                         </td>
                                         <td align="center">
-                                            <a href="{{ route('disciplinas.edit', $disciplina->id) }}" class="btn btn-sm btn-warning">
+                                            <a href="{{ route('matieres.edit', $matiere->id) }}" class="btn btn-sm btn-warning">
                                                 editar
                                             </a>
                                         </td>
@@ -139,14 +139,14 @@
                     </div>
             
                     <!-- Paginação -->
-                    @if(method_exists($disciplinas, 'links'))
+                    @if(method_exists($classes, 'links'))
                         <div class="d-flex justify-content-center mt-4">
-                            {{ $disciplinas->appends(request()->query())->links() }}
+                            {{ $matieres->appends(request()->query())->links() }}
                         </div>
                     @endif
                 @else
                     <div class="alert alert-info mt-4">
-                        Aucun matiere retouvé 
+                        Aucun classe retouvé 
                     </div>
                 @endif
             @endif

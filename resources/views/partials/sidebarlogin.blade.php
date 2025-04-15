@@ -13,5 +13,5 @@
     <a href="{{ route('home.contact') }}"><span class="icon">📞</span> Contato</a>
     <hr>
     <a href="{{ route('login') }}">🔒<span class="icon"></span> Login</a>
-
+    <hr>
 </div>

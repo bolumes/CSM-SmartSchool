@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pla-moss</title>
     <link rel="stylesheet" href="../css/style1.css"> <!-- Link para o arquivo CSS externo -->
-    <link rel="icon" href="../../img/favicon.png">
+    <link rel="icon" href="../../img/books.png">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         /* Estilos adicionais para o botão de pesquisa */
@@ -64,54 +64,68 @@
             <!-- Seção do Formulário -->
             <div class="form-container">
 
-                <table border="1" style="width: 100%; border-collapse: collapse;">
-                    <thead>
+                @php
+                $userFunction = Auth::user()->function;
+                $isAdminOrDirection = $userFunction === 'Admin' || $userFunction === 'Direction';
+                $loggedInUserId = Auth::id(); // ID do usuário logado
+            @endphp
+            
+            <table border="1" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Email</th>
+                        <th colspan="3">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($users as $user)
                         <tr>
-                            <th>ID</th>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Email</th>
-                            <th colspan="3">ACTIONS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($users as $user)
-                            <tr>
-                                <td align="center">{{ $user->id }}</td>
-                                <td align="center">{{ $user->firstname }}</td>
-                                <td align="center">{{ $user->lastname }}</td>
-                                <td align="center">{{ $user->email }}</td>
-                                
-                                {{-- Botão "Ver Detalhes" --}}
-                                <td align="center">
-                                    <a href="{{ route('users.show', ['user' => $user]) }}">
-                                        <img src="../../img/det.png" alt="Ver" style="width: 30px; height: 30px;">
-                                    </a>
-                                </td>
-                                
-                                {{-- Botão "Editar" --}}
+                            <td align="center">{{ $user->id }}</td>
+                            <td align="center">{{ $user->firstname }}</td>
+                            <td align="center">{{ $user->lastname }}</td>
+                            <td align="center">{{ $user->email }}</td>
+            
+                            {{-- Botão "Ver Detalhes" (todos podem ver) --}}
+                            <td align="center">
+                                <a href="{{ route('users.show', ['user' => $user]) }}">
+                                    <img src="../../img/det.png" alt="Ver" style="width: 30px; height: 30px;">
+                                </a>
+                            </td>
+            
+                            {{-- Botão "Editar" --}}
+                            @if ($isAdminOrDirection || $loggedInUserId === $user->id)
                                 <td align="center">
                                     <a href="{{ route('users.edit', ['user' => $user]) }}">
                                         <img src="../../img/modif02.png" alt="Editar" style="width: 30px; height: 30px;">
                                     </a>
                                 </td>
-
-                                {{-- Botão "Suprimir" --}}
+                            @else
+                                <td></td>
+                            @endif
+            
+                            {{-- Botão "Suprimir" --}}
+                            @if ($isAdminOrDirection || $loggedInUserId === $user->id)
                                 <td align="center">
                                     <form id="delete-form-{{ $user->id }}" action="{{ route('users.destroy', ['user' => $user]) }}" method="POST" style="display: none;">
                                         @csrf
                                         @method('DELETE')
                                     </form>
-
+            
                                     <button type="button" onclick="confirmDelete({{ $user->id }})" style="background: none; border: none; cursor: pointer;">
                                         <img src="../../img/del0.png" alt="Suprimir" style="width: 30px; height: 30px;">
                                     </button>
                                 </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-
+                            @else
+                                <td></td>
+                            @endif
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            
             </div>
         </div>
     </fieldset>

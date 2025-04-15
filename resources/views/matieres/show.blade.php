@@ -43,13 +43,13 @@
     </div>
 
     <!--partials sidebar-->
-    @include('partials.sidebarsettings')
+   @include('partials.sidebarwelcome')
 
 
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">DETAILS USER</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">DETAILS MATIERE</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
@@ -112,39 +112,29 @@
                         </tr>
                         <tr>
                             <td style="text-align: center; font-weight: bold; width: 40%;">ID</td>
-                            <td align="center">{{ $user->id }}</td>
+                            <td align="center">{{ $matiere->id }}</td>
                         </tr>
                         <tr>
                             <td style="text-align: center; font-weight: bold;">Nom</td>
-                            <td align="center">{{ $user->firstname }}</td>
+                            <td align="center">{{ $matiere->name }}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center; font-weight: bold;">Prénom</td>
-                            <td align="center">{{ $user->lastname }}</td>
+                            <td style="text-align: center; font-weight: bold;">Code</td>
+                            <td align="center">{{ $matiere->code }}</td>
                         </tr>
+
                         <tr>
-                            <td style="text-align: center; font-weight: bold;">Email</td>
-                            <td align="center">{{ $user->email }}</td>
+                            <td style="text-align: center; font-weight: bold;">Niveau</td>
+                            <td align="center">{{ $matiere->level }}</td>
                         </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Telephone</td>
-                            <td align="center">{{ $user->telephone }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Addresse</td>
-                            <td align="center">{{ $user->address }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Fonction</td>
-                            <td align="center">{{ $user->function }}</td>
-                        </tr>
+
                         <tr>
                             <td style="text-align: center; font-weight: bold;">Description</td>
-                            <td align="center">{{ $user->description }}</td>
+                            <td align="center">{{ $matiere->description }}</td>
                         </tr>
                         <tr>
                             <td style="text-align: center; font-weight: bold;">Date de Creation</td>
-                            <td align="center">{{ $user->created_at }}</td>
+                            <td align="center">{{ $matiere->created_at }}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('disciplinas', function (Blueprint $table) {
+        Schema::create('matieres', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique(); // Nome da disciplina (alterado de 'nome' para 'name')
-            $table->string('codigo')->unique(); // Código da disciplina
-            $table->string('descricao')->nullable(); // Descrição da disciplina
+            $table->string('name')->unique();
+            $table->string('code')->unique();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('disciplinas');
+        Schema::dropIfExists('matieres');
     }
 };

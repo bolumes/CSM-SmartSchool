@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('professors', function (Blueprint $table) {
-            $table->string('level')->after('name')->nullable();
+        Schema::table('classes', function (Blueprint $table) {
+            $table->string('level')->unique();
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('professors', function (Blueprint $table) {
-            $table->dropColumn('apelido'); // Remove o campo apelido
+        Schema::table('classes', function (Blueprint $table) {
+            //
         });
     }
 };

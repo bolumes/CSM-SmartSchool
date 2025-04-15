@@ -50,13 +50,13 @@
     </div>
 
 
-   <!--partials sidebar-->
+    <!--partials sidebar-->
    @include('partials.sidebarwelcome')
-
+   
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue;">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">LISTE PROFESSEURS</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">LISTES MATIERES</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
@@ -65,68 +65,66 @@
             <div class="form-container">
 
                 @php
-    $userFunction = Auth::user()->function;
-    $isAdminOrDirection = $userFunction === 'Admin' || $userFunction === 'Direction';
-@endphp
-
-<table border="1" style="width: 100%; border-collapse: collapse;">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>NOM</th>
-            <th>PRENOM</th>
-            <th>EMAIL</th>
-            <th>TELEPHONE</th>
-            <th colspan="3">ACTIONS</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($professors as $professor)
-            <tr>
-                <td align="center">{{ $professor->id }}</td>
-                <td align="center">{{ $professor->name }}</td>
-                <td align="center">{{ $professor->apelido }}</td>
-                <td align="center">{{ $professor->email }}</td>
-                <td align="center">{{ $professor->telephone }}</td>
-
-                {{-- Ver Detalhes (todos podem ver) --}}
-                <td align="center">
-                    <a href="{{ route('professors.show', $professor->id) }}">
-                        <img src="../../img/det.png" alt="Ver" style="width: 30px; height: 30px;">
-                    </a>
-                </td>
-
-                {{-- Editar (somente Admin e Direction) --}}
-                @if ($isAdminOrDirection)
-                    <td align="center">
-                        <a href="{{ route('professors.edit', $professor->id) }}">
-                            <img src="../../img/modif02.png" alt="Editar" style="width: 30px; height: 30px;">
-                        </a>
-                    </td>
-                @else
-                    <td></td>
-                @endif
-
-                {{-- Excluir (somente Admin e Direction) --}}
-                @if ($isAdminOrDirection)
-                    <td align="center">
-                        <form id="delete-form-{{ $professor->id }}" action="{{ route('professors.destroy', ['professor' => $professor]) }}" method="POST" style="display: none;">
-                            @csrf
-                            @method('DELETE')
-                        </form>
-
-                        <button type="button" onclick="confirmDelete({{ $professor->id }})" style="background: none; border: none; cursor: pointer;">
-                            <img src="../../img/del0.png" alt="Suprimir" style="width: 30px; height: 30px;">
-                        </button>
-                    </td>
-                @else
-                    <td></td>
-                @endif
-            </tr>
-        @endforeach
-    </tbody>
-</table>
-
+                $userFunction = Auth::user()->function;
+                $isAdminOrDirection = $userFunction === 'Admin' || $userFunction === 'Direction';
+            @endphp
+            
+            <table border="1" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>CODE</th>
+                        <th>NOM</th>
+                        <th>Niveau</th>
+                        <th colspan="3">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($matieres as $matiere)
+                        <tr>
+                            <td align="center">{{ $matiere->id }}</td>
+                            <td align="center">{{ $matiere->code }}</td>
+                            <td align="center">{{ $matiere->name }}</td>
+                            <td align="center">{{ $matiere->level }}</td>
+            
+                            {{-- Ver Detalhes (todos podem ver) --}}
+                            <td align="center">
+                                <a href="{{ route('matieres.show', $matiere->id) }}">
+                                    <img src="../../img/det.png" alt="Ver" style="width: 30px; height: 30px;">
+                                </a>
+                            </td>
+            
+                            {{-- Editar (somente Admin e Direction) --}}
+                            @if ($isAdminOrDirection)
+                                <td align="center">
+                                    <a href="{{ route('matieres.edit', $matiere->id) }}">
+                                        <img src="../../img/modif02.png" alt="Editar" style="width: 30px; height: 30px;">
+                                    </a>
+                                </td>
+                            @else
+                                <td></td>
+                            @endif
+            
+                            {{-- Excluir (somente Admin e Direction) --}}
+                            @if ($isAdminOrDirection)
+                                <td align="center">
+                                    <form id="delete-form-{{ $matiere->id }}" action="{{ route('matieres.destroy', ['matiere' => $matiere]) }}" method="POST" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+            
+                                    <button type="button" onclick="confirmDelete({{ $matiere->id }})" style="background: none; border: none; cursor: pointer;">
+                                        <img src="../../img/del0.png" alt="Suprimir" style="width: 30px; height: 30px;">
+                                    </button>
+                                </td>
+                            @else
+                                <td></td>
+                            @endif
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            
             </div>
         </div>
     </fieldset>

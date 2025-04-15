@@ -86,7 +86,8 @@
         }
 
         .sidebar a:hover {
-            background-color: #e5e5e5;
+            background-color: #afc393;
+            color: black;
         }
 
         .submenu a {
@@ -370,6 +371,7 @@
 
 <!-- Élémentaire -->
 <fieldset>
+    <hr>
   <legend align="center"><h3>Élémentaire</h3></legend>
   <hr>
   <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -426,6 +428,7 @@
 
 <!-- Collège -->
 <fieldset>
+    <hr>
   <legend align="center"><h3>Collège</h3></legend>
   <hr>
   <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -479,6 +482,7 @@
 
 <!-- Lycée -->
 <fieldset>
+  <hr>
   <legend align="center"><h3>Lycée</h3></legend>
   <hr>
   <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -527,81 +531,61 @@
   </div>
 </fieldset>
 
-<br>
-<br>
 
-<hr>
-
- <!-- Nova Seção de Contato Adicionada Aqui -->
- <div class="container my-5">
-    <div class="row">
-        <!-- Coluna esquerda: informações de contato -->
-        <div class="col-md-5 mb-4">
-            <h4 class="mb-4">GET IN TOUCH</h4>
-
-            <div class="mb-3 d-flex">
-                <i class="bi bi-envelope-fill text-success fs-4 me-3"></i>
-                <div>
-                    <h6 class="mb-0">EMAIL</h6>
-                    <strong>admin@musicalworld.com</strong>
-                </div>
-            </div>
-
-            <div class="mb-3 d-flex">
-                <i class="bi bi-telephone-fill text-success fs-4 me-3"></i>
-                <div>
-                    <h6 class="mb-0">PHONE</h6>
-                    <strong>+91 7899496873</strong>
-                </div>
-            </div>
-
-            <div class="mb-3 d-flex">
-                <i class="bi bi-geo-alt-fill text-success fs-4 me-3"></i>
-                <div>
-                    <h6 class="mb-0">ADDRESS</h6>
-                    <strong>DSI Labz | Adyar Mangalore</strong>
+<!-- Lycée -->
+<fieldset>
+    <hr>
+    <legend align="center"><h3>EPS</h3></legend>
+    <hr>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card">
+                <img src="img/eps3.jpg" class="card-img-top" alt="Lycée 1">
+                <div class="card-body">
+                    <h5 class="card-title">Cinquième (5me)</h5>
+                    <p class="card-text" id="desc-10" style="display:none;">
+                      Classe de transition : consolidation des fondamentaux du collège et exploration des spécialités.
+                      <br>
+                      Développement de la méthode de travail : prise de notes, gestion du temps, autonomie.
+                    </p>
+                    <button id="btn-10" class="btn btn-primary" onclick="toggleCardDescription(10)">Ver mais</button>
                 </div>
             </div>
         </div>
-
-        <!-- Coluna direita: formulário -->
-        <div class="col-md-7">
-            <h4 class="mb-4">SEND US A MAIL</h4>
-            <form>
-                <div class="mb-3 row">
-                    <label for="name" class="col-sm-2 col-form-label fw-bold">Name</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="Name" id="name">
-                    </div>
+        <div class="col">
+            <div class="card">
+                <img src="img/eps1.png" class="card-img-top" alt="Lycée 2">
+                <div class="card-body">
+                    <h5 class="card-title">Quatrième (4me)</h5>
+                    <p class="card-text" id="desc-11" style="display:none;">
+                      Choix de 2 à 3 spécialités (ex. : mathématiques, littérature, sciences éco), approfondies selon le profil.
+                      <br>
+                      Épreuves anticipées du Bac (français oral et écrit), entraînement à l’analyse et à l’expression écrite.
+                    </p>
+                    <button id="btn-11" class="btn btn-primary" onclick="toggleCardDescription(11)">Ver mais</button>
                 </div>
-                <div class="mb-3 row">
-                    <label for="email" class="col-sm-2 col-form-label fw-bold">Email</label>
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" placeholder="email" id="email">
-                    </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="img/eps3-remove.png" class="card-img-top" alt="Lycée 3">
+                <div class="card-body">
+                    <h5 class="card-title">Troisième (3me)</h5>
+                    <p class="card-text" id="desc-12" style="display:none;">
+                      Finalisation des apprentissages, orientation post-bac (Parcoursup, concours, études supérieures).
+                      <br>
+                      Passage des épreuves finales du Baccalauréat, projet personnel et professionnel en réflexion active.
+                    </p>
+                    <button id="btn-12" class="btn btn-primary" onclick="toggleCardDescription(12)">Ver mais</button>
                 </div>
-                <div class="mb-3 row">
-                    <label for="phone" class="col-sm-2 col-form-label fw-bold">Phone</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" placeholder="phone number" id="phone">
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="message" class="col-sm-2 col-form-label fw-bold">Message</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" rows="4" placeholder="Your message" id="message"></textarea>
-                    </div>
-                </div>
-                <div class="text-end">
-                    <button type="submit" class="btn text-white" style="background: linear-gradient(to right, #4facfe, #00f2fe);">
-                        SUBMIT
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
-</div>
+  </fieldset>
+  
 
+<br>
+<br>
 
 
    <script>

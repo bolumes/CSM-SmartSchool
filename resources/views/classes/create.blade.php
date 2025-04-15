@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pla-moss</title>
     <link rel="stylesheet" href="../css/style1.css"> <!-- Link para o arquivo CSS externo -->
-    <link rel="icon" href="../../img/favicon.png">
+    <link rel="icon" href="../../img/books.png">
 </head>
 <body>
 
@@ -31,7 +31,7 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">CREER MATIERE</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">CREER CLASSE</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
@@ -42,7 +42,7 @@
 
             <!-- Seção do Formulário -->
             <div class="form-container">
-                <form action="{{ route('disciplina-store') }}" method="POST">
+                <form action="{{ route('classe-store') }}" method="POST">
                     @csrf
                        
                     <!-- Mensagem flutuante -->
@@ -102,13 +102,18 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label for="codigo" class="form-label">Code</label>
-                        <input type="text" class="form-control" name="codigo" value="{{ old('codigo') }}">
+                        <label for="code" class="form-label">Code</label>
+                        <input type="text" class="form-control" name="code" value="{{ old('code') }}">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="level" class="form-label">Niveau</label>
+                        <input type="text" class="form-control" name="level" value="{{ old('level') }}">
                     </div>
                                              
                     <div class="col-md-12">
-                        <label for="descricao" class="form-label">Description</label>
-                        <textarea class="form-control" name="descricao" rows="4">{{ old('descricao') }}</textarea>
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" name="description" rows="4">{{ old('description') }}</textarea>
                     </div>
                 
                     <button type="submit" class="mt-3">Enregistrer</button>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pla-moss</title>
     <link rel="stylesheet" href="../css/style1.css"> <!-- Link para o arquivo CSS externo -->
-    <link rel="icon" href="../../img/favicon.png">
+    <link rel="icon" href="../../img/books.png">
     <style>
         /* Estilos adicionais para o botão de pesquisa */
         tr {
@@ -49,7 +49,7 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">DETAILS MATIERE</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">DETAILS CLASSE</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
@@ -112,23 +112,27 @@
                         </tr>
                         <tr>
                             <td style="text-align: center; font-weight: bold; width: 40%;">ID</td>
-                            <td align="center">{{ $disciplina->id }}</td>
+                            <td align="center">{{ $classe->id }}</td>
                         </tr>
                         <tr>
                             <td style="text-align: center; font-weight: bold;">Nom</td>
-                            <td align="center">{{ $disciplina->name }}</td>
+                            <td align="center">{{ $classe->name }}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center; font-weight: bold;">CodE</td>
-                            <td align="center">{{ $disciplina->codigo }}</td>
+                            <td style="text-align: center; font-weight: bold;">Code</td>
+                            <td align="center">{{ $classe->code }}</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; font-weight: bold;">Niveau</td>
+                            <td align="center">{{ $classe->level }}</td>
                         </tr>
                         <tr>
                             <td style="text-align: center; font-weight: bold;">Description</td>
-                            <td align="center">{{ $disciplina->descricao }}</td>
+                            <td align="center">{{ $classe->description }}</td>
                         </tr>
                         <tr>
                             <td style="text-align: center; font-weight: bold;">Date de Creation</td>
-                            <td align="center">{{ $disciplina->created_at }}</td>
+                            <td align="center">{{ $classe->created_at }}</td>
                         </tr>
                     </tbody>
                 </table>

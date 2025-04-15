@@ -7,30 +7,6 @@
     <title>Pla-moss</title>
     <link rel="stylesheet" href="../css/style1.css"> <!-- Link para o arquivo CSS externo -->
     <link rel="icon" href="../../img/books.png">
-    <style>
-        /* Estilos adicionais para o botão de pesquisa */
-        tr {
-            height: 40px;
-        }
-
-        tr:hover {
-            height: 40px;
-            cursor: pointer;
-            background-color: #34495e; 
-            color: white;
-        }
-
-        th {
-            background-color: #1c359d;
-            color: white;
-        }
-
-        /* Estilo para o SweetAlert personalizado */
-        .small-popup {
-            font-size: 16px; /* Ajuste o tamanho da fonte */
-            padding: 20px; /* Adiciona mais espaço dentro da caixa */
-        }
-    </style>
 </head>
 <body>
 
@@ -55,7 +31,7 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">RECHERCHER SALLE</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">RECHERCHER MATIERE</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
@@ -66,7 +42,7 @@
 
             <!-- Seção do Formulário -->
             <div class="form-container">
-                <form class="d-flex align-items-center w-100 gap-2" action="{{ route('salas.search') }}" method="GET">
+                <form class="d-flex align-items-center w-100 gap-2" action="{{ route('classes.search') }}" method="GET">
                     @csrf
         
                      <!-- Mensagem flutuante -->
@@ -121,39 +97,39 @@
                     
                     @endif
                     
-                    <input class="form-control me-2" type="search" name="name" required placeholder="Rechercher salle..." aria-label="Pesquisar"> 
+                    <input class="form-control me-2" type="search" name="codigo" required placeholder="Rechercher code..." aria-label="Pesquisar"> 
                     <button class="btn btn-outline-primary" type="submit">Rechercher</button>
     
                 </form>
                 <hr style="width: 100%; height: 2px; background-color: blue; margin-top: 20px;">
                 <br
 
-                @if(request()->filled('name')) <!-- Só exibe após a pesquisa -->
-                @if(count($salas))
+                @if(request()->filled('codigo')) <!-- Só exibe após a pesquisa -->
+                @if(count($classe))
                     <div class="table-responsive mt-4">
-                        <table border="0.5" class="table table-striped align-middle" >
+                        <table border="0" class="table table-striped align-middle">
                             <thead class="table-dark">
-                                <tr>
-                                    <th scope="col" style="width: 10%;">ID</th>
-                                    <th scope="col" style="width: 35%;">Nom</th>
-                                    <th scope="col" style="width: 35%;">Localisation</th>
-                                    <th colspan="2" scope="col" style="width: 70%;">Actions</th>
+                                <tr style="background-color: #34495e; color: white;">
+                                    <th scope="col" style="width: 10%;">Id</th>
+                                    <th scope="col" style="width: 35%;">Nome</th>
+                                    <th scope="col" style="width: 35%;">Codigo</th>
+                                    <th colspan="2" scope="col" style="width: 70%;">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($salas as $sala)
-                                    <tr style="background: silver;">
-                                        <td align="center">{{ $sala->id }}</td>
-                                        <td align="center">{{ $sala->name }}</td>
-                                        <td align="center">{{ $sala->categoria }}</td>
+                                @foreach ($classe as $class)
+                                    <tr style="background-color: #d0d3d4 ; color: black;">
+                                        <td align="center">{{ $class->id }}</td>
+                                        <td align="center">{{ $class->name }}</td>
+                                        <td align="center">{{ $class->codigo }}</td>
                                         <td align="center" >
-                                            <a href="{{ route('salas.show', $sala->id) }}" class="btn btn-sm btn-primary me-1">
-                                                <img src="../../img/det.png" alt="Editar" style="width: 30px; height: 30px;">
+                                            <a href="{{ route('classes.show', $class->id) }}" class="btn btn-sm btn-primary me-1">
+                                                detalhes
                                             </a>
                                         </td>
-                                        <td align="center" >
-                                            <a href="{{ route('salas.show', $sala->id) }}" class="btn btn-sm btn-primary me-1">
-                                                <img src="../../img/modif02.png" alt="Editar" style="width: 30px; height: 30px;">
+                                        <td align="center">
+                                            <a href="{{ route('classes.edit', $class->id) }}" class="btn btn-sm btn-warning">
+                                                editar
                                             </a>
                                         </td>
                                     </tr>
@@ -163,14 +139,14 @@
                     </div>
             
                     <!-- Paginação -->
-                    @if(method_exists($salas, 'links'))
+                    @if(method_exists($classes, 'links'))
                         <div class="d-flex justify-content-center mt-4">
-                            {{ $edificios->appends(request()->query())->links() }}
+                            {{ $classes->appends(request()->query())->links() }}
                         </div>
                     @endif
                 @else
                     <div class="alert alert-info mt-4">
-                        Nenhuma sala encontrado.
+                        Aucun classe retouvé 
                     </div>
                 @endif
             @endif

@@ -86,7 +86,8 @@
         }
 
         .sidebar a:hover {
-            background-color: #e5e5e5;
+            background-color: #afc393;
+            color: black;
         }
 
         .submenu a {
@@ -299,7 +300,10 @@
         <p class="text-primary">Plataforme de Gestion - Complexe scolaire Multinacional</p>
 
         <!-- Exibe o e-mail do usuário logado -->
-        <p>{{ __('Salut: ') }} <strong>{{ Auth::user()->email }}</strong></p>
+        <p>
+            <strong>{{ Auth::user()->function }}</strong>:
+            <strong>{{ Auth::user()->email }}</strong>
+        </p>
 
         <!-- Carrossel -->
         <div id="carouselExampleIndicators" class="carousel slide">
