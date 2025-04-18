@@ -23,7 +23,6 @@ class User extends Authenticatable
         'function',
         'email',
         'password',
-        'description', // Campo adicionado
     ];
 
     /**

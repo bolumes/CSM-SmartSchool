@@ -29,7 +29,6 @@ class UserRequest extends FormRequest
             'function' => 'required',
             'email' => 'required|email|unique:users,email,' . ($this->user?->id ?? 'null'),
             'password' => 'required|min:6',
-            'description' => 'nullable',
         ];
     }
 
@@ -44,7 +43,7 @@ class UserRequest extends FormRequest
             'email.required' => 'O campo e-mail é obrigatório.',
             'email.email' => 'O campo e-mail deve ser um endereço de e-mail válido.',
             'password.required' => 'O campo senha é obrigatório.',
-            'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
+            'password.min' => 'A senha deve ter pelo menos 6 caracteres.',
         ];
     }
     public function attributes(): array

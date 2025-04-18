@@ -85,8 +85,8 @@ class ProfessorController extends Controller
 
         // Update the professor record in the database
         $professor->update([
-            'name' => $request->input('name'),
-            'apelido' => $request->input('apelido'),
+            'firstname' => $request->input('firstname'),
+            'lastname' => $request->input('lastname'),
             'email' => $request->input('email'),
             'telephone' => $request->input('telephone'),
             'address' => $request->input('address'),

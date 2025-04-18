@@ -51,12 +51,12 @@
 
 
     <!--partials sidebar-->
-   @include('partials.sidebarwelcome')
+   @include('partials.sidebarsettings')
    
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue;">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">LISTES CLASSES</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">LISTES EVEN-PROG</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
@@ -70,58 +70,78 @@
             @endphp
             
             <table border="1" style="width: 100%; border-collapse: collapse;">
-                <thead>
+                <thead style="background-color: #f2f2f2;">
                     <tr>
                         <th>ID</th>
-                        <th>CODE</th>
-                        <th>NOM</th>
-                        <th colspan="3">ACTIONS</th>
+                        <th>Tipo</th>
+                        <th>Matéria</th>
+                        <th>Salle</th>
+                        <th>Professor</th>
+                        <th>Detalhes</th>
+                        <th>Editar</th>
+                        <th>Excluir</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($classes as $classe)
+                    @foreach ($progevents as $progevent)
                         <tr>
-                            <td align="center">{{ $classe->id }}</td>
-                            <td align="center">{{ $classe->code }}</td>
-                            <td align="center">{{ $classe->name }}</td>
-             
-                            {{-- Ver Detalhes (todos podem ver) --}}
+                            <td align="center">{{ $progevent->id }}</td>
+            
+                            <!-- Exibindo 'type' da matéria relacionada ao evento -->
                             <td align="center">
-                                <a href="{{ route('classes.show', $classe->id) }}">
-                                    <img src="../../img/det.png" alt="Ver" style="width: 30px; height: 30px;">
+                                {{ $progevent->event?->type ?? 'N/A' }}
+                            </td>
+            
+                            <!-- Exibindo 'code' da matéria relacionada ao evento -->
+                            <td align="center">
+                                {{ $progevent->event?->matiere?->code ?? 'N/A' }}
+                            </td>
+
+                            <!-- Exibindo 'sala' da matéria relacionada ao evento -->
+                            <td align="center">
+                                {{ $progevent->sala?->name ?? 'N/A' }}
+                            </td>
+            
+                            <!-- Exibindo o nome do professor relacionado ao evento -->
+                            <td align="center">
+                                {{ $progevent->event?->professor?->firstname }} {{ $progevent->event?->professor?->lastname }}
+                            </td>
+            
+                            <td align="center">
+                                <a href="{{ route('progevents.show', $progevent->id) }}" title="Ver detalhes">
+                                    <img src="{{ asset('img/det.png') }}" alt="Ver" style="width: 30px; height: 30px;">
                                 </a>
                             </td>
             
-                            {{-- Editar (somente Admin e Direction) --}}
-                            @if ($isAdminOrDirection)
-                                <td align="center">
-                                    <a href="{{ route('classes.edit', $classe->id) }}">
-                                        <img src="../../img/modif02.png" alt="Editar" style="width: 30px; height: 30px;">
+                            <td align="center">
+                                @if ($isAdminOrDirection)
+                                    <a href="{{ route('progevents.edit', ['progevent' => $progevent->id]) }}" title="Editar">
+                                        <img src="{{ asset('img/modif02.png') }}" alt="Editar" style="width: 30px; height: 30px;">
                                     </a>
-                                </td>
-                            @else
-                                <td></td>
-                            @endif
+                                @else
+                                    <span style="color: #ccc;">—</span>
+                                @endif
+                            </td>
             
-                            {{-- Excluir (somente Admin e Direction) --}}
-                            @if ($isAdminOrDirection)
-                                <td align="center">
-                                    <form id="delete-form-{{ $classe->id }}" action="{{ route('classes.destroy', ['classe' => $classe]) }}" method="POST" style="display: none;">
+                            <td align="center">
+                                @if ($isAdminOrDirection)
+                                    <form id="delete-form-{{ $progevent->id }}" action="{{ route('progevents.destroy', $progevent->id) }}" method="POST" style="display: none;">
                                         @csrf
                                         @method('DELETE')
                                     </form>
             
-                                    <button type="button" onclick="confirmDelete({{ $classe->id }})" style="background: none; border: none; cursor: pointer;">
-                                        <img src="../../img/del0.png" alt="Suprimir" style="width: 30px; height: 30px;">
+                                    <button onclick="confirmDelete({{ $progevent->id }})" style="background: none; border: none;" title="Excluir">
+                                        <img src="{{ asset('img/del0.png') }}" alt="Excluir" style="width: 30px; height: 30px;">
                                     </button>
-                                </td>
-                            @else
-                                <td></td>
-                            @endif
+                                @else
+                                    <span style="color: #ccc;">—</span>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+        
             
             </div>
         </div>

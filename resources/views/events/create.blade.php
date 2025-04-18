@@ -7,24 +7,6 @@
     <title>Pla-moss</title>
     <link rel="stylesheet" href="../css/style1.css"> <!-- Link para o arquivo CSS externo -->
     <link rel="icon" href="../../img/books.png">
-    <style>
-        /* Estilos adicionais para o botão de pesquisa */
-        tr {
-            height: 40px;
-        }
-
-        tr:hover {
-            height: 40px;
-            background-color: #afc393;
-            cursor: pointer;
-            color: blue;
-        }
-
-        th {
-            background-color: #1c359d;
-            color: white;
-        }
-    </style>
 </head>
 <body>
 
@@ -43,31 +25,32 @@
     </div>
 
     <!--partials sidebar-->
-   @include('partials.sidebarwelcome')
+   @include('partials.sidebarsettings')
 
 
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">DETAILS PROFESSEUR</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">CREER EVENEMENT</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
-
-             <!-- Seção da Imagem -->
-             <div class="form-image">
-                <img src="../../img/det.png" alt="Imagem do Formulário" style="height: 80px; margin-left: 40px;">
+            <!-- Seção da Imagem -->
+            <div class="form-image">
+                <img src="../../img/ajouter.png" alt="Imagem do Formulário" style="height: 80px; margin-left: 40px;">
             </div>
 
             <!-- Seção do Formulário -->
             <div class="form-container">
-
-                <!-- Mensagem flutuante -->
-                @if (session('success'))
+                <form action="{{ route('event-store') }}" method="POST">
+                    @csrf
+                       
+                    <!-- Mensagem flutuante -->
+                    @if (session('success'))
                     <div id="toast-success" class="toast">
                         {{ session('success') }}
                     </div>
-
+                
                     <style>
                         .toast {
                             position: fixed;
@@ -81,7 +64,7 @@
                             z-index: 9999;
                             animation: slideIn 0.5s, fadeOut 0.5s 3.5s forwards;
                         }
-
+                
                         @keyframes slideIn {
                             from {
                                 opacity: 0;
@@ -92,7 +75,7 @@
                                 transform: translateY(0);
                             }
                         }
-
+                
                         @keyframes fadeOut {
                             to {
                                 opacity: 0;
@@ -101,45 +84,58 @@
                             }
                         }
                     </style>
-                @endif
+                    @endif
+                
+                    @if ($errors->any())
+                        <p style="color: red;">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </p>
+                    @endif
 
-               
-                <table border="1" style="width: 100%; margin: 0 auto; border-collapse: collapse;">
-                    <tbody>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold; width: 40%;  background-color: #1c359d; color: white;">ATRIBUTO</td>
-                            <td style="text-align: center; font-weight: bold; width: 40%;  background-color: #1c359d; color: white;">VALOR</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold; width: 40%;">ID</td>
-                            <td align="center">{{ $professor->id }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Nom</td>
-                            <td align="center">{{ $professor->firstname }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Prénom</td>
-                            <td align="center">{{ $professor->lastname }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Email</td>
-                            <td align="center">{{ $professor->email }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Telephone</td>
-                            <td align="center">{{ $professor->telephone }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Addresse</td>
-                            <td align="center">{{ $professor->address }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Date de Creation</td>
-                            <td align="center">{{ $professor->created_at }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <div class="col-md-6">
+                        <label for="type" class="form-label">Type</label>
+                        <select name="type" id="level" class="form-control">
+                            <option value="">-- Sélectionner un type --</option>
+                            <option value="Cours">Cours</option>
+                            <option value="Seminaire">Seminaire</option>
+                            <option value="Workshop">Workshop</option>
+                            <option value="Autres">Autres</option>
+                        </select>
+                    </div>    
+                
+                    <div class="col-md-6">
+                        <label for="matiere_id" class="form-label">Matière</label>
+                        <select name="matiere_id" id="matiere_id" class="form-control">
+                            <option value="">-- Sélectionner une matière --</option>
+                            @foreach ($matieres as $matiere)
+                                <option value="{{ $matiere->id }}" {{ old('matiere_id') == $matiere->id ? 'selected' : '' }}>
+                                    {{ $matiere->name }} ({{ $matiere->level }})
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    
+                    
+                    <div class="col-md-6">
+                        <label for="professor_id" class="form-label">Professeur</label>
+                        <select name="professor_id" id="professor_id" class="form-control">
+                            <option value="">-- Sélectionner un professeur --</option>
+                            @foreach ($professors as $professor)
+                                <option value="{{ $professor->id }}" {{ old('professor_id') == $professor->id ? 'selected' : '' }}>
+                                    {{ $professor->firstname }} {{ $professor->lastname }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    
+                
+                    <button type="submit" class="mt-3">Enregistrer</button>
+                </form>
+                
             </div>
         </div>
     </fieldset>
@@ -163,8 +159,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-

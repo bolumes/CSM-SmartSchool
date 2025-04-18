@@ -42,13 +42,14 @@
         </div>
     </div>
 
-   <!--partials sidebar-->
-   @include('partials.sidebarwelcome')
+    <!--partials sidebar-->
+   @include('partials.sidebarsettings')
+
 
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">DETAILS SALLE</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">DETAILS EVENEMENT</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
@@ -111,42 +112,26 @@
                         </tr>
                         <tr>
                             <td style="text-align: center; font-weight: bold; width: 40%;">ID</td>
-                            <td align="center">{{ $sala->id }}</td>
+                            <td align="center">{{ $progevent->id }}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center; font-weight: bold;">Nom</td>
-                            <td align="center">{{ $sala->name }}</td>
+                            <td style="text-align: center; font-weight: bold;">Type</td>
+                            <td align="center">{{ $progevent->event->type }}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center; font-weight: bold;">Reserver</td>
-                            <td align="center">{{ $sala->reservar }}</td>
+                            <td style="text-align: center; font-weight: bold;">Matière</td>
+                            <td align="center">{{ $progevent->event->matiere->code ?? 'Não definido' }}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: center; font-weight: bold;">Categorie</td>
-                            <td align="center">{{ $sala->categoria }}</td>
+                            <td style="text-align: center; font-weight: bold;">Professeur</td>
+                            <td align="center">
+                                {{ $progevent->event->professor ? $progevent->event->professor->firstname . ' ' . $progevent->event->professor->lastname : 'Não definido' }}
+                            </td>
                         </tr>
                         <tr>
-                            <td style="text-align: center; font-weight: bold;">Capacite</td>
-                            <td align="center">{{ $sala->capacidade }}</td>
+                            <td style="text-align: center; font-weight: bold;">Date de creation</td>
+                            <td align="center">{{ $progevent->created_at }}</td>
                         </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Édifice</td>
-                            <td align="center">{{ $sala->edificio->name ?? 'N/A' }}</td>
-                        </tr>
-                    
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Característiques</td>
-                            <td align="center">{{ $sala->caracteristicas }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Localisation</td>
-                            <td align="center">{{ $sala->localizacao }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Image</td>
-                            <td align="center">{{ $sala->imagem }}</td>
-                        </tr>
-                        
                     </tbody>
                 </table>
             </div>

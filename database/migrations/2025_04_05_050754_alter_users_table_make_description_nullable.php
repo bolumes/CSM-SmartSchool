@@ -15,7 +15,7 @@ class AlterUsersTableMakeDescriptionNullable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             // Altera o campo 'description' para ser nullable
-            $table->text('description')->nullable()->change();
+            //$table->text('description')->nullable()->change();
         });
     }
 
@@ -28,7 +28,7 @@ class AlterUsersTableMakeDescriptionNullable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             // Reverte a alteração, tornando 'description' não nullable
-            $table->text('description')->nullable(false)->change();
+            //$table->text('description')->nullable(false)->change();
         });
     }
 }

@@ -102,11 +102,6 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label for="apelido" class="form-label">Prenom</label>
-                        <input type="text" class="form-control" name="apelido"  value="{{ old('apelido') }}">
-                    </div>
-
-                    <div class="col-md-6">
                         <label for="location" class="form-label">Localisation</label>
                         <input type="text" class="form-control" name="location"  value="{{ old('location') }}">
                     </div>

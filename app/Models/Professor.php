@@ -12,13 +12,18 @@ class Professor extends Model
 
 
     protected $fillable = [
-        'name',
-        'apelido',
+        'firstname',
+        'lastname',
         'email',
         'telephone',
         'address',
     ];
 
     protected $table = 'professors'; // <- GARANTE que o Laravel use o nome certo
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
 
 }

@@ -103,13 +103,13 @@
                     @endif
 
                     <div class="col-md-6">
-                        <label for="name" class="form-label">Nom</label>
-                        <input type="text" class="form-control" name="name"  value="{{ old('name', $professor->name) }}">
+                        <label for="firstname" class="form-label">Nom</label>
+                        <input type="text" class="form-control" name="firstname"  value="{{ old('firstname', $professor->firstname) }}">
                     </div>
 
                     <div class="col-md-6">
-                        <label for="apelido" class="form-label">Prénom</label>
-                        <input type="text" class="form-control" name="apelido"  value="{{ old('apelido', $professor->apelido) }}">
+                        <label for="lastname" class="form-label">Prénom</label>
+                        <input type="text" class="form-control" name="lastname"  value="{{ old('lastname', $professor->lastname) }}">
                     </div>
 
                     <div class="col-md-6">

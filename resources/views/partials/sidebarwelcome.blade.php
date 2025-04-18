@@ -65,19 +65,6 @@
     </div>
     <hr>
 
-    <!-- Eventos -->
-    <a class="has-submenu" onclick="toggleSubmenu(this)">
-        <span class="icon">📅</span> Événements
-    </a>
-    <div class="submenu">
-        <a href="#"><i class="fas fa-search"></i> Rechercher</a>
-        @if($isAdminOrDirection)
-            <a href="#"><i class="fas fa-plus"></i> Créer</a>
-        @endif
-        <a href="#"><i class="fas fa-list"></i> Lister</a>
-    </div>
-    <hr>
-
     <!-- Configurações -->
     <a href="{{ route('home.settings') }}"><span class="icon">⚙️</span> Paramètres</a>
     <hr>

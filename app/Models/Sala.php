@@ -20,4 +20,12 @@ class Sala extends Model
         'localizacao',  
         'imagem',
     ];
+
+    /**
+     * Get the edificio that owns the Sala.
+     */
+    public function edificio()
+    {
+        return $this->belongsTo(Edificio::class, 'edificio_id'); // Definindo a relação com Edificio
+    }
 }

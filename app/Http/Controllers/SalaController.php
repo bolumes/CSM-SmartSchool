@@ -7,17 +7,25 @@ use App\Models\Sala;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSalaRequest;
 use App\Http\Requests\UpdateSalaRequest;
+use Illuminate\Http\Request;
 
 class SalaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function search()
+ 
+    public function search(Request $request)
     {
-        //dd("Buscar Salas foi acessado!");
-        $salas = Sala::all(); // Obtém todas as salas do banco de dados
-        return view('salas.search', compact('salas')); // Retorna a view com as salas
+        $salas = [];
+    
+        if ($request->filled('name')) {
+            $name = $request->input('name');
+    
+            $salas = Sala::where('name', 'like', '%' . $name . '%')->get();
+        }
+    
+        return view('salas.search', compact('salas'));
     }
 
     /**

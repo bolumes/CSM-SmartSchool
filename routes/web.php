@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ClasseController;
+use App\Http\Controllers\EventsController;
 use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EdificioController;
 use App\Http\Controllers\ProfessorController;
+use App\Http\Controllers\ProgeventController;
 use App\Http\Controllers\SalaController;
 use App\Http\Controllers\UserController;
+use App\Models\Progevent;
 use Illuminate\Support\Facades\Route;
 
 // Rota de boas-vindas
@@ -123,6 +126,27 @@ Route::get('/edit-matiere/{matiere}', [MatiereController::class, 'edit'])->name(
 Route::put('/update-matiere/{matiere}', [MatiereController::class, 'update'])->name('matieres.update');
 Route::delete('/destroy-matiere/{matiere}', [MatiereController::class, 'destroy'])->name('matieres.destroy');
 
+
+// Rota para exibir a página de Eventos
+Route::get('/events/search', [EventsController::class, 'search'])->name('events.search');
+Route::get('/events/create', [EventsController::class, 'create'])->name('events.create');
+Route::post('/store-event', [EventsController::class, 'store'])->name('event-store');
+Route::get('/events/listevents', [EventsController::class, 'listevents'])->name('events.listevents');
+Route::get('show-event/{event}', [EventsController::class, 'show'])->name('events.show');
+Route::get('/edit-event/{event}', [EventsController::class, 'edit'])->name('events.edit');
+Route::put('/update-event/{event}', [EventsController::class, 'update'])->name('events.update');
+Route::delete('/destroy-event/{event}', [EventsController::class, 'destroy'])->name('events.destroy');
+
+
+// Rota para exibir a página de Programar-Eventos
+Route::get('/progevents/search', [ProgeventController::class, 'search'])->name('progevents.search');
+Route::get('/progevents/create', [ProgeventController::class, 'create'])->name('progevents.create');
+Route::post('/store-progevent', [ProgeventController::class, 'store'])->name('progevent-store');
+Route::get('/progevents/listprogevents', [ProgeventController::class, 'listprogevents'])->name('progevents.listprogevents');
+Route::get('show-progevent/{progevent}', [ProgeventController::class, 'show'])->name('progevents.show');
+Route::get('/edit-progevent/{progevent}', [ProgeventController::class, 'edit'])->name('progevents.edit');
+Route::put('/update-progevent/{progevent}', [ProgeventController::class, 'update'])->name('progevents.update');
+Route::delete('/destroy-progevent/{progevent}', [ProgeventController::class, 'destroy'])->name('progevents.destroy');
 
 
 require __DIR__.'/auth.php';

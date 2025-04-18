@@ -9,7 +9,7 @@
     <link rel="icon" href="../../img/books.png">
 </head>
 <body>
-
+   
     <!-- Navbar -->
     <div class="navbar">
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
@@ -25,27 +25,32 @@
     </div>
 
     <!--partials sidebar-->
-    @include('partials.sidebarlogin')
+   @include('partials.sidebarsettings')
 
 
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">S'INSCRIRE</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">EDITER EVENEMENT</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
             <!-- Seção da Imagem -->
             <div class="form-image">
-                <img src="../../img/ajouter.png" alt="Imagem do Formulário" style="height: 80px; margin-left: 40px;">
+                <img src="../../img/modif01.png" alt="Imagem do Formulário" style="height: 80px; margin-left: 40px;">
             </div>
 
             <!-- Seção do Formulário -->
             <div class="form-container">
-                <form action="{{ route('user-signup') }}" method="POST">
-                    @csrf
-                    @method('POST')
 
+                
+            <form action="{{ route('events.update', ['event' => $event->id]) }}" method="POST">
+
+                
+                    @csrf
+                    @method('PUT')
+
+                    
                      <!-- Mensagem flutuante -->
                 @if (session('success'))
                 <div id="toast-success" class="toast">
@@ -97,55 +102,46 @@
                         </p>
                     
                     @endif
-
+                    
                     <div class="col-md-6">
-                        <label for="name" class="form-label">Nom</label>
-                        <input type="text" class="form-control" name="firstname"  value="{{ old('firstname') }}">
+                        <label for="type" class="form-label">Type</label>
+                        <select name="type" id="type" class="form-control">
+                            <option value="">-- Sélectionner un niveau --</option>
+                            <option value="Cours" {{ old('type', $event->type) == 'Cours' ? 'selected' : '' }}>Cours</option>
+                            <option value="Séminaire" {{ old('type', $event->type) == 'Séminaire' ? 'selected' : '' }}>Séminaire</option>
+                            <option value="Workshop" {{ old('type', $event->type) == 'Workshop' ? 'selected' : '' }}>Workshop</option>
+                            <option value="Autres" {{ old('type', $event->type) == 'Autres' ? 'selected' : '' }}>Autres</option>
+                        </select>
                     </div>
-
+                    
+                    
                     <div class="col-md-6">
-                        <label for="lastname" class="form-label">Prénom</label>
-                        <input type="text" class="form-control" name="lastname"  value="{{ old('lastname') }}">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="telephone" class="form-label">Tephone</label>
-                        <input type="text" class="form-control" name="telephone"  value="{{ old('telephone') }}">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email"  value="{{ old('email') }}">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="address" class="form-label">Addresse</label>
-                        <input type="text" class="form-control" name="address"  value="{{ old('address') }}">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="function" class="form-label">Fonction</label>
-                        <select class="form-control" name="function" value="{{ old('function') }}">
-                            <option value="">Choisir...</option>
-
-                            {{-- Verifica se o usuário logado é Admin ou Direction --}}
-                            @if(optional(Auth::user())->function === 'Admin' || optional(Auth::user())->function === 'Direction')
-                                <option value="Admin">Admin</option>
-                                <option value="Direction">Direction</option>
-                            @endif
-
-                            <option value="Professeur">Professeur</option>
-                            <option value="Parent">Parent</option>
-                            <option value="Eleve">Eleve</option>
+                        <label for="matiere_id" class="form-label">Matière</label>
+                        <select name="matiere_id" id="matiere_id" class="form-control">
+                            <option value="">-- Sélectionner une matière --</option>
+                            @foreach ($matieres as $matiere)
+                                <option value="{{ $matiere->id }}" {{ old('matiere_id', $event->matiere_id) == $matiere->id ? 'selected' : '' }}>
+                                    {{ $matiere->name }} ({{ $matiere->level }})
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                     
                     <div class="col-md-6">
-                        <label for="password" class="form-label">Mot de Passe</label>
-                        <input type="password" class="form-control" name="password"  value="{{ old('password') }}">
+                        <label for="professor_id" class="form-label">Professeur</label>
+                        <select name="professor_id" id="professor_id" class="form-control">
+                            <option value="">-- Sélectionner un professeur --</option>
+                            @foreach ($professors as $professor)
+                                <option value="{{ $professor->id }}" {{ old('professor_id', $event->professor_id) == $professor->id ? 'selected' : '' }}>
+                                    {{ $professor->firstname }} {{ $professor->lastname }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
-
-                    <button type="submit" class="mt-3">Enregistrer</button>
+                    
+                    
+                 
+                    <button type="submit" class="mt-3">Actualiser</button>
                 </form>
             </div>
         </div>

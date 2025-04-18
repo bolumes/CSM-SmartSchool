@@ -50,13 +50,13 @@
     </div>
 
 
-   <!--partials sidebar-->
-   @include('partials.sidebarwelcome')
-
+    <!--partials sidebar-->
+   @include('partials.sidebarsettings')
+   
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue;">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">LISTE PROFESSEURS</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">LISTES EVENEMENT</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
@@ -65,68 +65,77 @@
             <div class="form-container">
 
                 @php
-    $userFunction = Auth::user()->function;
-    $isAdminOrDirection = $userFunction === 'Admin' || $userFunction === 'Direction';
-@endphp
-
-<table border="1" style="width: 100%; border-collapse: collapse;">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>NOM</th>
-            <th>PRENOM</th>
-            <th>EMAIL</th>
-            <th>TELEPHONE</th>
-            <th colspan="3">ACTIONS</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($professors as $professor)
-            <tr>
-                <td align="center">{{ $professor->id }}</td>
-                <td align="center">{{ $professor->firstname }}</td>
-                <td align="center">{{ $professor->lastname }}</td>
-                <td align="center">{{ $professor->email }}</td>
-                <td align="center">{{ $professor->telephone }}</td>
-
-                {{-- Ver Detalhes (todos podem ver) --}}
-                <td align="center">
-                    <a href="{{ route('professors.show', $professor->id) }}">
-                        <img src="../../img/det.png" alt="Ver" style="width: 30px; height: 30px;">
-                    </a>
-                </td>
-
-                {{-- Editar (somente Admin e Direction) --}}
-                @if ($isAdminOrDirection)
-                    <td align="center">
-                        <a href="{{ route('professors.edit', $professor->id) }}">
-                            <img src="../../img/modif02.png" alt="Editar" style="width: 30px; height: 30px;">
-                        </a>
-                    </td>
-                @else
-                    <td></td>
-                @endif
-
-                {{-- Excluir (somente Admin e Direction) --}}
-                @if ($isAdminOrDirection)
-                    <td align="center">
-                        <form id="delete-form-{{ $professor->id }}" action="{{ route('professors.destroy', ['professor' => $professor]) }}" method="POST" style="display: none;">
-                            @csrf
-                            @method('DELETE')
-                        </form>
-
-                        <button type="button" onclick="confirmDelete({{ $professor->id }})" style="background: none; border: none; cursor: pointer;">
-                            <img src="../../img/del0.png" alt="Suprimir" style="width: 30px; height: 30px;">
-                        </button>
-                    </td>
-                @else
-                    <td></td>
-                @endif
-            </tr>
-        @endforeach
-    </tbody>
-</table>
-
+                $userFunction = Auth::user()->function;
+                $isAdminOrDirection = $userFunction === 'Admin' || $userFunction === 'Direction';
+            @endphp
+            
+            <table border="1" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Matiere</th>
+                        <th>Professeur</th>
+                        <th colspan="3">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($events as $event)
+                    <tr>
+                        <td align="center">{{ $event->id }}</td>
+                        
+                        <!-- Exibir tipo do evento -->
+                        <td align="center">{{ $event->type }}</td>
+                        
+                        <!-- Exibir código da matéria -->
+                        <td align="center">
+                            {{ $event->matiere ? $event->matiere->code : 'N/A' }}
+                        </td>
+                        
+                        <!-- Exibir nome do professor -->
+                        <td align="center">
+                            {{ $event->professor ? $event->professor->firstname . ' ' . $event->professor->lastname : 'N/A' }}
+                        </td>
+                        
+                        {{-- Ver Detalhes (todos podem ver) --}}
+                        <td align="center">
+                            <a href="{{ route('events.show', $event->id) }}">
+                                <img src="../../img/det.png" alt="Ver" style="width: 30px; height: 30px;">
+                            </a>
+                        </td>
+                
+                        {{-- Editar (somente Admin e Direction) --}}
+                        @if ($isAdminOrDirection)
+                            <td align="center">
+                                <a href="{{ route('events.edit', ['event' => $event->id]) }}">
+                                    <img src="../../img/modif02.png" alt="Editar" style="width: 30px; height: 30px;">
+                                </a>
+                            </td>
+                        @else
+                            <td></td>
+                        @endif
+                
+                        {{-- Excluir (somente Admin e Direction) --}}
+                        @if ($isAdminOrDirection)
+                            <td align="center">
+                                <form id="delete-form-{{ $event->id }}" action="{{ route('events.destroy', ['event' => $event]) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                
+                                <button type="button" onclick="confirmDelete({{ $event->id }})" style="background: none; border: none; cursor: pointer;">
+                                    <img src="../../img/del0.png" alt="Suprimir" style="width: 30px; height: 30px;">
+                                </button>
+                            </td>
+                        @else
+                            <td></td>
+                        @endif
+                    </tr>
+                @endforeach
+                
+                </tbody>
+            </table>
+            
             </div>
         </div>
     </fieldset>

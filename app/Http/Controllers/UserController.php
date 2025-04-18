@@ -225,7 +225,6 @@ class UserController extends Controller
             'function' => $request->input('function'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
-            'description' => $request->input('description'),
         ]);
 
         //return redirect()->route('users.show')->with('success', 'Usuário atualizado com sucesso!');

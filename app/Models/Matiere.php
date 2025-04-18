@@ -15,4 +15,10 @@ class Matiere extends Model
         'level',
         'description',
     ];
+    protected $table = 'matieres'; // <- GARANTE que o Laravel use o nome certo
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
 }

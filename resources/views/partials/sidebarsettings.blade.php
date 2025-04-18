@@ -1,3 +1,8 @@
+@php
+    $userFunction = strtolower(auth()->user()->function);
+    $isAdminOrDirection = in_array($userFunction, ['admin', 'direction']);
+@endphp
+
 <!-- Overlay pour fermer le menu en cliquant à l'extérieur -->
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
@@ -30,25 +35,28 @@
     </div>
     <hr>
 
-    <!-- Type-Événement -->
-    <a class="has-submenu" onclick="toggleSubmenu(this)">
-        <span class="icon">📅</span> Type-Événem
+     <!-- Eventos -->
+      <a class="has-submenu" onclick="toggleSubmenu(this)">
+        <span class="icon">📅</span> Événements
     </a>
     <div class="submenu">
-        <a href="#"><i class="fas fa-search"></i> Rechercher</a>
-        <a href="#"><i class="fas fa-plus"></i> Créer</a>
-        <a href="#"><i class="fas fa-list"></i> Lister</a>
+        <a href="{{ route('events.search') }}"><i class="fas fa-search"></i> Rechercher</a>
+        @if($isAdminOrDirection)
+            <a href="{{ route('events.create') }}"><i class="fas fa-plus"></i> Créer</a>
+        @endif
+        <a href="{{ route('events.listevents') }}"><i class="fas fa-list"></i> Lister</a>
     </div>
     <hr>
 
-    <!-- Type-Événement -->
+
+    <!-- Prog-Événement -->
       <a class="has-submenu" onclick="toggleSubmenu(this)">
         <span class="icon">📅</span> Prog-Événem
     </a>
     <div class="submenu">
         <a href="#"><i class="fas fa-search"></i> Rechercher</a>
-        <a href="#"><i class="fas fa-plus"></i> Créer</a>
-        <a href="#"><i class="fas fa-list"></i> Lister</a>
+        <a href="{{ route('progevents.create') }}"><i class="fas fa-plus"></i> Créer</a>
+        <a href="{{ route('progevents.listprogevents') }}"><i class="fas fa-list"></i> Lister</a>
     </div>
     <hr>
 
