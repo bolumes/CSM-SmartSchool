@@ -18,9 +18,9 @@
       <span class="icon">📊</span> Statistiques
     </a>
     <div class="submenu">
-      <a href="#"><i class="fas fa-search"></i> Salle / Bâtiment</a>
-      <a href="#"><i class="fas fa-user-graduate"></i> Professeur / Matière</a>
-      <a href="#"><i class="fas fa-calendar-alt"></i> Événement / Salle</a>
+      <a href="{{ route('estatistics.salasporedificio') }}"><i class="fas fa-search"></i> Salle / Bâtiment</a>
+      <a href="{{ route('estatistics.professorpormatiere')}}"><i class="fas fa-user-graduate"></i> Professeur / Matière</a>
+      <a href="{{ route('estatistics.eventosporsala') }}"><i class="fas fa-calendar-alt"></i> Événement / Salle</a>
     </div>
     <hr>
 
@@ -54,8 +54,10 @@
         <span class="icon">📅</span> Prog-Événem
     </a>
     <div class="submenu">
-        <a href="#"><i class="fas fa-search"></i> Rechercher</a>
-        <a href="{{ route('progevents.create') }}"><i class="fas fa-plus"></i> Créer</a>
+        <a href="{{ route('progevents.search') }}"><i class="fas fa-search"></i> Rechercher</a>
+        @if($isAdminOrDirection)
+            <a href="{{ route('progevents.create') }}"><i class="fas fa-plus"></i> Créer</a>
+        @endif
         <a href="{{ route('progevents.listprogevents') }}"><i class="fas fa-list"></i> Lister</a>
     </div>
     <hr>

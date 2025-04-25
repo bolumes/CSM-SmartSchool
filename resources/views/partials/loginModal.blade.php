@@ -283,7 +283,7 @@
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
         <div class="logo"><img src="img/logo.png" alt="SmartSchool Logo"></div>
         <div class="search">
-            <input type="hidden" placeholder="Pesquisar...">
+            <input type="text" placeholder="Pesquisar...">
         </div>
     </div>
 

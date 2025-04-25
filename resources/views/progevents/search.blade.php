@@ -1,4 +1,4 @@
-«<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-PT">
 <head>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -16,11 +16,6 @@
         <div class="logo" ><img src="../../img/logo.png" ></div>
         <div class="search">
             <input type="text" placeholder="Pesquisar...">
-        </div>
-        <div class="icons">
-            <div class="icon" title="Notificações">🔔</div>
-            <div class="icon" title="Perfil">👤</div>
-            <div class="icon" title="Sair">🔓</div>
         </div>
     </div>
 

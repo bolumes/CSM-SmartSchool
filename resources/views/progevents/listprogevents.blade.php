@@ -42,11 +42,7 @@
         <div class="search">
             <input type="text" placeholder="Pesquisar...">
         </div>
-        <div class="icons">
-            <div class="icon" title="Notificações">🔔</div>
-            <div class="icon" title="Perfil">👤</div>
-            <div class="icon" title="Sair">🔓</div>
-        </div>
+
     </div>
 
 
@@ -77,9 +73,7 @@
                         <th>Matéria</th>
                         <th>Salle</th>
                         <th>Professor</th>
-                        <th>Detalhes</th>
-                        <th>Editar</th>
-                        <th>Excluir</th>
+                        <th colspan="3">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -112,31 +106,32 @@
                                     <img src="{{ asset('img/det.png') }}" alt="Ver" style="width: 30px; height: 30px;">
                                 </a>
                             </td>
+                            
+                            @if ($isAdminOrDirection)
+                                <td align="center">
+                                
+                                        <a href="{{ route('progevents.edit', ['progevent' => $progevent->id]) }}" title="Editar">
+                                            <img src="{{ asset('img/modif02.png') }}" alt="Editar" style="width: 30px; height: 30px;">
+                                        </a>
+                                </td>
+                            @else
+                               <span style="color: #ccc;">—</span>
+                            @endif
             
-                            <td align="center">
-                                @if ($isAdminOrDirection)
-                                    <a href="{{ route('progevents.edit', ['progevent' => $progevent->id]) }}" title="Editar">
-                                        <img src="{{ asset('img/modif02.png') }}" alt="Editar" style="width: 30px; height: 30px;">
-                                    </a>
-                                @else
-                                    <span style="color: #ccc;">—</span>
-                                @endif
-                            </td>
-            
-                            <td align="center">
-                                @if ($isAdminOrDirection)
-                                    <form id="delete-form-{{ $progevent->id }}" action="{{ route('progevents.destroy', $progevent->id) }}" method="POST" style="display: none;">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
-            
-                                    <button onclick="confirmDelete({{ $progevent->id }})" style="background: none; border: none;" title="Excluir">
-                                        <img src="{{ asset('img/del0.png') }}" alt="Excluir" style="width: 30px; height: 30px;">
-                                    </button>
-                                @else
-                                    <span style="color: #ccc;">—</span>
-                                @endif
-                            </td>
+                            @if ($isAdminOrDirection)
+                                <td align="center">
+                                        <form id="delete-form-{{ $progevent->id }}" action="{{ route('progevents.destroy', $progevent->id) }}" method="POST" style="display: none;">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                
+                                        <button onclick="confirmDelete({{ $progevent->id }})" style="background: none; border: none;" title="Excluir">
+                                            <img src="{{ asset('img/del0.png') }}" alt="Excluir" style="width: 30px; height: 30px;">
+                                        </button>  
+                                </td>
+                            @else
+                                <span style="color: #ccc;">—</span>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>

@@ -22,7 +22,7 @@ class ProgeventController extends Controller
      */
     public function search(Request $request)
     {
-        $events = [];
+        $progevents = [];
     
         if ($request->filled('codigo')) {
             $id = $request->input('codigo');

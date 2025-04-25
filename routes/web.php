@@ -9,6 +9,7 @@ use App\Http\Controllers\EdificioController;
 use App\Http\Controllers\ProfessorController;
 use App\Http\Controllers\ProgeventController;
 use App\Http\Controllers\SalaController;
+use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\UserController;
 use App\Models\Progevent;
 use Illuminate\Support\Facades\Route;
@@ -147,6 +148,11 @@ Route::get('show-progevent/{progevent}', [ProgeventController::class, 'show'])->
 Route::get('/edit-progevent/{progevent}', [ProgeventController::class, 'edit'])->name('progevents.edit');
 Route::put('/update-progevent/{progevent}', [ProgeventController::class, 'update'])->name('progevents.update');
 Route::delete('/destroy-progevent/{progevent}', [ProgeventController::class, 'destroy'])->name('progevents.destroy');
+
+// Rota para exibir a pagina de Estatisticas
+Route::get('/estatisticas/salas-por-edificio', [StatisticsController::class, 'salasPorEdificio'])->name('estatistics.salasporedificio');
+Route::get('/estatisticas/docentes-por-formacao', [StatisticsController::class, 'professorPorMatiere'])->name('estatistics.professorpormatiere');
+Route::get('/estatisticas/eventos-por-sala', [StatisticsController::class, 'eventosPorSala'])->name('estatistics.eventosporsala');
 
 
 require __DIR__.'/auth.php';

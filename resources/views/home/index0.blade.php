@@ -287,6 +287,7 @@
 
     <!--partials sidebar-->
    @include('partials.sidebarlogin')
+   
 
     <!-- Conteúdo Principal -->
     <div class="main-content" id="main-content">

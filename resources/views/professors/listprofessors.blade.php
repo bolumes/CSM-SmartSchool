@@ -42,11 +42,6 @@
         <div class="search">
             <input type="text" placeholder="Pesquisar...">
         </div>
-        <div class="icons">
-            <div class="icon" title="Notificações">🔔</div>
-            <div class="icon" title="Perfil">👤</div>
-            <div class="icon" title="Sair">🔓</div>
-        </div>
     </div>
 
 
@@ -104,7 +99,7 @@
                         </a>
                     </td>
                 @else
-                    <td></td>
+                    <span style="color: #ccc;">—</span>
                 @endif
 
                 {{-- Excluir (somente Admin e Direction) --}}
@@ -120,7 +115,7 @@
                         </button>
                     </td>
                 @else
-                    <td></td>
+                    <span style="color: #ccc;">—</span>
                 @endif
             </tr>
         @endforeach

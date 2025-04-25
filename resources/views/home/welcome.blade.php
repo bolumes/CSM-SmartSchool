@@ -283,11 +283,6 @@
         <div class="search">
             <input type="text" placeholder="Pesquisar...">
         </div>
-        <div class="icons md:flex hidden">
-            <div class="icon" title="Notificações">🔔</div>
-            <div class="icon" title="Perfil">👤</div>
-            <div class="icon" title="Sair">🔓</div>
-        </div>
     </div>
 
    <!--partials sidebar-->
