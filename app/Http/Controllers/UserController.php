@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
@@ -11,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    
+
     // Exibe a página inicial
     public function index(){
         
@@ -65,6 +66,7 @@ class UserController extends Controller
         }
 
         return view('login'); // Só retorna a view limpa
+        
     }
         
 
@@ -197,11 +199,18 @@ class UserController extends Controller
         return redirect()->route('users.create')->with('success', 'Usuário criado com sucesso!');
     }
     
-    // Exibe a lista de usuarios
+    // Exibe a lista de todos os usuários
     public function listusers()
     {
-        $users = User::all(); // Obtém todos os usuários do banco de dados
-        return view('users.listusers', compact('users')); // Retorna a view com a lista de usuários
+        $users = User::all();
+
+        return view('users.listusers', compact('users'));
+    }
+
+    // Mostra detalhes de um único usuário
+    public function showPermission(User $user)
+    {
+        return view('users.showPermission', compact('user')); // Blade: show-permission.blade.php
     }
 
     // Edita os dados do usuário
@@ -232,6 +241,35 @@ class UserController extends Controller
 
     }
 
+    // Atualiza as permissões de chat do usuário
+
+    public function chatUpdate(Request $request, User $user)
+    {
+        // Debug opcional (remova depois se quiser)
+        // dd($request->all());
+
+        // Validação
+        $request->validate([
+            'chat_direction' => 'required|in:0,1',
+            'chat_parent' => 'required|in:0,1',
+            'chat_professor' => 'required|in:0,1',
+        ]);
+
+        // Update apenas dos campos chat
+        $user->chat_direction = (int) $request->chat_direction;
+        $user->chat_parent = (int) $request->chat_parent;
+        $user->chat_professor = (int) $request->chat_professor;
+
+        $user->save();
+
+        return redirect()
+            ->route('users.show', $user)
+            ->with('success', 'Permissions chat mises à jour avec succès!');
+    }
+
+
+
+
     // Remove o usuário do banco de dados
     public function destroy(User $user)
     {
@@ -254,7 +292,52 @@ class UserController extends Controller
         // Redireciona para a lista de usuários com mensagem de sucesso
         return redirect()->route('users.listusers')->with('success', 'Usuário removido com sucesso!');
     }
+
+    // Exporta os dados dos usuários para CSV
+    public function export(Request $request)
+        {
+            $filename = 'users.csv';
+
+            return response()->streamDownload(function () {
+
+                $handle = fopen('php://output', 'w');
+
+                // Cabeçalho CSV
+                fputcsv($handle, [
+                    'ID',
+                    'First Name',
+                    'Last Name',
+                    'Email',
+                    'Telephone',
+                    'Address',
+                    'Function'
+                ]);
+
+                // Todos os usuários (sem filtro)
+                User::orderBy('firstname')
+                    ->chunk(200, function ($users) use ($handle) {
+
+                        foreach ($users as $user) {
+                            fputcsv($handle, [
+                                $user->id,
+                                $user->firstname,
+                                $user->lastname,
+                                $user->email,
+                                $user->telephone,
+                                $user->address,
+                                $user->function
+                            ]);
+                        }
+
+                    });
+
+                fclose($handle);
+
+            }, $filename);
+        }
+
     
+
     
 }
 

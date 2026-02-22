@@ -132,4 +132,34 @@ class ProgeventController extends Controller
         // Rediriger avec un message de succès
         return redirect()->route('progevents.create')->with('success', 'Progevent supprimé avec succès!');
     }
+
+    
+    public function export(Request $request)
+    {
+        $progevents = Progevent::all(); // Obtém todas as matérias do banco de dados
+
+        // Cria um arquivo CSV
+        $filename = 'progevents.csv';
+        $handle = fopen($filename, 'w+');
+
+        // Cabeçalho do CSV
+        fputcsv($handle, ['ID', 'Date', 'Start', 'End', 'Sala ID', 'Event ID']);
+
+        foreach ($progevents as $progevent) {
+            fputcsv($handle, [
+                $progevent->id,
+                $progevent->date,
+                $progevent->start,
+                $progevent->end,
+                $progevent->sala_id,
+                $progevent->event_id
+            ]);
+        }
+
+        fclose($handle);
+
+        // Retorna o arquivo para download e apaga depois
+        return response()->download($filename)->deleteFileAfterSend(true);
+    }
+    
 }

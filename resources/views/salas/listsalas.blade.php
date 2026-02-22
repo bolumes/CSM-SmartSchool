@@ -66,7 +66,6 @@
             <table border="1" style="width: 100%; border-collapse: collapse;">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Nom</th>
                         <th>CATEGORIE</th>
                         <th>CAPACITE</th>
@@ -76,7 +75,6 @@
                 <tbody>
                     @foreach ($salas as $sala)
                         <tr>
-                            <td align="center">{{ $sala->id }}</td>
                             <td align="center">{{ $sala->name }}</td>
                             <td align="center">{{ $sala->categoria }}</td>
                             <td align="center">{{ $sala->capacidade }}</td>
@@ -119,6 +117,13 @@
                     @endforeach
                 </tbody>
             </table>
+
+            <br>
+ 
+            <form action="{{ route('salas.export') }}" method="POST">
+                    @csrf
+               <input type="submit" name="expo" value="EXPORTER EM EXCEL" style="">
+           </form>
             
             </div>
         </div>

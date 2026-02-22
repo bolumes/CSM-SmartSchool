@@ -7,7 +7,7 @@
     <title>CSM SmartSchool</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" href="img/books.jpg">
+    <link rel="icon" href="../../img/books.png">
     <style>
         /* Estilos Globais */
         * {
@@ -15,7 +15,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-
+s
         body {
             font-family: Arial, sans-serif;
             overflow-x: hidden; /* Impede que a página tenha scroll horizontal */
@@ -272,6 +272,27 @@
         }
     }
 
+    .language-switcher {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    }
+
+    .language-switcher a {
+        text-decoration: none;
+        font-weight: 600;
+        color: white;
+        font-size: 14px;
+        padding: 5px 8px;
+        border-radius: 6px;
+        transition: 0.3s ease;
+    }
+
+    .language-switcher a:hover {
+        background: rgba(255,255,255,0.2);
+    }
+
+
     </style>
 </head>
 <body>
@@ -279,9 +300,20 @@
     <!-- Navbar -->
     <div class="navbar">
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-        <div class="logo"><img src="img/logo.png" alt="SmartSchool Logo"></div>
+
+        <div class="logo">
+            <img src="img/logo.png" alt="SmartSchool Logo">
+        </div>
+
         <div class="search">
             <input type="text" placeholder="Pesquisar...">
+        </div>
+
+        <!-- Language Switcher -->
+        <div class="language-switcher">
+            <a href="?lang=fr">🇫🇷 FR</a>
+            <a href="?lang=pt">🇵🇹 PT</a>
+            <a href="?lang=en">🇬🇧 ENG</a>
         </div>
     </div>
 

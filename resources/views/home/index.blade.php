@@ -1,295 +1,707 @@
-<!DOCTYPE HTML>
-<html>
-
+<!DOCTYPE html>
+<html lang="pt-PT">
 <head>
-    <title>Csm SmartSchool</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-    <script>
-        addEventListener("load", function () {
-            setTimeout(hideURLbar, 0);
-        }, false);
-
-        function hideURLbar() {
-            window.scrollTo(0, 1);
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSM SmartSchool</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="../../img/books.png">
+    <style>
+        /* Estilos Globais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    </script>
-    <link rel="icon" href="{{ asset('img/books.png') }}" />
-    <!-- Bootstrap Core CSS -->
-    <link href="{{ asset('css/bootstrap.css') }}" rel='stylesheet' type='text/css' />
-    <!-- Material Design Bootstrap -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.14/css/mdb.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="{{ asset('css/style.css') }}" rel='stylesheet' type='text/css' />
-    <!-- font-awesome icons -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- //Custom Theme files -->
-    <!--webfonts-->
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
-    <!--//webfonts-->
-</head>
 
-<body>
+        body {
+            font-family: Arial, sans-serif;
+            overflow-x: hidden; /* Impede que a página tenha scroll horizontal */
+        }
+
+        /* Navbar (Barra Superior) */
+        .navbar {
+            background-color: #0355ad;
+            padding: 15px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo img {
+            width: 145px;
+            height: auto;
+        }
+
+        .navbar .search {
+            flex-grow: 1;
+            max-width: 600px;
+            margin-left: 20px;
+        }
+
+        .navbar input[type="text"] {
+            width: 100%;
+            padding: 7px;
+            border: none;
+            border-radius: 2px;
+        }
+
+        .navbar .icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .navbar .icon {
+            cursor: pointer;
+        }
+
+        /* Menu Lateral (Sidebar) */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: #f9f9f9;
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 20px;
+        }
+
+        .sidebar.open {
+            width: 180px; /* Largura do menu */
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            padding: 8px 15px;
+            text-decoration: none;
+            color: #333;
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .sidebar a:hover {
+            background-color: #afc393;
+            color: black;
+        }
+
+        .submenu a {
+            font-size: 15px;
+            padding: 5px 15px;
+        }
+
+        .submenu {
+            display: none;
+            flex-direction: column;
+            padding-left: 15px;
+        }
+
+        .has-submenu.open + .submenu {
+            display: flex;
+        }
+
+        .sidebar .has-submenu {
+            margin-bottom: 10px;
+        }
+
+        .sidebar hr {
+            margin: 5px 0;
+        }
+
+        /* Ajuste do conteúdo principal */
+        .main-content {
+            padding: 20px;
+            margin-left: 0;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content.sidebar-open {
+            margin-left: 180px; /* Desloca o conteúdo para a direita quando o menu é aberto */
+        }
+
+        .menu-toggle {
+            cursor: pointer;
+            font-size: 24px;
+            padding: 10px;
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Carousel */
+        .carousel-inner img {
+            max-height: 500px;
+            object-fit: cover;
+        }
+
+       /* cpy */
+        .cpy-right {
+              padding: 1em;
+              background: #6887ff;
+          }
+
+          .cpy-right p {
+              color: #fff;
+          }
+
+          .cpy-right p a {
+              color: #fff;
+          }
+
+          .language-switcher a {
+              margin: 0 5px;
+              text-decoration: none;
+              font-size: 20px;
+          }
+
+
+          /* Contact Section */
+    .contact-section {
+        background: #f8f9fa;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        overflow: hidden;
+        margin: 2rem auto;
+        padding: 2rem;
+    }
+
+    .contact-header {
+        position: relative;
+        margin-bottom: 2.5rem;
+    }
+
+    .contact-header h4 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #2c3e50;
+        position: relative;
+        display: inline-block;
+        background: linear-gradient(45deg, #4facfe, #00f2fe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .contact-info-item {
+        transition: all 0.3s ease;
+        padding: 1.2rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+    }
+
+    .contact-info-item:hover {
+        background: rgba(79, 172, 254, 0.05);
+        transform: translateX(10px);
+    }
+
+    .contact-info-item i {
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: linear-gradient(45deg, #4facfe, #00f2fe);
+        color: white;
+        font-size: 1.4rem;
+    }
+
+    .contact-form label {
+        font-weight: 600;
+        color: #4a5568;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    .contact-form .form-control {
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 0.75rem 1.25rem;
+        transition: all 0.3s ease;
+    }
+
+    .contact-form .form-control:focus {
+        border-color: #4facfe;
+        box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.25);
+    }
+
+    .submit-btn {
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 8px;
+        transition: all 0.3s ease !important;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+    }
+
+    @media (max-width: 768px) {
+        .contact-section {
+            padding: 1.5rem;
+            margin: 1rem;
+        }
         
-    <!-- header -->
-    <header>
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand" href="index.php">
-                    Csm SmartSchool
-                </a>
-                <button class="navbar-toggler ml-lg-auto ml-sm-5" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav text-center ml-auto">
-                        <li class="nav-item mr-3">
-                            <a class="nav-link scroll" href="#about">about</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link scroll" href="{{ route('home.index0') }}" data-target="#modalLRForm" data-toggle="modal">Login/Signup</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link scroll" href="#contact">contact</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </header>
+        .contact-info-item {
+            margin-bottom: 1rem;
+        }
+        
+        .contact-form .row {
+            gap: 1rem;
+        }
+    }
 
+    .language-switcher {
+    margin-left: auto;
+    }
+
+    .language-switcher select {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: none;
+        font-weight: 600;
+        background-color: white;
+        cursor: pointer;
+    }
+
+    .language-switcher select:focus {
+        outline: none;
+    }
+
+    .navbar .logo {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    padding-left: 0;
+    }    
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+<div class="navbar">
+
+    <!-- Toggle - Esquerda -->
+    <div style="flex:1; display:flex; align-items:center;">
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    </div>
+
+    <!-- Logo - Centro esquerda -->
+    <div style="flex:1; display:flex; align-items:center;">
+        <div class="logo">
+            <img src="img/logo.png" alt="SmartSchool Logo">
+        </div>
+    </div>
+
+
+    <!-- Search - Centro direita -->
+    <div style="flex:1; display:flex; justify-content:center;">
+        <div class="search" style="max-width:250px; width:100%;">
+            <input type="text" placeholder="Pesquisar..." style="width:100%;">
+        </div>
+    </div>
+
+    <!-- Language - Direita -->
+    <div style="flex:1; display:flex; justify-content:flex-end;">
+        <div class="language-switcher">
+            <select onchange="changeLanguage(this.value)">
+                <option value="fr">🇫🇷</option>
+                <option value="pt">🇵🇹</option>
+                <option value="en">🇬🇧</option>
+            </select>
+        </div>
+    </div>
+
+</div>
+
+
+    <!--partials sidebar-->
+   @include('partials.sidebarlogin')
    
-    <!-- banner -->
-    <div class="banner" id="home">
-        <div class="container">
-            <div class="banner-text">
-                <div class="slider-info text-right">
-                    <h1 class="text-uppercase">Complexe <br> Scolaire <br> Multinacional.</h1>
-                    <p class="text-white">Are you a Singer?...Upload Your Music here and get featured.</p>
-                    <a class="btn btn-agile  mt-4 scroll" href="#about" role="button">read more</a>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content" id="main-content">
+        <h2 class="text-primary">{{ __('messages.welcome') }}</h2>
+        <p class="text-primary">{{ __('messages.platform') }}</p>
+
+
+        <!-- Carrossel -->
+        <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="img/fundo3.png" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="img/fund6.png" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="img/fundo4.jpg" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          <hr>
+
+      <!-- Maternelle -->
+<fieldset>
+  <legend align="center"><h3>Maternelle</h3></legend>
+  <hr> 
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col">
+          <div class="card">
+              <img src="img/jardin0.png" class="card-img-top" alt="Maternelle 1">
+              <div class="card-body">
+                  <h5 class="card-title">Petite Section (PS)</h5>
+                  <p class="card-text" id="desc-1" style="display:none;">
+                    Introduction au cadre scolaire : apprentissage de la vie en groupe, respect des règles, routines.
+                    Développement de la motricité globale et du langage à travers des jeux, chants et activités sensorielles.
+                  </p>
+                  <button id="btn-1" class="btn btn-primary" onclick="toggleCardDescription(1)">Ver mais</button>
+              </div>
+          </div>
+      </div>
+      <div class="col">
+          <div class="card">
+              <img src="img/maternelle3.jpg" class="card-img-top" alt="Maternelle 2">
+              <div class="card-body">
+                  <h5 class="card-title">Moyenne Section (MS)</h5>
+                  <p class="card-text" id="desc-2" style="display:none;">
+                    Renforcement du langage oral, enrichissement du vocabulaire, premières structures de phrases.
+                    Premiers repères spatiaux et temporels (dedans/dehors, avant/après), motricité fine (découpage, tracés).
+                  </p>
+                  <button id="btn-2" class="btn btn-primary" onclick="toggleCardDescription(2)">Ver mais</button>
+              </div>
+          </div>
+      </div>
+      <div class="col">
+          <div class="card">
+              <img src="img/jardin2.jpg" class="card-img-top" alt="Maternelle 3">
+              <div class="card-body">
+                  <h5 class="card-title">Grande section (GS)</h5>
+                  <p class="card-text" id="desc-3" style="display:none;">
+                    Préparation active à la lecture et à l’écriture : reconnaissance des lettres, premiers sons.
+                    Introduction aux mathématiques : quantités, suites logiques, comptage, formes géométriques.
+                  </p>
+                  <button id="btn-3" class="btn btn-primary" onclick="toggleCardDescription(3)">Ver mais</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</fieldset>
+
+<!-- Élémentaire -->
+<fieldset>
+    <hr>
+  <legend align="center"><h3>Élémentaire</h3></legend>
+  <hr>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col">
+          <div class="card">
+              <img src="img/elementaire1.jpg" class="card-img-top" alt="Élémentaire 1">
+              <div class="card-body">
+                  <h5 class="card-title">Cours préparatoire (CP)</h5>
+                  <p class="card-text" id="desc-4" style="display:none;">
+                    Apprentissage formel de la lecture (phonèmes, syllabes) et de l’écriture cursive.
+                    Introduction aux bases du calcul : addition, soustraction, numération jusqu’à 100.
+                  </p>
+                  <button id="btn-4" class="btn btn-primary" onclick="toggleCardDescription(4)">Ver mais</button>
+              </div>
+          </div>
+      </div>
+      <div class="col">
+          <div class="card">
+              <img src="img/elementaire2.jpg" class="card-img-top" alt="Élémentaire 2">
+              <div class="card-body">
+                  <h5 class="card-title">Cours élémentaire 1, 2 (CE1) & CE2</h5>
+                  <p class="card-text" id="desc-5" style="display:none;">
+                    Maîtrise de la lecture fluide et compréhension de textes courts.
+                    Développement des compétences en calcul mental, problèmes simples, mesures.
+                    <br>
+                    <br>
+                    Consolidation des acquis en français : grammaire, conjugaison, orthographe.
+                    Découverte des sciences et de l’espace-temps (journée, saisons, carte, frise chronologique).
+                  </p>
+                  <button id="btn-5" class="btn btn-primary" onclick="toggleCardDescription(5)">Ver mais</button>
+              </div>
+          </div>
+      </div>
+      <div class="col">
+          <div class="card">
+              <img src="img/elementa.jpg" class="card-img-top" alt="Élémentaire 3">
+              <div class="card-body">
+                  <h5 class="card-title">Cours moyen 1, 2 (CM1) & (CM2)</h5>
+                  <p class="card-text" id="desc-6" style="display:none;">
+                    Début des rédactions, de la structuration des idées, expression écrite plus autonome.
+                    Initiation à l’histoire (époque antique) et à la géographie (territoire français).
+                    <br>
+                    <br>
+                    Révisions globales des cycles précédents, préparation à l’entrée au collège.
+                    Projet d’autonomie : exposés, travail en groupe, initiation à la pensée critique.
+                  </p>
+                  <button id="btn-6" class="btn btn-primary" onclick="toggleCardDescription(6)">Ver mais</button>
+              </div>
+          </div>
+      </div>
+    </div>
+</fieldset>
+
+
+<!-- Collège -->
+<fieldset>
+    <hr>
+  <legend align="center"><h3>Collège</h3></legend>
+  <hr>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col">
+          <div class="card">
+              <img src="img/colege1.jpg" class="card-img-top" alt="Collège 1">
+              <div class="card-body">
+                  <h5 class="card-title">Sixième (6e)</h5>
+                  <p class="card-text" id="desc-7" style="display:none;">
+                    Adaptation au rythme du collège, changement de professeurs, emploi du temps.
+                    <br>
+                    Découverte de nouvelles matières : technologie, SVT, langues vivantes plus approfondies.
+                  </p>
+                  <button id="btn-7" class="btn btn-primary" onclick="toggleCardDescription(7)">Ver mais</button>
+              </div>
+          </div>
+      </div>
+      <div class="col">
+          <div class="card">
+              <img src="img/fund6.png" class="card-img-top" alt="Collège 2">
+              <div class="card-body">
+                  <h5 class="card-title">Cinquième (5e)</h5>
+                  <p class="card-text" id="desc-8" style="display:none;">
+                    Approfondissement du raisonnement logique et des connaissances en mathématiques et sciences.
+                    <br>
+                    Sensibilisation aux enjeux historiques, géographiques et environnementaux actuels.
+                  </p>
+                  <button id="btn-8" class="btn btn-primary" onclick="toggleCardDescription(8)">Ver mais</button>
+              </div>
+          </div>
+      </div>
+      <div class="col">
+          <div class="card">
+              <img src="img/colege.jpg" class="card-img-top" alt="Collège 3">
+              <div class="card-body">
+                  <h5 class="card-title">Quatrième (4e) & Troisième (3e)</h5>
+                  <p class="card-text" id="desc-9" style="display:none;">
+                    Développement de l'esprit critique : rédaction argumentée, débats, analyse de documents.
+                    Apprentissage plus poussé de la physique-chimie et consolidation des bases scientifiques.
+                    <br>
+                    <br>
+                    Révision de tout le cycle collège, préparation aux examens et au choix d’orientation.
+                    Passage du Brevet des collèges, stage en entreprise et premiers projets d’avenir.
+                  </p>
+                  <button id="btn-9" class="btn btn-primary" onclick="toggleCardDescription(9)">Ver mais</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</fieldset>
+
+<!-- Lycée -->
+<fieldset>
+  <hr>
+  <legend align="center"><h3>Lycée</h3></legend>
+  <hr>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col">
+          <div class="card">
+              <img src="img/colege2.jpg" class="card-img-top" alt="Lycée 1">
+              <div class="card-body">
+                  <h5 class="card-title">Seconde (2de)</h5>
+                  <p class="card-text" id="desc-10" style="display:none;">
+                    Classe de transition : consolidation des fondamentaux du collège et exploration des spécialités.
+                    <br>
+                    Développement de la méthode de travail : prise de notes, gestion du temps, autonomie.
+                  </p>
+                  <button id="btn-10" class="btn btn-primary" onclick="toggleCardDescription(10)">Ver mais</button>
+              </div>
+          </div>
+      </div>
+      <div class="col">
+          <div class="card">
+              <img src="img/lyccee1.jpg" class="card-img-top" alt="Lycée 2">
+              <div class="card-body">
+                  <h5 class="card-title">Première (1re)</h5>
+                  <p class="card-text" id="desc-11" style="display:none;">
+                    Choix de 2 à 3 spécialités (ex. : mathématiques, littérature, sciences éco), approfondies selon le profil.
+                    <br>
+                    Épreuves anticipées du Bac (français oral et écrit), entraînement à l’analyse et à l’expression écrite.
+                  </p>
+                  <button id="btn-11" class="btn btn-primary" onclick="toggleCardDescription(11)">Ver mais</button>
+              </div>
+          </div>
+      </div>
+      <div class="col">
+          <div class="card">
+              <img src="img/ter.jpg" class="card-img-top" alt="Lycée 3">
+              <div class="card-body">
+                  <h5 class="card-title">Terminale (Tle)</h5>
+                  <p class="card-text" id="desc-12" style="display:none;">
+                    Finalisation des apprentissages, orientation post-bac (Parcoursup, concours, études supérieures).
+                    <br>
+                    Passage des épreuves finales du Baccalauréat, projet personnel et professionnel en réflexion active.
+                  </p>
+                  <button id="btn-12" class="btn btn-primary" onclick="toggleCardDescription(12)">Ver mais</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</fieldset>
+
+
+<!-- Lycée -->
+<fieldset>
+    <hr>
+    <legend align="center"><h3>EPS</h3></legend>
+    <hr>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card">
+                <img src="img/eps3.jpg" class="card-img-top" alt="Lycée 1">
+                <div class="card-body">
+                    <h5 class="card-title">Cinquième (5me)</h5>
+                    <p class="card-text" id="desc-10" style="display:none;">
+                      Classe de transition : consolidation des fondamentaux du collège et exploration des spécialités.
+                      <br>
+                      Développement de la méthode de travail : prise de notes, gestion du temps, autonomie.
+                    </p>
+                    <button id="btn-10" class="btn btn-primary" onclick="toggleCardDescription(10)">Ver mais</button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="img/eps1.png" class="card-img-top" alt="Lycée 2">
+                <div class="card-body">
+                    <h5 class="card-title">Quatrième (4me)</h5>
+                    <p class="card-text" id="desc-11" style="display:none;">
+                      Choix de 2 à 3 spécialités (ex. : mathématiques, littérature, sciences éco), approfondies selon le profil.
+                      <br>
+                      Épreuves anticipées du Bac (français oral et écrit), entraînement à l’analyse et à l’expression écrite.
+                    </p>
+                    <button id="btn-11" class="btn btn-primary" onclick="toggleCardDescription(11)">Ver mais</button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img src="img/eps3-remove.png" class="card-img-top" alt="Lycée 3">
+                <div class="card-body">
+                    <h5 class="card-title">Troisième (3me)</h5>
+                    <p class="card-text" id="desc-12" style="display:none;">
+                      Finalisation des apprentissages, orientation post-bac (Parcoursup, concours, études supérieures).
+                      <br>
+                      Passage des épreuves finales du Baccalauréat, projet personnel et professionnel en réflexion active.
+                    </p>
+                    <button id="btn-12" class="btn btn-primary" onclick="toggleCardDescription(12)">Ver mais</button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- //banner -->
+  </fieldset>
+  
 
-    <!-- about-->
-    <section class="wthree-row" id="about">
-        <div class="row justify-content-center align-items-center no-gutters abbot-main">
-            <div class="col-lg-6 p-0">
-                <img src="{{ asset('img/retrato.jpg') }}" class="img-fluid" alt="" />
-            </div>
-            <div class="col-lg-6 abbot-right px-md-5 py-lg-0 py-3">
-                <div class="card">
-                    <div class="card-body px-lg-5">
-                        <h3 class="stat-title card-title align-self-center mb-sm-5 mb-3">musical world<br> get addicted to music</h3>
-                        <span class="w3-line"></span>
-                        <p class="card-text align-self-center my-4 text-white">
-                            Are you a singer?...But afraid to sing in front of a huge crowd. Then you are in the right place. Upload your songs to musical world and let the people listen to your songs and rate them.
-                        </p>
-                        <p class="card-text align-self-center mb-5 text-white">Be part of the musical world. Upload your songs and get featured by great musicians.</p>
-                        <a href="#more_info" class="btn btn-agile abt_card_btn scroll">Know More</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- //about -->
+<br>
+<br>
 
-    <!-- contact -->
-    <div class="w3-contact py-5" id="contact">
-        <div class="container">
-            <div class="row contact-form pt-md-5">
-                <!-- contact details -->
-                <div class="col-lg-6 contact-bottom d-flex flex-column contact-right-w3ls">
-                    <h5>get in touch</h5>
-                    <div class="fv3-contact">
-                        <div class="row">
-                            <div class="col-2">
-                                <span class="fas fa-envelope-open"></span>
-                            </div>
-                            <div class="col-10">
-                                <h6>email</h6>
-                                <p>
-                                    <a href="mailto:example@email.com" class="text-dark">admin@musicalworld.com</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="fv3-contact my-4">
-                        <div class="row">
-                            <div class="col-2">
-                                <span class="fas fa-phone-volume"></span>
-                            </div>
-                            <div class="col-10">
-                                <h6>phone</h6>
-                                <p>+91 7899496873</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="fv3-contact">
-                        <div class="row">
-                            <div class="col-2">
-                                <span class="fas fa-home"></span>
-                            </div>
-                            <div class="col-10">
-                                <h6>address</h6>
-                                <p>DSI Labz | Adyar Mangalore</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 wthree-form-left my-lg-0 mt-5">
-                    <h5>send us a mail</h5>
-                    <div class="contact-top1">
-                        <form action="#" method="get" class="contact-wthree">
-                            <div class="form-group d-flex">
-                                <label>Name</label>
-                                <input class="form-control" type="text" placeholder="Name" name="email" required=""/>
-                            </div>
-                            <div class="form-group d-flex">
-                                <label>Email</label>
-                                <input class="form-control" type="email" placeholder="email" name="email" required=""/>
-                            </div>
-                            <div class="form-group d-flex">
-                                <label>Phone</label>
-                                <input class="form-control" type="text" placeholder="phone number" name="email" required=""/>
-                            </div>
-                            <div class="form-group d-flex">
-                                <label>Message</label>
-                                <textarea class="form-control" rows="5" id="contactcomment" placeholder="Your message" required></textarea>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-agile btn-block w-50">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- //contact -->
+
+   <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById("sidebar");
+            const overlay = document.getElementById("overlay");
+            const mainContent = document.getElementById("main-content");
+
+            sidebar.classList.toggle("open");
+            overlay.classList.toggle("active");
+            mainContent.classList.toggle("sidebar-open"); /* Move the main content */
+        }
+
+        function toggleSubmenu(element) {
+            element.classList.toggle("open");
+        }
+
+        // Função para alternar a descrição dos cards
+        function toggleCardDescription(cardId) {
+            var cardDescription = document.getElementById('desc-' + cardId);
+            var button = document.getElementById('btn-' + cardId);
+            
+            if (cardDescription.style.display === 'none') {
+                cardDescription.style.display = 'block';
+                button.innerText = 'Ver menos';
+            } else {
+                cardDescription.style.display = 'none';
+                button.innerText = 'Ver mais';
+            }
+        }
+
+        // Função para mudar o idioma
+        function changeLanguage(lang) {
+            window.location.href = "?lang=" + lang;
+        }
+
+        // Marcar idioma atual no select ao carregar a página
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const params = new URLSearchParams(window.location.search);
+            const lang = params.get("lang");
+
+            if (lang) {
+                document.querySelector(".language-switcher select").value = lang;
+            }
+
+        });
+
+    </script>
+    
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <br> <hr> <br>
 
     <!-- copyright -->
     <div class="cpy-right text-center">
-        <p>© 2025 complexe scolaire multinacional. All rights reserved</p>
-    </div>
-    <!-- //copyright -->
-
-    <!-- Modal and Scripts -->
-    <script src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script> <!-- Adicionando o Popper.js -->
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script> <!-- Certifique-se de usar o bootstrap.min.js -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.14/js/mdb.min.js"></script>
-    <script src="{{ asset('js/move-top.js') }}"></script>
-    <script src="{{ asset('js/easing.js') }}"></script>
-
-    <script>
-        $(document).ready(function () {
-            $(".scroll ").click(function (event) {
-                event.preventDefault();
-                $('html,body').animate({
-                    scrollTop: $(this.hash).offset().top
-                }, 1000);
-            });
-
-            // Inicializar o modal
-            $('#modalLRForm').modal();
-
-            $().UItoTop({ easingType: 'easeOutQuart' });
-        });
-    </script>
-    <script src="{{ asset('js/SmoothScroll.min.js') }}"></script>
-
-    <!-- Modal Login/Signup -->
-    <div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
-        <div class="modal-dialog cascading-modal" role="document">
-            <div class="modal-content">
-
-                <div class="modal-c-tabs">
-
-                    <ul class="nav nav-tabs md-tabs tabs-2 light-blue darken-3" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#panel7" role="tab">
-                                <i class="fa fa-user mr-1"></i> Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#panel8" role="tab">
-                                <i class="fa fa-user-plus mr-1"></i> Sign up</a>
-                        </li>
-                    </ul>
-
-                    <div class="tab-content">
-                        <!-- Login Panel -->
-                        <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
-                            <div class="modal-body mb-1">
-                                <div class="md-form form-sm mb-4">
-                                    <i class="fa fa-envelope prefix"></i>
-                                    <input type="email" id="modalLRInput10" class="form-control form-control-sm validate">
-                                    <label for="modalLRInput10">Your email</label>
-                                </div>
-
-                                <div class="md-form form-sm mb-4">
-                                    <i class="fa fa-lock prefix"></i>
-                                    <input type="password" id="modalLRInput11" class="form-control form-control-sm validate">
-                                    <label for="modalLRInput11">Your password</label>
-                                </div>
-
-                                <div class="text-center mt-2">
-                                    <button class="btn btn-info">Log in</button>
-                                </div>
-                            </div>
-
-                            <div class="modal-footer">
-                                <div class="options text-center text-md-right mt-1">
-                                    <p>Not a member? <a href="#" class="blue-text">Sign Up</a></p>
-                                    <p>Forgot <a href="#" class="blue-text">Password?</a></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Sign Up Panel -->
-                        <div class="tab-pane fade" id="panel8" role="tabpanel">
-                            <div class="modal-body">
-                                <div class="md-form form-sm mb-4">
-                                    <i class="fa fa-user prefix"></i>
-                                    <input type="text" id="modalLRInput12" class="form-control form-control-sm validate">
-                                    <label for="modalLRInput12">Your name</label>
-                                </div>
-
-                                <div class="md-form form-sm mb-4">
-                                    <i class="fa fa-envelope prefix"></i>
-                                    <input type="email" id="modalLRInput13" class="form-control form-control-sm validate">
-                                    <label for="modalLRInput13">Your email</label>
-                                </div>
-
-                                <div class="md-form form-sm mb-4">
-                                    <i class="fa fa-lock prefix"></i>
-                                    <input type="password" id="modalLRInput14" class="form-control form-control-sm validate">
-                                    <label for="modalLRInput14">Your password</label>
-                                </div>
-
-                                <div class="text-center form-sm mt-2">
-                                    <button class="btn btn-deep-orange">Sign up</button>
-                                </div>
-                            </div>
-
-                            <div class="modal-footer">
-                                <div class="options text-right">
-                                    <p>Already have an account? <a href="#" class="blue-text">Log In</a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
+      <p>© 2025 complexe scolaire multinacional. All rights reserved</p>
+  </div>
+  <!-- //copyright -->
 
 </body>
-
 </html>

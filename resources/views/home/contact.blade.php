@@ -7,7 +7,7 @@
     <title>CSM SmartSchool</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" href="img/books.jpg">
+    <link rel="icon" href="../../img/books.png">
     <style>
         /* Estilos Globais */
         * {
@@ -281,7 +281,7 @@
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
         <div class="logo"><img src="img/logo.png" alt="SmartSchool Logo"></div>
         <div class="search">
-            <input type="text" placeholder="Pesquisar...">
+            <input type="hidden" placeholder="Pesquisar...">
         </div>
     </div>
 
@@ -312,7 +312,7 @@
                 <i class="bi bi-envelope-fill text-success fs-4 me-3"></i>
                 <div>
                     <h6 class="mb-0">EMAIL</h6>
-                    <strong>admin@musicalworld.com</strong>
+                    <strong>aluno26539@ipt.pt</strong>
                 </div>
             </div>
 
@@ -320,7 +320,7 @@
                 <i class="bi bi-telephone-fill text-success fs-4 me-3"></i>
                 <div>
                     <h6 class="mb-0">PHONE</h6>
-                    <strong>+91 7899496873</strong>
+                    <strong>+245 9567 413 43</strong>
                 </div>
             </div>
 
@@ -328,7 +328,7 @@
                 <i class="bi bi-geo-alt-fill text-success fs-4 me-3"></i>
                 <div>
                     <h6 class="mb-0">ADDRESS</h6>
-                    <strong>DSI Labz | Adyar Mangalore</strong>
+                    <strong>AV DOS COMBATENTES DA LIBERDADE DA PATRIA</strong>
                 </div>
             </div>
         </div>

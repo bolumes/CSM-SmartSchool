@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'welcome' => 'Bienvenue',
-    'login' => 'Connexion',
+    'welcome' => 'Bienvenue au Csm-SmartSchool',
+    'platform' => 'Plateforme de Gestion - Complexe scolaire Multinacional'
 ];
 
 

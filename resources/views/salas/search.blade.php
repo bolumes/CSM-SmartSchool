@@ -56,7 +56,7 @@
         <div class="container">
             <!-- Seção da Imagem -->
             <div class="form-image">
-                <img src="../../img/procurar.png" alt="Imagem do Formulário" style="height: 80px; margin-left: 40px;">
+                <img src="../../img/procurar.png" alt="Imagem do Formulário" style="height: 50px; margin-left: 40px;">
             </div>
 
             <!-- Seção do Formulário -->

@@ -67,23 +67,17 @@
 <table border="1" style="width: 100%; border-collapse: collapse;">
     <thead>
         <tr>
-            <th>ID</th>
             <th>NOM</th>
             <th>PRENOM</th>
-            <th>EMAIL</th>
-            <th>TELEPHONE</th>
             <th colspan="3">ACTIONS</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($professors as $professor)
             <tr>
-                <td align="center">{{ $professor->id }}</td>
                 <td align="center">{{ $professor->firstname }}</td>
                 <td align="center">{{ $professor->lastname }}</td>
-                <td align="center">{{ $professor->email }}</td>
-                <td align="center">{{ $professor->telephone }}</td>
-
+                      
                 {{-- Ver Detalhes (todos podem ver) --}}
                 <td align="center">
                     <a href="{{ route('professors.show', $professor->id) }}">
@@ -121,6 +115,13 @@
         @endforeach
     </tbody>
 </table>
+
+          <br>
+ 
+            <form action="{{ route('professors.export') }}" method="POST">
+                    @csrf
+               <input type="submit" name="expo" value="EXPORTER EM EXCEL" style="">
+           </form>
 
             </div>
         </div>

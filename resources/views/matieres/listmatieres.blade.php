@@ -67,8 +67,6 @@
             <table border="1" style="width: 100%; border-collapse: collapse;">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>CODE</th>
                         <th>NOM</th>
                         <th>Niveau</th>
                         <th colspan="3">ACTIONS</th>
@@ -77,8 +75,6 @@
                 <tbody>
                     @foreach ($matieres as $matiere)
                         <tr>
-                            <td align="center">{{ $matiere->id }}</td>
-                            <td align="center">{{ $matiere->code }}</td>
                             <td align="center">{{ $matiere->name }}</td>
                             <td align="center">{{ $matiere->level }}</td>
             
@@ -119,6 +115,13 @@
                     @endforeach
                 </tbody>
             </table>
+
+              <br>
+ 
+            <form action="{{ route('matieres.export') }}" method="POST">
+                    @csrf
+               <input type="submit" name="expo" value="EXPORTER EM EXCEL" style="">
+           </form>
             
             </div>
         </div>

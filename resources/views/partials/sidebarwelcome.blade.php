@@ -1,6 +1,10 @@
 @php
-    $userFunction = auth()->user()->function;
-    $isAdminOrDirection = $userFunction === 'Admin' || $userFunction === 'Direction';
+$user = auth()->user();
+
+$isAdminOrDirection =
+    in_array($user->function, ['Admin','Direction']);
+
+$canChatProfessor = $user->chat_professor == 1;
 @endphp
 
 <!-- Overlay -->
@@ -9,6 +13,18 @@
 <div class="sidebar" id="sidebar">
     <a href="{{ route('home.welcome') }}"><span class="icon">🏠</span> Accueil</a>
     <hr>
+
+     <!-- Comunicados -->
+     <a class="has-submenu" onclick="toggleSubmenu(this)"><span class="icon">📢</span> Annonces</a>
+     <div class="submenu">
+         <a href="{{ route('anuncios.search') }}"><i class="fas fa-search"></i> Rechercher</a>
+         @if($isAdminOrDirection)
+             <a href="{{ route('anuncios.create') }}"><i class="fas fa-plus"></i> Créer</a>
+         @endif
+         <a href="{{ route('anuncios.listanuncios') }}"><i class="fas fa-list"></i> Lister</a>
+     </div>
+     <hr>
+ 
 
     <!-- Edifícios -->
     <a class="has-submenu" onclick="toggleSubmenu(this)"><span class="icon">🏢</span> Edifices</a>
@@ -55,15 +71,36 @@
     <hr>
 
     <!-- Professores -->
-    <a class="has-submenu" onclick="toggleSubmenu(this)"><span class="icon">👨‍🏫</span> Professeurs</a>
+    <a class="has-submenu" onclick="toggleSubmenu(this)">
+        <span class="icon">👨‍🏫</span> Professeurs
+    </a>
+
     <div class="submenu">
-        <a href="{{ route('professors.search') }}"><i class="fas fa-search"></i> Rechercher</a>
+
+        <a href="{{ route('professors.search') }}">
+            <i class="fas fa-search"></i> Rechercher
+        </a>
+
         @if($isAdminOrDirection)
-            <a href="{{ route('professors.create') }}"><i class="fas fa-plus"></i> Créer</a>
+            <a href="{{ route('professors.create') }}">
+                <i class="fas fa-plus"></i> Créer
+            </a>
         @endif
-        <a href="{{ route('professors.listprofessors') }}"><i class="fas fa-list"></i> Lister</a>
+
+        <a href="{{ route('professors.listprofessors') }}">
+            <i class="fas fa-list"></i> Lister
+        </a>
+
+        @if($isAdminOrDirection || $canChatProfessor)
+            <a href="{{ route('spaces.professores.chat') }}">
+                <i class="fas fa-comments"></i> Chat
+            </a>
+        @endif
+
     </div>
+
     <hr>
+
 
     <!-- Configurações -->
     <a href="{{ route('home.settings') }}"><span class="icon">⚙️</span> Paramètres</a>

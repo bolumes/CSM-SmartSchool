@@ -118,4 +118,36 @@ class MatiereController extends Controller
         // Redireciona com mensagem de sucesso
         return redirect()->route('matieres.create')->with('success', 'Matiere deletada com sucesso!');
     }
+
+    /**
+    * Exportar os dados para Excel.
+    */
+
+    public function export(Request $request)
+    {
+        $matieres = Matiere::all(); // Obtém todas as matérias do banco de dados
+
+        // Cria um arquivo CSV
+        $filename = 'matieres.csv';
+        $handle = fopen($filename, 'w+');
+
+        // Cabeçalho do CSV
+        fputcsv($handle, ['ID', 'Nom', 'Code', 'Niveau', 'Description']);
+
+        foreach ($matieres as $matiere) {
+            fputcsv($handle, [
+                $matiere->id,
+                $matiere->name,
+                $matiere->code,
+                $matiere->level,
+                $matiere->description
+            ]);
+        }
+
+        fclose($handle);
+
+        // Retorna o arquivo para download e apaga depois
+        return response()->download($filename)->deleteFileAfterSend(true);
+    }
+    
 }

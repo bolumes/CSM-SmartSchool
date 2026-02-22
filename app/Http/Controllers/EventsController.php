@@ -116,4 +116,31 @@ class EventsController extends Controller
         // Redireciona com mensagem de sucesso
         return redirect()->route('events.create')->with('success', 'Evento removido com sucesso!');
     }
+
+    public function export(Request $request)
+    {
+        $events = Event::all(); // Obtém todas as matérias do banco de dados
+
+        // Cria um arquivo CSV
+        $filename = 'events.csv';
+        $handle = fopen($filename, 'w+');
+
+        // Cabeçalho do CSV
+        fputcsv($handle, ['ID', 'Type', 'Matiere ID', 'Professor ID']);
+
+        foreach ($events as $event) {
+            fputcsv($handle, [
+                $event->id,
+                $event->type,
+                $event->matiere_id,
+                $event->professor_id
+            ]);
+        }
+
+        fclose($handle);
+
+        // Retorna o arquivo para download e apaga depois
+        return response()->download($filename)->deleteFileAfterSend(true);
+    }   
+
 }

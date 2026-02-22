@@ -32,7 +32,7 @@
         <div class="container">
             <!-- Seção da Imagem -->
             <div class="form-image">
-                <img src="../../img/modif01.png" alt="Imagem do Formulário" style="height: 80px; margin-left: 40px;">
+                <img src="../../img/modif01.png" alt="Imagem do Formulário" style="height: 50px; margin-left: 40px;">
             </div>
 
             <!-- Seção do Formulário -->
@@ -115,10 +115,10 @@
                         <label for="categoria" class="form-label">Categorie</label>
                         <select class="form-control" name="categoria" id="categoria">
                             <option value="">Selecione</option>
-                            <option value="Aulas" {{ old('categoria', $sala->categoria ?? '') == 'Aulas' ? 'selected' : '' }}>Aulas</option>
-                            <option value="Seminario" {{ old('categoria', $sala->categoria ?? '') == 'Seminario' ? 'selected' : '' }}>Seminário</option>
+                            <option value="Cours" {{ old('categoria', $sala->categoria ?? '') == 'Cours' ? 'selected' : '' }}>Cours</option>
+                            <option value="Seminaire" {{ old('categoria', $sala->categoria ?? '') == 'Seminaire' ? 'selected' : '' }}>Seminaire</option>
                             <option value="Workshop" {{ old('categoria', $sala->categoria ?? '') == 'Workshop' ? 'selected' : '' }}>Workshop</option>
-                            <option value="Outros" {{ old('categoria', $sala->categoria ?? '') == 'Outros' ? 'selected' : '' }}>Outros</option>
+                            <option value="Autres" {{ old('categoria', $sala->categoria ?? '') == 'Autres' ? 'selected' : '' }}>Autres</option>
                         </select>
                     </div>
                 

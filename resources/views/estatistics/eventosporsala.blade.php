@@ -103,15 +103,15 @@
     document.addEventListener('DOMContentLoaded', () => {
         const ctx = document.getElementById('chartjs_bar').getContext('2d');
 
-        const labels = @json($estatistics->pluck('numero_de_events'));
-        const data = @json($estatistics->pluck('sala_name'));
+        const labels = @json($estatistics->pluck('sala_name'));
+        const data = @json($estatistics->pluck('numero_de_events'));
 
         new Chart(ctx, {
-            type: 'pie',
+            type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Número de Salles pour Edifice',
+                    label: 'Número Evenemet pour Salle',
                     data: data,
                     backgroundColor: [
                         '#5969aa', '#ff407b', '#25d5f2', '#ffc750',

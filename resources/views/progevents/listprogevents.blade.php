@@ -68,9 +68,8 @@
             <table border="1" style="width: 100%; border-collapse: collapse;">
                 <thead style="background-color: #f2f2f2;">
                     <tr>
-                        <th>ID</th>
-                        <th>Tipo</th>
-                        <th>Matéria</th>
+                        <th>Type</th>
+                        <th>Matiere</th>
                         <th>Salle</th>
                         <th>Professor</th>
                         <th colspan="3">Actions</th>
@@ -79,8 +78,7 @@
                 <tbody>
                     @foreach ($progevents as $progevent)
                         <tr>
-                            <td align="center">{{ $progevent->id }}</td>
-            
+                                      
                             <!-- Exibindo 'type' da matéria relacionada ao evento -->
                             <td align="center">
                                 {{ $progevent->event?->type ?? 'N/A' }}
@@ -136,6 +134,13 @@
                     @endforeach
                 </tbody>
             </table>
+
+            <br>
+ 
+            <form action="{{ route('progevents.export') }}" method="POST">
+                    @csrf
+               <input type="submit" name="expo" value="EXPORTER EM EXCEL" style="">
+           </form>
         
             
             </div>

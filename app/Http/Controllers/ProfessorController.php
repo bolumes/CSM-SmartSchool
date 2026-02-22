@@ -6,6 +6,7 @@ use App\Models\Professor;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProfessorRequest;
 use App\Http\Requests\UpdateProfessorRequest;
+use Illuminate\Http\Request;
 
 class ProfessorController extends Controller
 {
@@ -107,4 +108,33 @@ class ProfessorController extends Controller
         // Redirect or return a response after deleting the professor
         return redirect()->route('professors.index')->with('success', 'Professor deleted successfully!');
     }
+
+    public function export(Request $request)
+    {
+        $professors = Professor::all(); // Obtém todas as matérias do banco de dados
+
+        // Cria um arquivo CSV
+        $filename = 'professors.csv';
+        $handle = fopen($filename, 'w+');
+
+        // Cabeçalho do CSV
+        fputcsv($handle, ['ID', 'First Name', 'Last Name', 'Email', 'Telephone', 'Address']);
+
+        foreach ($professors as $professor) {
+            fputcsv($handle, [
+                $professor->id,
+                $professor->firstname,
+                $professor->lastname,
+                $professor->email,
+                $professor->telephone,
+                $professor->address
+            ]);
+        }
+
+        fclose($handle);
+
+        // Retorna o arquivo para download e apaga depois
+        return response()->download($filename)->deleteFileAfterSend(true);
+    }
+    
 }

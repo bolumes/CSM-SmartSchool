@@ -28,8 +28,8 @@ class UserRequest extends FormRequest
             'address' => 'required',
             'function' => 'required',
             'email' => 'required|email|unique:users,email,' . ($this->user?->id ?? 'null'),
-            'password' => 'required|min:6',
-        ];
+            'password' => 'required|min:6'
+            ];
     }
 
     public function messages(): array

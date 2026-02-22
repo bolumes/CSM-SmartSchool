@@ -50,7 +50,7 @@
 
              <!-- Seção da Imagem -->
              <div class="form-image">
-                <img src="../../img/det.png" alt="Imagem do Formulário" style="height: 80px; margin-left: 40px;">
+                <img src="../../img/det.png" alt="Imagem do Formulário" style="height: 50px; margin-left: 40px;">
             </div>
 
             <!-- Seção do Formulário -->
@@ -101,8 +101,8 @@
                 <table border="1" style="width: 100%; margin: 0 auto; border-collapse: collapse;">
                     <tbody>
                         <tr>
-                            <td style="text-align: center; font-weight: bold; width: 40%;  background-color: #1c359d; color: white;">ATRIBUTO</td>
-                            <td style="text-align: center; font-weight: bold; width: 40%;  background-color: #1c359d; color: white;">VALOR</td>
+                            <td style="text-align: center; font-weight: bold; width: 40%;  background-color: #1c359d; color: white;">ATTRIBUT</td>
+                            <td style="text-align: center; font-weight: bold; width: 40%;  background-color: #1c359d; color: white;">VALEUR</td>
                         </tr>
                         <tr>
                             <td style="text-align: center; font-weight: bold; width: 40%;">ID</td>

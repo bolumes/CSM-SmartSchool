@@ -31,7 +31,7 @@
         <div class="container">
             <!-- Seção da Imagem -->
             <div class="form-image">
-                <img src="../../img/ajouter.png" alt="Imagem do Formulário" style="height: 80px; margin-left: 40px;">
+                <img src="../../img/ajouter.png" alt="Imagem do Formulário" style="height: 50px; margin-left: 40px;">
             </div>
 
             <!-- Seção do Formulário -->
@@ -102,8 +102,8 @@
                     </div>
 
                     <div class="col-md-12">
-                        <label for="adress" class="form-label">addresse</label>
-                        <textarea class="form-control" name="adress" rows="4"  value="{{ old('adress') }}"></textarea>
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" name="description" rows="4"  value="{{ old('description') }}"></textarea>
                     </div>
 
                     <button type="submit" class="mt-3">Enregistrer</button>

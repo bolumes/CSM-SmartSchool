@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'welcome' => 'Welcome',
-    'login' => 'Login',
-   
-    ];
+    'welcome' => 'Welcome to Csm-SmartSchool',
+    'platform' => 'Management Platform - Complexe scolaire Multinacional'
+];

@@ -155,8 +155,11 @@ body {
 }
 
 /* Estilos para o formulário */
+/* Estilos para o formulário */
 .container {
     display: flex;
+    flex-direction: column;   /* 🔴 altera de row (default) para coluna */
+    align-items: center;      /* centraliza imagem e formulário */
     background-color: white;
     padding: 20px;
     border-radius: 8px;
@@ -164,24 +167,24 @@ body {
     max-width: 900px;
     width: 100%;
     margin: 40px auto;
-    border: 0.1px solid blue;
 }
 
 /* Estilo da Imagem no formulário */
 .form-image {
-    flex: 1;
-    margin-right: 20px;
+    margin-bottom: 20px;      /* espaço entre imagem e formulário */
+    text-align: center;
 }
 
 .form-image img {
+    height: 80px;             /* ajusta conforme quiseres */
     max-width: 100%;
-    border-radius: 8px;
 }
 
 /* Estilo do Formulário */
 .form-container {
-    flex: 2;
+    width: 100%;              /* ocupa toda a largura */
 }
+
 
 form {
     display: flex;

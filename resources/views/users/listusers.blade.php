@@ -68,20 +68,16 @@
             <table border="1" style="width: 100%; border-collapse: collapse;">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>Email</th>
+                        <th>Fonction</th>
                         <th colspan="3">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($users as $user)
                         <tr>
-                            <td align="center">{{ $user->id }}</td>
                             <td align="center">{{ $user->firstname }}</td>
-                            <td align="center">{{ $user->lastname }}</td>
-                            <td align="center">{{ $user->email }}</td>
+                            <td align="center">{{ $user->function }}</td>
             
                             {{-- Botão "Ver Detalhes" (todos podem ver) --}}
                             <td align="center">
@@ -120,6 +116,13 @@
                     @endforeach
                 </tbody>
             </table>
+
+             <br>
+ 
+            <form action="{{ route('users.export') }}" method="POST">
+                    @csrf
+               <input type="submit" name="expo" value="EXPORTER EM EXCEL" style="">
+           </form>
             
             </div>
         </div>

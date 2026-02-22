@@ -111,4 +111,32 @@ class EdificioController extends Controller
         // Redireciona com mensagem de sucesso
         return redirect()->route('edificios.listedificios')->with('success', 'Edifício deletado com sucesso!');
     }
+
+    /**
+     * Exportar os dados dos edifícios para Excel.
+     */
+    public function export(){
+        $edificios = Edificio::all(); // Obtém todos os edifícios do banco de dados
+
+        // Cria um arquivo CSV
+        $filename = 'edificios.csv';
+        $handle = fopen($filename, 'w+');
+        fputcsv($handle, ['ID', 'Name', 'Location', 'Description', 'Created At', 'Updated At']);
+
+        foreach ($edificios as $edificio) {
+            fputcsv($handle, [
+                $edificio->id,
+                $edificio->name,
+                $edificio->location,
+                $edificio->description,
+                $edificio->created_at,
+                $edificio->updated_at
+            ]);
+        }
+
+        fclose($handle);
+
+        // Retorna o arquivo para download
+        return response()->download($filename)->deleteFileAfterSend(true);
+    }
 }

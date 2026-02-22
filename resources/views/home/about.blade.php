@@ -7,7 +7,7 @@
     <title>CSM SmartSchool</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" href="img/books.jpg">
+    <link rel="icon" href="../../img/books.png">
     <style>
         /* Estilos Globais */
         * {
@@ -281,7 +281,7 @@
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
         <div class="logo"><img src="img/logo.png" alt="SmartSchool Logo"></div>
         <div class="search">
-            <input type="text" placeholder="Pesquisar...">
+            <input type="hidden" placeholder="Pesquisar...">
         </div>
     </div>
 

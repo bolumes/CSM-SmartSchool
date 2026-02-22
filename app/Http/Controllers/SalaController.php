@@ -117,4 +117,33 @@ class SalaController extends Controller
         // Redireciona com mensagem de sucesso para a lista de salas
         return redirect()->route('salas.listsalas')->with('success', 'Sala deletada com sucesso!');
     }
+
+    public function export(Request $request)
+    {
+        $salas = Sala::all(); // Obtém todas as salas do banco de dados
+
+        // Cria um arquivo CSV
+        $filename = 'salas.csv';
+        $handle = fopen($filename, 'w+');
+        fputcsv($handle, ['ID', 'Nome', 'Reservar', 'Categoria', 'Capacidade', 'Edificio ID', 'Caracteristicas', 'Localizacao', 'Imagem']);
+
+        foreach ($salas as $sala) {
+            fputcsv($handle, [
+                $sala->id,
+                $sala->name,
+                $sala->reservar,
+                $sala->categoria,
+                $sala->capacidade,
+                $sala->edificio_id,
+                $sala->caracteristicas,
+                $sala->localizacao,
+                $sala->imagem
+            ]);
+        }
+
+        fclose($handle);
+
+        // Retorna o arquivo para download
+        return response()->download($filename)->deleteFileAfterSend(true);
+    }   
 }

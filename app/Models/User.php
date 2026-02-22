@@ -47,4 +47,53 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+        /* =======================
+     |  RELAÇÕES COM SPACES
+     ======================= */
+
+    // Spaces criados pelo usuário (professor / direção)
+    public function spaces()
+    {
+        return $this->hasMany(Space::class, 'created_by');
+    }
+
+    // Posts criados pelo usuário
+    public function spacePosts()
+    {
+        return $this->hasMany(SpacePost::class);
+    }
+
+    // Comentários criados pelo usuário
+    public function spaceComments()
+    {
+        return $this->hasMany(SpaceComment::class);
+    }
+
+    /* =======================
+     |  PERMISSÕES SIMPLES
+     ======================= */
+
+    public function isProfessor()
+    {
+        return $this->function === 'professor';
+    }
+
+    public function isParent()
+    {
+        return $this->function === 'parent';
+    }
+
+    public function isDirection()
+    {
+        return $this->function === 'direction';
+    }
+
+    public function isAdmin()
+    {
+        return $this->function === 'admin';
+    }
+
 }
+

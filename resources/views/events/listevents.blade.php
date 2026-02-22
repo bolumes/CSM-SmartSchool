@@ -67,7 +67,6 @@
             <table border="1" style="width: 100%; border-collapse: collapse;">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Type</th>
                         <th>Matiere</th>
                         <th>Professeur</th>
@@ -77,7 +76,6 @@
                 <tbody>
                     @foreach ($events as $event)
                     <tr>
-                        <td align="center">{{ $event->id }}</td>
                         
                         <!-- Exibir tipo do evento -->
                         <td align="center">{{ $event->type }}</td>
@@ -130,6 +128,14 @@
                 
                 </tbody>
             </table>
+
+            <br>
+ 
+            <form action="{{ route('events.export') }}" method="POST">
+                    @csrf
+               <input type="submit" name="expo" value="EXPORTER EM EXCEL" style="">
+           </form>
+
             
             </div>
         </div>

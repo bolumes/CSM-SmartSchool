@@ -7,7 +7,7 @@
     <title>CSM SmartSchool</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" href="img/books.jpg">
+    <link rel="icon" href="../../img/books.png">
     <link rel="stylesheet" href="../css/style1.css"> <!-- Link para o arquivo CSS externo -->
     <style>
         /* Estilos Globais */
@@ -300,9 +300,9 @@
 <div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
 
     <!-- Imagem -->
-    <div class="text-center mb-4">
-        <img src="../../img/enter.png" alt="Imagem do Formulário" style="height: 80px;">
-    </div>
+    <!-- <div class="text-center mb-4"> -->
+        <!--<img src="../../img/enter.png" alt="Imagem do Formulário" style="height: 80px;"> -->
+    <!-- </div> -->
 
     <!-- Seção do Formulário -->
     <div class="form-container" style="width: 100%; max-width: 500px; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #fff;">

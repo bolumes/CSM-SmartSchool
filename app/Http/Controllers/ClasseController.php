@@ -112,4 +112,35 @@ class ClasseController extends Controller
         // Redireciona com mensagem de sucesso
         return redirect()->route('classes.listclasses')->with('success', 'Classe deletada com sucesso!');
     }
+
+    /**
+     * Exportar os dados das classes para Excel
+     */
+   public function export(Request $request)
+    {
+        $classes = Classe::all(); // Obtém todas as classes do banco de dados
+
+        // Cria um arquivo CSV
+        $filename = 'classes.csv';
+        $handle = fopen($filename, 'w+');
+
+        // Cabeçalho do CSV
+        fputcsv($handle, ['ID', 'Nom', 'Code', 'Niveau', 'Description']);
+
+        foreach ($classes as $classe) {
+            fputcsv($handle, [
+                $classe->id,
+                $classe->name,
+                $classe->code,
+                $classe->level,
+                $classe->description
+            ]);
+        }
+
+        fclose($handle);
+
+        // Retorna o arquivo para download e apaga depois
+        return response()->download($filename)->deleteFileAfterSend(true);
+    }
+
 }
