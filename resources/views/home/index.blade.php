@@ -379,7 +379,7 @@
 
       <!-- Maternelle -->
 <fieldset>
-  <legend align="center"><h3>Maternelle</h3></legend>
+  <legend align="center"><h3>{{ __('messages.Kindergarten') }}</h3></legend>
   <hr> 
   <div class="row row-cols-1 row-cols-md-3 g-4">
       <div class="col">
@@ -427,7 +427,7 @@
 <!-- Élémentaire -->
 <fieldset>
     <hr>
-  <legend align="center"><h3>Élémentaire</h3></legend>
+  <legend align="center"><h3>{{ __('messages.Elementary') }}</h3></legend>
   <hr>
   <div class="row row-cols-1 row-cols-md-3 g-4">
       <div class="col">
@@ -484,7 +484,7 @@
 <!-- Collège -->
 <fieldset>
     <hr>
-  <legend align="center"><h3>Collège</h3></legend>
+  <legend align="center"><h3>{{ __('messages.Middle School') }}</h3></legend>
   <hr>
   <div class="row row-cols-1 row-cols-md-3 g-4">
       <div class="col">
@@ -538,7 +538,7 @@
 <!-- Lycée -->
 <fieldset>
   <hr>
-  <legend align="center"><h3>Lycée</h3></legend>
+  <legend align="center"><h3>{{ __('messages.High School') }}</h3></legend>
   <hr>
   <div class="row row-cols-1 row-cols-md-3 g-4">
       <div class="col">
@@ -590,7 +590,7 @@
 <!-- Lycée -->
 <fieldset>
     <hr>
-    <legend align="center"><h3>EPS</h3></legend>
+    <legend align="center"><h3>{{ __('messages.Physical Education') }}</h3></legend>
     <hr>
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col">
@@ -642,6 +642,8 @@
 <br>
 <br>
 
+<!-- Modal de Login -->
+    @include('partials.auth-modal')
 
    <script>
         function toggleMenu() {
@@ -705,3 +707,6 @@
 
 </body>
 </html>
+
+
+   

@@ -26,7 +26,7 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">RECHERCHER ANONCES</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">{{ __('messages.Search for announcements') }}</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
@@ -93,10 +93,10 @@
                     @endif
                     
                     <div class="col-md-6">
-                        <label for="date" class="form-label">Date</label>
+                        <label for="date" class="form-label">{{ __('messages.Date') }}</label>
                         <input type="date" class="form-control" name="date" required  value="{{ old('date') }}">
                     </div>
-                    <button class="btn btn-outline-primary" type="submit">Rechercher</button>
+                    <button class="btn btn-outline-primary" type="submit">{{ __('messages.Search') }}</button>
     
                 </form>
                 <hr style="width: 100%; height: 2px; background-color: blue; margin-top: 20px;">
@@ -108,10 +108,10 @@
                         <table border="0" class="table table-striped align-middle">
                             <thead class="table-dark">
                                 <tr style="background-color: #34495e; color: white;">
-                                    <th scope="col" style="width: 10%;">Data</th>
-                                    <th scope="col" style="width: 35%;">Titre</th>
-                                    <th scope="col" style="width: 35%;">Doc</th>
-                                    <th colspan="2" scope="col" style="width: 70%;">Ações</th>
+                                    <th scope="col" style="width: 10%;">{{ __('messages.Date') }}</th>
+                                    <th scope="col" style="width: 35%;">{{ __('messages.title') }}</th>
+                                    <th scope="col" style="width: 35%;">{{ __('messages.Doc') }}</th>
+                                    <th colspan="2" scope="col" style="width: 70%;">{{ __('messages.Actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>

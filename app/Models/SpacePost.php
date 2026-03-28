@@ -38,4 +38,12 @@ class SpacePost extends Model
     {
         return $this->hasMany(SpaceComment::class);
     }
+
+    /**
+     * Anexos da mensagem
+     */
+    public function attachments()
+    {
+        return $this->hasMany(SpacePostAttachment::class);
+    }
 }

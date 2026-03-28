@@ -26,7 +26,7 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">CREER SALLE</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">{{ __('messages.Create Room') }}</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
@@ -92,37 +92,38 @@
                     @endif
                 
                     <div class="col-md-6">
-                        <label for="name" class="form-label">Nom</label>
+                        <label for="name" class="form-label">{{ __('messages.Room Name') }}</label>
                         <input type="text" class="form-control" name="name" value="{{ old('name') }}">
                     </div>
                 
                     <div class="col-md-6">
-                        <label for="reservar" class="form-label">Reserver</label>
+                        <label for="reservar" class="form-label">{{ __('messages.Booking') }}</label>
                         <select class="form-control" name="reservar" id="reservar">
                             <option value="">Selecione</option>
-                            <option value="Sim" {{ old('reservar') == 'Sim' ? 'selected' : '' }}>Oui</option>
-                            <option value="Nao" {{ old('reservar') == 'Nao' ? 'selected' : '' }}>Non</option>
+                            <option value="Sim" {{ old('reservar') == 'Sim' ? 'selected' : '' }}>{{ __('messages.Yes') }}</option>
+                            <option value="Nao" {{ old('reservar') == 'Nao' ? 'selected' : '' }}>{{ __('messages.No') }}</option>
                         </select>
                     </div>
                 
                     <div class="col-md-6">
-                        <label for="categoria" class="form-label">Categorie</label>
+                        <label for="categoria" class="form-label">{{ __('messages.Category') }}</label>
                         <select class="form-control" name="categoria" id="categoria">
                             <option value="">Selecione</option>
-                            <option value="Cours" {{ old('categoria') == 'Cours' ? 'selected' : '' }}>Cours</option>
-                            <option value="Seminaire" {{ old('categoria') == 'Seminaire' ? 'selected' : '' }}>Seminaire</option>
-                            <option value="Workshop" {{ old('categoria') == 'Workshop' ? 'selected' : '' }}>Workshop</option>
-                            <option value="Autres" {{ old('categoria') == 'Autres' ? 'selected' : '' }}>Autres</option>
+                            <option value="Cours" {{ old('categoria') == 'Cours' ? 'selected' : '' }}>{{ __('messages.Course') }}</option>
+                            <option value="Seminaire" {{ old('categoria') == 'Seminaire' ? 'selected' : '' }}>{{ __('messages.Seminar') }}</option>
+                            <option value="Workshop" {{ old('categoria') == 'Workshop' ? 'selected' : '' }}>{{ __('messages.Workshop') }}</option>
+                            <option value="Conference" {{ old('categoria') == 'Conference' ? 'selected' : '' }}>{{ __('messages.Conference') }}</option>
+                            <option value="Autres" {{ old('categoria') == 'Autres' ? 'selected' : '' }}>{{ __('messages.Others') }}</option>
                         </select>
                     </div>
                 
                     <div class="col-md-6">
-                        <label for="capacidade" class="form-label">Capacité</label>
+                        <label for="capacidade" class="form-label">{{ __('messages.Capacity') }}</label>
                         <input type="number" class="form-control" name="capacidade" value="{{ old('capacidade') }}">
                     </div>
                 
                     <div class="col-md-6">
-                        <label for="edificio_id" class="form-label">Edifice</label>
+                        <label for="edificio_id" class="form-label">{{ __('messages.Building Name') }}</label>
                         <select class="form-control" name="edificio_id" id="edificio_id">
                             <option value="">Selecione um edifício</option>
                             @foreach($edificios as $edificio)
@@ -135,21 +136,21 @@
                     </div>
                 
                     <div class="col-md-12">
-                        <label for="caracteristicas" class="form-label">Característiques</label>
+                        <label for="caracteristicas" class="form-label">{{ __('messages.Room caracteristics') }}</label>
                         <textarea class="form-control" name="caracteristicas" rows="4">{{ old('caracteristicas') }}</textarea>
                     </div>
                 
                     <div class="col-md-6">
-                        <label for="localizacao" class="form-label">Localisation</label>
+                        <label for="localizacao" class="form-label">{{ __('messages.Room Location') }}</label>
                         <input type="text" class="form-control" name="localizacao" value="{{ old('localizacao') }}">
                     </div>
                 
                     <div class="col-md-6">
-                        <label for="imagem" class="form-label">Image</label>
+                        <label for="imagem" class="form-label">{{ __('messages.Image') }}</label>
                         <input type="text" class="form-control" name="imagem" value="{{ old('imagem') }}">
                     </div>
                 
-                    <button type="submit" class="mt-3">Enregistrer</button>
+                    <button type="submit" class="mt-3">{{ __('messages.Save') }}</button>
                 </form>
                 
             </div>

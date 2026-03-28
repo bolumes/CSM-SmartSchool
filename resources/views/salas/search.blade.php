@@ -50,7 +50,7 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">RECHERCHER SALLE</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">{{ __('messages.Search for rooms') }}</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
@@ -117,7 +117,7 @@
                     @endif
                     
                     <input class="form-control me-2" type="search" name="name" required placeholder="Rechercher salle..." aria-label="Pesquisar"> 
-                    <button class="btn btn-outline-primary" type="submit">Rechercher</button>
+                    <button class="btn btn-outline-primary" type="submit">{{ __('messages.Search') }}</button>
     
                 </form>
                 <hr style="width: 100%; height: 2px; background-color: blue; margin-top: 20px;">
@@ -129,10 +129,10 @@
                         <table border="0.5" class="table table-striped align-middle" >
                             <thead class="table-dark">
                                 <tr>
-                                    <th scope="col" style="width: 10%;">ID</th>
-                                    <th scope="col" style="width: 35%;">Nom</th>
-                                    <th scope="col" style="width: 35%;">Localisation</th>
-                                    <th colspan="2" scope="col" style="width: 70%;">Actions</th>
+                                    <th scope="col" style="width: 10%;">Id</th>
+                                    <th scope="col" style="width: 35%;">{{ __('messages.Name') }}</th>
+                                    <th scope="col" style="width: 35%;">{{ __('messages.Location') }}</th>
+                                    <th colspan="2" scope="col" style="width: 70%;">{{ __('messages.Actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>

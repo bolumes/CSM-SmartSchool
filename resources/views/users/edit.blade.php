@@ -1,131 +1,223 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pla-moss</title>
-    <link rel="stylesheet" href="../css/style1.css"> <!-- Link para o arquivo CSS externo -->
-    <link rel="icon" href="../../img/books.png">
+    <title>Edit User</title>
+    <link rel="stylesheet" href="{{ asset('css/styledroit.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="icon" href="{{ asset('img/books.png') }}">
+    <style>
+        /* Additional styles for form elements to match the template */
+        .permission-table input,
+        .permission-table select,
+        .permission-table textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .permission-table textarea {
+            resize: vertical;
+        }
+        .permission-table label {
+            font-weight: normal;
+            display: block;
+            margin: 0;
+        }
+        .btn-group-center {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .action-btn {
+            padding: 8px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .btn-cancel {
+            background-color: #6c757d;
+            color: white;
+        }
+        .btn-cancel:hover {
+            background-color: #5a6268;
+        }
+        .btn-submit {
+            background-color: #1c359d;
+            color: white;
+        }
+        .btn-submit:hover {
+            background-color: #142a7a;
+        }
+        .error-messages {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            border: 1px solid #f5c6cb;
+        }
+        .error-messages ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-        <div class="logo" ><img src="../../img/logo.png" ></div>
-        <div class="search">
-            <input type="text" placeholder="Pesquisar...">
-        </div>
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="menu-toggle" onclick="toggleMenu()">
+        ☰
     </div>
+    <div class="logo">
+        <img src="{{ asset('img/logo.png') }}" alt="Logo">
+    </div>
+    <div class="search">
+        <input type="text" placeholder="Pesquisar...">
+    </div>
+</div>
 
-    <!--partials sidebar-->
-    @include('partials.sidebarsettings')
+@include('partials.sidebarsettings')
 
+<div class="main-content">
+    <fieldset style="border-radius:8px; border:2px solid blue">
+        <legend style="text-align:center">
+            <h3 style="color:blue">EDITER USER</h3>
+        </legend>
 
-    <!-- Conteúdo Principal -->
-    <div class="main-content">
-        <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">EDITER USER</h3></legend>
-        
-        <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
-            <!-- Seção da Imagem -->
-            <div class="form-image">
-                <img src="../../img/modif01.png" alt="Imagem do Formulário" style="height: 50px; margin-left: 40px;">
+            <div style="text-align: center;">
+                <img src="{{ asset('img/modif01.png') }}" alt="Edit Image" style="height: 50px;">
             </div>
 
-            <!-- Seção do Formulário -->
-            <div class="form-container">
-                
-                <form action="{{ route('users.update', ['user'=> $user->id]) }}" method="POST">
-                    @csrf
-                    @method('PUT')
+            @if(session('success'))
+                <div class="toast">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-                    @if (session('success'))
-                        <p style="color: green;">{{ session('success') }}</p>
-                    
-                    @endif
+            @if($errors->any())
+                <div class="error-messages">
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
-                    @if ($errors->any())
-                        <p style="color: red;">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </p>
-                    
-                    @endif
+            <form action="{{ route('users.update', ['user' => $user->id]) }}" method="POST">
+                @csrf
+                @method('PUT')
 
-                    <div class="col-md-6">
-                        <label for="name" class="form-label">Nom</label>
-                        <input type="text" class="form-control" name="firstname"  value="{{ old('firstname', $user->firstname) }}">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="lastname" class="form-label">Prénom</label>
-                        <input type="text" class="form-control" name="lastname"  value="{{ old('lastname', $user->lastname) }}">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="telephone" class="form-label">Tephone</label>
-                        <input type="text" class="form-control" name="telephone"  value="{{ old('telephone', $user->telephone) }}">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email"  value="{{ old('email', $user->email) }}">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="address" class="form-label">Addresse</label>
-                        <input type="text" class="form-control" name="address"  value="{{ old('address', $user->address) }}">
-                    </div>
-
-                    <label for="function" class="form-label">Fonction</label>
-                    <select class="form-control" name="function">
-                        <option value="">Choisir...</option>
-                        <option value="Admin" {{ old('function', $user->function) == 'Admin' ? 'selected' : '' }}>Admin</option>
-                        <option value="Direction" {{ old('function', $user->function) == 'Direction' ? 'selected' : '' }}>Direction</option>
-                        <option value="Professeur" {{ old('function', $user->function) == 'Professeur' ? 'selected' : '' }}>Professeur</option>
-                        <option value="Parent" {{ old('function', $user->function) == 'Parent' ? 'selected' : '' }}>Parent</option>
-                        <option value="Eleve" {{ old('function', $user->function) == 'Eleve' ? 'selected' : '' }}>Eleve</option>
-                    </select>
-
-                    <div class="col-md-6">
-                        <label for="password" class="form-label">Mot de Passe</label>
-                        <input type="password" class="form-control" name="password"  value="{{ old('password') }}">
-                    </div>
-
-                    <div class="col-md-12">
-                        <label for="description" class="form-label">Description</label>
-                        <textarea class="form-control" name="description" rows="5">{{ old('description', $user->description) }}</textarea>
-                    </div>
-                    
-
-                    <button type="submit" class="mt-3">Actualiser</button>
-                </form>
-            </div>
+                <table class="permission-table">
+                    <thead>
+                        <tr>
+                            <th>ATTRIBUT</th>
+                            <th>VALEUR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Nom</strong></td>
+                            <td>
+                                <input type="text" name="firstname" value="{{ old('firstname', $user->firstname) }}" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Prénom</strong></td>
+                            <td>
+                                <input type="text" name="lastname" value="{{ old('lastname', $user->lastname) }}" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Téléphone</strong></td>
+                            <td>
+                                <input type="text" name="telephone" value="{{ old('telephone', $user->telephone) }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Email</strong></td>
+                            <td>
+                                <input type="email" name="email" value="{{ old('email', $user->email) }}" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Adresse</strong></td>
+                            <td>
+                                <input type="text" name="address" value="{{ old('address', $user->address) }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fonction</strong></td>
+                            <td>
+                                <select name="function">
+                                    <option value="">Choisir...</option>
+                                    <option value="Admin" {{ old('function', $user->function) == 'Admin' ? 'selected' : '' }}>Admin</option>
+                                    <option value="Direction" {{ old('function', $user->function) == 'Direction' ? 'selected' : '' }}>Direction</option>
+                                    <option value="Professeur" {{ old('function', $user->function) == 'Professeur' ? 'selected' : '' }}>Professeur</option>
+                                    <option value="Parent" {{ old('function', $user->function) == 'Parent' ? 'selected' : '' }}>Parent</option>
+                                    <option value="Eleve" {{ old('function', $user->function) == 'Eleve' ? 'selected' : '' }}>Eleve</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mot de Passe</strong></td>
+                            <td>
+                                <input type="password" name="password" placeholder="Laisser vide pour ne pas changer">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Description</strong></td>
+                            <td>
+                                <textarea name="description" rows="5">{{ old('description', $user->description) }}</textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="btn-group-center">
+                                    <button type="reset" class="action-btn btn-cancel">Annuler</button>
+                                    <button type="submit" class="action-btn btn-submit">Actualiser</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
         </div>
     </fieldset>
-    </div>
+</div>
 
-    <!-- Script para Toggle do Menu -->
-    <script>
-        function toggleMenu() {
-            const sidebar = document.getElementById("sidebar");
-            const overlay = document.getElementById("overlay");
+<script>
+    /* Sidebar Toggle */
+    function toggleMenu() {
+        document.getElementById("sidebar").classList.toggle("open");
+    }
 
-            sidebar.classList.toggle("open");
-            overlay.classList.toggle("active");
+    /* Click outside sidebar = close */
+    document.addEventListener("click", function(event) {
+        const sidebar = document.getElementById("sidebar");
+        const toggleBtn = document.querySelector(".menu-toggle");
+        if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target)) {
+            sidebar.classList.remove("open");
         }
+    });
 
-        function toggleSubmenu(element) {
-            element.classList.toggle("open");
-            const submenu = element.nextElementSibling;
+    /* Submenu toggle */
+    function toggleSubmenu(element) {
+        event.preventDefault();
+        const submenu = element.nextElementSibling;
+        if (submenu) {
             submenu.style.display = submenu.style.display === "flex" ? "none" : "flex";
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>

@@ -25,7 +25,7 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">CREER ANNONCES</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">{{ __('messages.Create Announcement') }}</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
@@ -93,27 +93,27 @@
                     @endif
 
                     <div class="col-md-6">
-                        <label for="date" class="form-label">Date</label>
+                        <label for="date" class="form-label">{{ __('messages.Date') }}</label>
                         <input type="date" class="form-control" name="date"  value="{{ old('date') }}">
                     </div> 
 
                     <div class="col-md-6">
-                        <label for="titre" class="form-label">Titre</label>
+                        <label for="titre" class="form-label">{{ __('messages.title') }}</label>
                         <input type="text" class="form-control" name="titre"  value="{{ old('titre') }}">
                     </div>
 
                     <div class="col-md-12">
-                        <label for="description" class="form-label">Description</label>
+                        <label for="description" class="form-label">{{ __('messages.Description') }}</label>
                         <textarea class="form-control" name="description" rows="4"  value="{{ old('description') }}"></textarea>
                     </div>
 
                     <div class="col-md-12">
-                        <label for="fichier" class="form-label">Fichier (.jpg ou .pdf)</label>
+                        <label for="fichier" class="form-label">{{ __('messages.File') }} (.jpg ou .pdf)</label>
                         <input type="file" class="form-control" name="fichier" accept=".jpg,.jpeg,.pdf">
                     </div>
                 
 
-                    <button type="submit" class="mt-3">Enregistrer</button>
+                    <button type="submit" class="mt-3">{{ __('messages.Save') }}</button>
                 </form>
             </div>
         </div>

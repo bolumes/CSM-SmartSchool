@@ -1,6 +1,14 @@
 @php
-    $userFunction = strtolower(auth()->user()->function);
-    $isAdminOrDirection = in_array($userFunction, ['admin', 'direction', 'parent']);
+$user = auth()->user();
+$isAdminOrDirection = false;
+$isAdminOrDirectionOnly = false;
+$canChatParent = false;
+
+if ($user) {
+    $isAdminOrDirection = in_array($user->function, ['Admin', 'Direction', 'Parent']);
+    $isAdminOrDirectionOnly = in_array($user->function, ['Admin', 'Direction']);
+    $canChatParent = $user->chat_parent == 1;
+}
 @endphp
 
 <!-- Overlay pour fermer le menu en cliquant à l'extérieur -->
@@ -9,49 +17,51 @@
 <div class="sidebar" id="sidebar">
     <!-- Accueil -->
     <a href="{{ route('home.welcome') }}">
-        <span class="icon">🏠</span>Accueil
+        <span class="icon">🏠</span> {{ __('messages.Home') }}
     </a>
     <hr>
 
     <!-- Élèves -->
     <a class="has-submenu" onclick="toggleSubmenu(this)">
-        <span class="icon"><i class="fas fa-user-graduate"></i></span> Élèves
+        <span class="icon"><i class="fas fa-user-graduate"></i></span> {{ __('messages.Student') }}
     </a>
     <div class="submenu">
-        <a href="{{ route('eleve.search') }}"><i class="fas fa-search"></i> Rechercher</a>
-        <a href="#"><i class="fas fa-user-plus"></i> Créer</a>
-        <a href="{{ route('eleve.listeleve') }}"><i class="fas fa-list"></i> Lister</a>
+        <a href="{{ route('eleve.search') }}"><i class="fas fa-search"></i> {{ __('messages.Search') }}</a>
+        <a href="{{ route('eleves.listeleves') }}"><i class="fas fa-list"></i> {{ __('messages.List') }}</a>
     </div>
     <hr>
 
     <!-- Parents -->
     <a class="has-submenu" onclick="toggleSubmenu(this)">
-        <span class="icon"><i class="fas fa-user-friends"></i></span> Parents
+        <span class="icon"><i class="fas fa-user-friends"></i></span> {{ __('messages.Parent') }}
     </a>
     <div class="submenu">
-        <a href="#"><i class="fas fa-search"></i> Rechercher</a>
-        <a href="#"><i class="fas fa-user-plus"></i> Créer</a>
-        <a href="#"><i class="fas fa-address-book"></i> Lister</a>
-        @if($isAdminOrDirection)
-           <a href="{{ route('professors.listprofessors') }}"><i class="fas fa-comments"></i> EDRP</a>
+        <a href="#"><i class="fas fa-search"></i> {{ __('messages.Search') }}</a>
+        <a href="{{ route('parent.listparent') }}"><i class="fas fa-list"></i> {{ __('messages.List') }}</a>
+        {{-- Chat Parents --}}
+        @if($canChatParent)
+            <a href="{{ route('spaces.parent') }}"><i class="fas fa-comments"></i> {{ __('messages.Chat') }}</a>
         @endif
     </div>
     <hr>
 
         <!-- Utilisateur -->
+    @if($isAdminOrDirectionOnly)
     <a class="has-submenu" onclick="toggleSubmenu(this)">
-        <span class="icon">👤</span> Utilisateur
+        <span class="icon">👤</span> {{ __('messages.User') }}
     </a>
-    <div class="submenu">
-        <a href="{{ route('users.search') }}"><i class="fas fa-search"></i> Rechercher</a>
-        <a href="{{ route('users.create') }}"><i class="fas fa-user-plus"></i> Créer</a>
-        <a href="{{ route('users.listusers') }}"><i class="fas fa-users"></i> Lister</a>
-        <a href="{{ route('users.droits') }}"><i class="fas fa-key"></i> Droits</a>
+   <div class="submenu">
+            <a href="{{ route('users.search') }}"><i class="fas fa-search"></i> {{ __('messages.Search') }}</a>
+            <a href="{{ route('users.create') }}"><i class="fas fa-user-plus"></i> {{ __('messages.Create') }}</a>
+            <a href="{{ route('users.listusers') }}"><i class="fas fa-users"></i> {{ __('messages.List') }}</a>
+            <a href="{{ route('users.droits') }}"><i class="fas fa-key"></i> {{ __('messages.Rights') }}</a>
     </div>
     <hr>
+    @endif
+
     <!-- Statistiques -->
     <a class="has-submenu" onclick="toggleSubmenu(this)">
-      <span class="icon">📊</span> Statistiques
+      <span class="icon">📊</span> {{ __('messages.statistics') }}
     </a>
     <div class="submenu">
       <a href="{{ route('estatistics.salasporedificio') }}"><i class="fas fa-search"></i> Salle / Bâtiment</a>
@@ -62,44 +72,44 @@
 
      <!-- Eventos -->
       <a class="has-submenu" onclick="toggleSubmenu(this)">
-        <span class="icon">📅</span> Événements
+        <span class="icon">📅</span> {{ __('messages.Events') }}
     </a>
     <div class="submenu">
-        <a href="{{ route('events.search') }}"><i class="fas fa-search"></i> Rechercher</a>
+        <a href="{{ route('events.search') }}"><i class="fas fa-search"></i> {{ __('messages.Search') }}</a>
         @if($isAdminOrDirection)
-            <a href="{{ route('events.create') }}"><i class="fas fa-plus"></i> Créer</a>
+            <a href="{{ route('events.create') }}"><i class="fas fa-plus"></i> {{ __('messages.Create') }}</a>
         @endif
-        <a href="{{ route('events.listevents') }}"><i class="fas fa-list"></i> Lister</a>
+        <a href="{{ route('events.listevents') }}"><i class="fas fa-list"></i> {{ __('messages.List') }}</a>
     </div>
     <hr>
 
 
     <!-- Prog-Événement -->
       <a class="has-submenu" onclick="toggleSubmenu(this)">
-        <span class="icon">📅</span> Prog-Événem
+        <span class="icon">📅</span> {{ __('messages.EventsPlanning') }}
     </a>
     <div class="submenu">
-        <a href="{{ route('progevents.search') }}"><i class="fas fa-search"></i> Rechercher</a>
+        <a href="{{ route('progevents.search') }}"><i class="fas fa-search"></i> {{ __('messages.Search') }}</a>
         @if($isAdminOrDirection)
-            <a href="{{ route('progevents.create') }}"><i class="fas fa-plus"></i> Créer</a>
+            <a href="{{ route('progevents.create') }}"><i class="fas fa-plus"></i> {{ __('messages.Create') }}</a>
         @endif
-        <a href="{{ route('progevents.listprogevents') }}"><i class="fas fa-list"></i> Lister</a>
+        <a href="{{ route('progevents.listprogevents') }}"><i class="fas fa-list"></i> {{ __('messages.List') }}</a>
     </div>
     <hr>
 
     <!-- Disponibilité des Salles -->
     <a class="has-submenu" onclick="toggleSubmenu(this)">
-        <span class="icon">🚪</span> Dispo-Salles
+        <span class="icon">🚪</span> {{ __('messages.RoomAvailability') }}
     </a>
     <div class="submenu">
-      <a href="#"><i class="fas fa-check-circle"></i> Disponible</a>
-      <a href="#"><i class="fas fa-times-circle"></i> Indisponible</a>
+      <a href="#"><i class="fas fa-check-circle"></i> {{ __('messages.RoomAvailability') }}</a>
+      <a href="#"><i class="fas fa-times-circle"></i> {{ __('messages.RoomInavailability') }}</a>
     </div>
     <hr>
 
    <!-- Générer Emploi du Temps -->
     <a class="has-submenu" onclick="toggleSubmenu(this)">
-      <span class="icon">🕒</span> Emploi du Temps
+      <span class="icon">🕒</span> {{ __('messages.Schedule') }}
     </a>
     <div class="submenu">
       <a href="#"><i class="fas fa-building"></i> Par Bâtiment</a>
@@ -110,23 +120,23 @@
 
     <!-- Gérer les Logs -->
     <a class="has-submenu" onclick="toggleSubmenu(this)">
-      <span class="icon">⚙️</span> Gérer-Logs
+      <span class="icon">⚙️</span> {{ __('messages.Logs') }}
     </a>
     <div class="submenu">
       <a href="{{ route('userlogs.admin') }}" title="Ver logs de Admin">
           <i class="fas fa-user-shield"></i> Admin
       </a>
       <a href="{{ route('userlogs.direction') }}" title="Ver logs da Direção">
-          <i class="fas fa-chalkboard-teacher"></i> Direction
+          <i class="fas fa-chalkboard-teacher"></i> {{ __('messages.Direction') }}
       </a>
       <a href="{{ route('userlogs.professeur') }}" title="Ver logs de Professores">
-          <i class="fas fa-user-graduate"></i> Professeur
+          <i class="fas fa-user-graduate"></i> {{ __('messages.Professor') }}
       </a>
       <a href="{{ route('userlogs.parent') }}" title="Ver logs dos Pais">
-          <i class="fas fa-user-friends"></i> Parent
+          <i class="fas fa-user-friends"></i> {{ __('messages.Parent') }}
       </a>
       <a href="{{ route('userlogs.eleve') }}" title="Ver logs dos Alunos">
-          <i class="fas fa-user"></i> Eleve
+          <i class="fas fa-user"></i> {{ __('messages.Student') }}
       </a>
     </div>
   

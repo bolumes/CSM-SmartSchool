@@ -1,92 +1,54 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\User;
 use App\Http\Requests\UserRequest;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class EleveController extends Controller
 {
-    // Busca por Eleve
+    
+       
+
+    // Metodo para buscar usuários com function = 'Parent'
     public function search(Request $request)
     {
+        // Inicialize a variável de usuários
         $users = [];
 
-        if ($request->filled('search')) {
+        if ($request->filled('name')) {
+            $name = $request->input('name');
 
-            $search = $request->input('search');
-
+            // Pesquisa apenas usuários com function = 'Parent' e que correspondam ao nome
             $users = User::where('function', 'Eleve')
-                ->where(function ($query) use ($search) {
-
-                    // Se for número → pesquisa por ID
-                    if (is_numeric($search)) {
-                        $query->where('id', $search);
-                    }
-
-                    // Pesquisa por nome ou sobrenome
-                    $query->orWhere('firstname', 'like', "%{$search}%")
-                        ->orWhere('lastname', 'like', "%{$search}%");
-
+                ->where(function ($query) use ($name) {
+                    $query->where('firstname', 'like', '%' . $name . '%')
+                        ->orWhere('lastname', 'like', '%' . $name . '%');
                 })
-                ->get();
+                ->paginate(10);  // Paginação com 10 resultados por página
         }
 
-        return view('eleve.search', compact('users'));
+        return view('users.search', compact('users'));
     }
 
-    // Exibe os detalhes de um usuário específico
-    public function show(User $user)
-    {
-        if ($user->function !== 'Eleve') {
-            abort(404); // ou abort(403);
-        }
-
-        return view('eleve.show', ['user' => $user]);
-    }
-
-    // Exibe a lista de Eleve
-    public function listeleve()
+     
+    
+    // Exibe a lista de usuários com function = 'Parent'
+    public function listeleves()
     {
         $users = User::where('function', 'Eleve')->get();
 
-        return view('eleve.listeleve', compact('users'));
+        return view('users.listusers', compact('users'));
     }
 
-    // Edita os dados do usuário
-    public function edit(User $user)
-    {
-        return view('eleve.edit', ['user' => $user]); // Retorna a view de edição com os dados do usuário
-    }
 
-    // Atualiza os dados do usuário
-    public function update(UserRequest $request, User $user)
-    {
-        // Valida os dados do formulário usando o UserRequest
-        $request->validated();
-        
-        // Atualiza os dados do usuário com os dados validados
-        $user->update([
-            'firstname' => $request->input('firstname'),
-            'lastname' => $request->input('lastname'),
-            'telephone' => $request->input('telephone'),
-            'address' => $request->input('address'),
-            'function' => $request->input('function'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
-        ]);
-
-        //return redirect()->route('users.show')->with('success', 'Usuário atualizado com sucesso!');
-        return redirect()->route('eleve.show', $user)->with('success', 'Eleve atualizado com sucesso!');
-
-    }
-
-    // Exporta os dados dos Eleve para CSV
+    // Exporta os dados dos usuários para CSV
     public function export(Request $request)
     {
-        $filename = 'eleves.csv';
+        $filename = 'users_eleves.csv'; // Nome sugerido para refletir o filtro
 
         return response()->streamDownload(function () {
 
@@ -103,7 +65,7 @@ class EleveController extends Controller
                 'Function'
             ]);
 
-            // Apenas Eleves
+            // Filtra apenas usuários com function = 'Parent'
             User::where('function', 'Eleve')
                 ->orderBy('firstname')
                 ->chunk(200, function ($users) use ($handle) {
@@ -127,5 +89,7 @@ class EleveController extends Controller
         }, $filename);
     }
 
+    
 }
+
 

@@ -297,25 +297,32 @@ s
 </head>
 <body>
 
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+      <!-- Navbar -->
+<div class="navbar">
 
+    <!-- Toggle - Esquerda -->
+    <div style="flex:1; display:flex; align-items:center;">
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    </div>
+
+    <!-- Logo - Centro esquerda -->
+    <div style="flex:1; display:flex; align-items:center;">
         <div class="logo">
             <img src="img/logo.png" alt="SmartSchool Logo">
         </div>
+    </div>
 
-        <div class="search">
-            <input type="text" placeholder="Pesquisar...">
-        </div>
 
-        <!-- Language Switcher -->
-        <div class="language-switcher">
-            <a href="?lang=fr">🇫🇷 FR</a>
-            <a href="?lang=pt">🇵🇹 PT</a>
-            <a href="?lang=en">🇬🇧 ENG</a>
+    <!-- Search - Centro direita -->
+    <div style="flex:1; display:flex; justify-content:center;">
+        <div class="search" style="max-width:250px; width:100%;">
+            <input type="text" placeholder="Pesquisar..." style="width:100%;">
         </div>
     </div>
+
+    </div>
+
+</div>
 
    <!--partials sidebar-->
    @include('partials.sidebarwelcome')
@@ -323,8 +330,8 @@ s
    
     <!-- Conteúdo Principal -->
     <div class="main-content" id="main-content">
-        <h2 class="text-primary">Bienvenue au Csm-SmartSchool</h2>
-        <p class="text-primary">Plataforme de Gestion - Complexe scolaire Multinacional</p>
+        <h2 class="text-primary">{{ __('messages.welcome') }}</h2>
+        <p class="text-primary">{{ __('messages.platform') }}</p>
 
         <!-- Exibe o e-mail do usuário logado -->
         <p>
@@ -569,7 +576,8 @@ s
 
 <br>
 
- 
+<!-- Modal de Login -->
+    @include('partials.sair') 
 
    <script>
         function toggleMenu() {

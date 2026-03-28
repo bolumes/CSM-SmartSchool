@@ -26,7 +26,7 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">CREER CLASSE</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">{{ __('messages.Create Class') }}</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
@@ -92,26 +92,26 @@
                     @endif
                 
                     <div class="col-md-6">
-                        <label for="name" class="form-label">Nom</label>
+                        <label for="name" class="form-label">{{ __('messages.Class Name') }}</label>
                         <input type="text" class="form-control" name="name" value="{{ old('name') }}">
                     </div>
 
                     <div class="col-md-6">
-                        <label for="code" class="form-label">Code</label>
+                        <label for="code" class="form-label">{{ __('messages.Code') }}</label>
                         <input type="text" class="form-control" name="code" value="{{ old('code') }}">
                     </div>
 
                     <div class="col-md-6">
-                        <label for="level" class="form-label">Niveau</label>
+                        <label for="level" class="form-label">{{ __('messages.Level') }}</label>
                         <input type="text" class="form-control" name="level" value="{{ old('level') }}">
                     </div>
                                              
                     <div class="col-md-12">
-                        <label for="description" class="form-label">Description</label>
+                        <label for="description" class="form-label">{{ __('messages.Description') }}</label>
                         <textarea class="form-control" name="description" rows="4">{{ old('description') }}</textarea>
                     </div>
                 
-                    <button type="submit" class="mt-3">Enregistrer</button>
+                    <button type="submit" class="mt-3">{{ __('messages.Save') }}</button>
                 </form>
                 
             </div>

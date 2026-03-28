@@ -14,6 +14,9 @@ return Application::configure(basePath: dirname(__DIR__))
             $middleware->web(append: [
             \App\Http\Middleware\SetLocale::class,
         ]);
+
+        // Redireciona usuários não autenticados para a raiz (home.index)
+        $middleware->redirectGuestsTo('/');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

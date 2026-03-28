@@ -26,7 +26,7 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">RECHERCHER MATIERE</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">{{ __('messages.Search for classes') }}</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
@@ -92,8 +92,8 @@
                     
                     @endif
                     
-                    <input class="form-control me-2" type="search" name="codigo" required placeholder="Rechercher code..." aria-label="Pesquisar"> 
-                    <button class="btn btn-outline-primary" type="submit">Rechercher</button>
+                    <input class="form-control me-2" type="search" name="codigo" required placeholder="{{ __('messages.Code') }}" aria-label="Pesquisar"> 
+                    <button class="btn btn-outline-primary" type="submit">{{ __('messages.Search') }}</button>
     
                 </form>
                 <hr style="width: 100%; height: 2px; background-color: blue; margin-top: 20px;">

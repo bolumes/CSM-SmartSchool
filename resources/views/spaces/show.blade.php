@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pla-moss</title>
+    <title>Csm-SmartSchool</title>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/style_chat.css">
@@ -26,13 +26,20 @@
 @include('partials.sidebarwelcome')
 
 <!-- ================= CHAT PAGE ================= -->
+@php
+    // Define a classe do fundo com base no tipo do espaço
+    $spaceType = $space->type ?? 'parent'; // fallback para 'parent' caso não exista
+    $fieldsetClass = 'chat-fieldset chat-fieldset-' . $spaceType;
+    $containerClass = 'chat-container chat-container-' . $spaceType;
+@endphp
+
 <div class="main-content chat-page">
 
-    <fieldset class="chat-fieldset">
+    <fieldset class="{{ $fieldsetClass }}">
         <legend><h3>CHAT PROFESSEURS</h3></legend>
 
         <div class="chat-wrapper">
-            <div class="chat-container">
+            <div class="{{ $containerClass }}">
 
                 <div class="chat-header">
                     <h3>{{ $space->name }}</h3>
@@ -47,6 +54,27 @@
                     <div class="chat-post {{ $isMine ? 'mine' : 'other' }}" data-post-id="{{ $post->id }}">
                         <div class="content">
                             <p>{{ $post->content }}</p>
+
+                            @if($post->attachments && $post->attachments->count())
+                                <div class="chat-attachments">
+                                    @foreach($post->attachments as $file)
+
+                                        @if(str_starts_with($file->file_type, 'image'))
+                                            <img src="{{ asset('storage/' . $file->file_path) }}"
+                                                style="max-width:200px; display:block; margin-top:5px;">
+                                        @else
+                                            <div>
+                                                <a href="{{ asset('storage/' . $file->file_path) }}"
+                                                target="_blank">
+                                                    📎 {{ $file->file_name }}
+                                                </a>
+                                            </div>
+                                        @endif
+
+                                    @endforeach
+                                </div>
+                            @endif
+
                             <span class="meta">
                                 {{ $isMine ? 'Você' : ($post->user->email ?? 'Utilizador') }}
                                 | {{ $post->created_at->diffForHumans() }}
@@ -71,10 +99,36 @@
 
                 </div>
 
-                <form action="{{ route('spaces.message.store', $space->id) }}" method="POST" class="chat-form">
+                <form action="{{ route('spaces.message.store', $space->id) }}"
+                    method="POST"
+                    enctype="multipart/form-data"
+                    class="chat-form">
                     @csrf
-                    <input type="text" name="content" placeholder="Escreva sua mensagem..." required>
-                    <button type="submit">Enviar</button>
+
+                    <div class="input-wrapper">
+
+                        <!-- Botão ficheiro -->
+                        <label for="fileUpload" class="file-button">
+                            <i class="fas fa-paperclip"></i>
+                        </label>
+                        <input type="file"
+                            id="fileUpload"
+                            name="attachments[]"
+                            multiple
+                            hidden>
+
+                        <!-- Input texto -->
+                        <input type="text"
+                            name="content"
+                            placeholder="Escreva sua mensagem..."
+                            class="chat-input">
+
+                        <!-- Botão enviar -->
+                        <button type="submit" class="send-button">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+
+                    </div>
                 </form>
 
             </div>
@@ -153,7 +207,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 </script>
-
 
 </body>
 </html>

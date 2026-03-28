@@ -370,13 +370,10 @@
         </div>
     </div>
 </div>
-
-
-
 </fieldset>
 
-
-
+<!-- Modal de Login -->
+@include('partials.auth-modal')
 
 
    <script>

@@ -23,13 +23,13 @@ class UserRequest extends FormRequest
     {
         return [
             'firstname' => 'required',
-            'lastname' => 'required',
-            'telephone' => 'required',
-            'address' => 'required',
+            'lastname' => 'nullable',
+            'telephone' => 'nullable',
+            'address' => 'nullable',
             'function' => 'required',
             'email' => 'required|email|unique:users,email,' . ($this->user?->id ?? 'null'),
             'password' => 'required|min:6'
-            ];
+        ];
     }
 
     public function messages(): array

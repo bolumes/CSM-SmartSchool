@@ -1,173 +1,141 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pla-moss</title>
-    <link rel="stylesheet" href="../css/style1.css"> <!-- Link para o arquivo CSS externo -->
-    <link rel="icon" href="../../img/books.png">
-    <style>
-        /* Estilos adicionais para o botão de pesquisa */
-        tr {
-            height: 40px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        tr:hover {
-            height: 40px;
-            background-color: #afc393;
-            cursor: pointer;
-            color: blue;
-        }
+<title>Details User</title>
 
-        th {
-            background-color: #1c359d;
-            color: white;
-        }
-    </style>
+<link rel="stylesheet" href="{{ asset('css/styledroit.css') }}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<link rel="icon" href="{{ asset('img/books.png') }}">
 </head>
+
 <body>
 
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-        <div class="logo" ><img src="../../img/logo.png" ></div>
-        <div class="search">
-            <input type="text" placeholder="Pesquisar...">
-        </div>
+<!-- NAVBAR -->
+<div class="navbar">
+
+    <div class="menu-toggle" onclick="toggleMenu()">
+        ☰
     </div>
 
-    <!--partials sidebar-->
-    @include('partials.sidebarsettings')
-
-
-    <!-- Conteúdo Principal -->
-    <div class="main-content">
-        <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">DETAILS USER</h3></legend>
-        
-        <!-- Container Principal com Imagem e Formulário -->
-        <div class="container">
-
-             <!-- Seção da Imagem -->
-             <div class="form-image">
-                <img src="../../img/det.png" alt="Imagem do Formulário" style="height: 50px; margin-left: 40px;">
-            </div>
-
-            <!-- Seção do Formulário -->
-            <div class="form-container">
-
-                <!-- Mensagem flutuante -->
-                @if (session('success'))
-                    <div id="toast-success" class="toast">
-                        {{ session('success') }}
-                    </div>
-
-                    <style>
-                        .toast {
-                            position: fixed;
-                            top: 20px;
-                            right: 20px;
-                            background-color: #38a169; /* verde */
-                            color: white;
-                            padding: 15px 25px;
-                            border-radius: 8px;
-                            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-                            z-index: 9999;
-                            animation: slideIn 0.5s, fadeOut 0.5s 3.5s forwards;
-                        }
-
-                        @keyframes slideIn {
-                            from {
-                                opacity: 0;
-                                transform: translateY(-20px);
-                            }
-                            to {
-                                opacity: 1;
-                                transform: translateY(0);
-                            }
-                        }
-
-                        @keyframes fadeOut {
-                            to {
-                                opacity: 0;
-                                transform: translateY(-20px);
-                                display: none;
-                            }
-                        }
-                    </style>
-                @endif
-
-               
-                <table border="1" style="width: 100%; margin: 0 auto; border-collapse: collapse;">
-                    <tbody>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold; width: 40%;  background-color: #1c359d; color: white;">ATTRIBUT</td>
-                            <td style="text-align: center; font-weight: bold; width: 40%;  background-color: #1c359d; color: white;">VALEUR</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold; width: 40%;">ID</td>
-                            <td align="center">{{ $user->id }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Nom</td>
-                            <td align="center">{{ $user->firstname }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Prénom</td>
-                            <td align="center">{{ $user->lastname }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Email</td>
-                            <td align="center">{{ $user->email }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Telephone</td>
-                            <td align="center">{{ $user->telephone }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Addresse</td>
-                            <td align="center">{{ $user->address }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Fonction</td>
-                            <td align="center">{{ $user->function }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Description</td>
-                            <td align="center">{{ $user->description }}</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; font-weight: bold;">Date de Creation</td>
-                            <td align="center">{{ $user->created_at }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </fieldset>
+    <div class="logo">
+        <img src="{{ asset('img/logo.png') }}">
     </div>
 
-    <!-- Script para Toggle do Menu -->
-    <script>
-        function toggleMenu() {
-            const sidebar = document.getElementById("sidebar");
-            const overlay = document.getElementById("overlay");
+    <div class="search">
+        <input type="text" placeholder="Pesquisar...">
+    </div>
 
-            sidebar.classList.toggle("open");
-            overlay.classList.toggle("active");
-        }
+</div>
 
-        function toggleSubmenu(element) {
-            element.classList.toggle("open");
-            const submenu = element.nextElementSibling;
-            submenu.style.display = submenu.style.display === "flex" ? "none" : "flex";
-        }
-    </script>
+@include('partials.sidebarsettings')
+
+<div class="main-content">
+
+<fieldset style="border-radius:8px; border:2px solid blue">
+<legend style="text-align:center">
+<h3 style="color:blue">DETAILS USER</h3>
+</legend>
+
+<div class="container">
+
+<div style="text-align: center;">
+    <img src="{{ asset('img/det.png') }}" alt="Imagem do Formulário" style="height: 50px;">
+</div>
+
+@if(session('success'))
+<div class="toast">
+{{ session('success') }}
+</div>
+@endif
+
+<table class="permission-table">
+    <thead>
+        <tr>
+            <th>ATTRIBUT</th>
+            <th>VALEUR</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>ID</strong></td>
+            <td>{{ $user->id }}</td>
+        </tr>
+        <tr>
+            <td><strong>Nom</strong></td>
+            <td>{{ $user->firstname }}</td>
+        </tr>
+        <tr>
+            <td><strong>Prénom</strong></td>
+            <td>{{ $user->lastname }}</td>
+        </tr>
+        <tr>
+            <td><strong>Email</strong></td>
+            <td>{{ $user->email }}</td>
+        </tr>
+        <tr>
+            <td><strong>Téléphone</strong></td>
+            <td>{{ $user->telephone }}</td>
+        </tr>
+        <tr>
+            <td><strong>Adresse</strong></td>
+            <td>{{ $user->address }}</td>
+        </tr>
+        <tr>
+            <td><strong>Fonction</strong></td>
+            <td>{{ $user->function }}</td>
+        </tr>
+        <tr>
+            <td><strong>Description</strong></td>
+            <td>{{ $user->description }}</td>
+        </tr>
+        <tr>
+            <td><strong>Date de Création</strong></td>
+            <td>{{ $user->created_at }}</td>
+        </tr>
+    </tbody>
+</table>
+
+</div>
+</div>
+</fieldset>
+
+</div>
+
+<script>
+
+/* Sidebar Toggle */
+function toggleMenu(){
+    document.getElementById("sidebar").classList.toggle("open");
+}
+
+/* Click outside sidebar = close */
+document.addEventListener("click", function(event){
+
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.querySelector(".menu-toggle");
+
+    if(!sidebar.contains(event.target) &&
+       !toggleBtn.contains(event.target)){
+        sidebar.classList.remove("open");
+    }
+});
+
+/* Submenu toggle */
+function toggleSubmenu(element){
+    event.preventDefault();
+
+    const submenu = element.nextElementSibling;
+
+    if(submenu){
+        submenu.style.display =
+            submenu.style.display === "flex" ? "none" : "flex";
+    }
+}
+
+</script>
+
 </body>
 </html>
-
-
-
-
-

@@ -158,22 +158,19 @@ class UserController extends Controller
 
     public function storeSignup(UserRequest $request)
     {
-        // Valida os dados do formulário usando o UserRequest
         $request->validated();
-    
-        // Cria o usuário
-        $user = User::create([
-            'firstname' => $request->input('firstname'),
-            'lastname' => $request->input('lastname'),
-            'telephone' => $request->input('telephone'),
-            'address' => $request->input('address'),
-            'function' => $request->input('function'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
+
+        User::create([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'telephone' => $request->telephone,
+            'address' => $request->address,
+            'function' => $request->function,
+            'email' => $request->email,
+            'password' => bcrypt($request->password), // Certifique-se de criptografar a senha
         ]);
-        
-        // Redireciona direto pra home
-        return redirect()->route('login')->with('success', 'Cadastro realizado com sucesso!');
+
+        return back()->with('success','Cadastro realizado com sucesso!');
     }
 
 
@@ -336,7 +333,13 @@ class UserController extends Controller
             }, $filename);
         }
 
-    
+
+        public function droit()
+        {
+            $users = User::all(); // ou o filtro que quiser
+
+            return view('users.droits', compact('users'));
+        }
 
     
 }

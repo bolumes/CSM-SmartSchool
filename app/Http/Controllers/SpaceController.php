@@ -14,7 +14,7 @@ class SpaceController extends Controller
         return view('spaces.index', compact('spaces'));
     }
 
-    // Mostrar um espaço com posts e comentários
+    // Mostrar um espaço com posts e comentários (genérico)
     public function show(Space $space)
     {
         // Só membros podem acessar
@@ -47,10 +47,14 @@ class SpaceController extends Controller
         return redirect()->route('spaces.show', $space)->with('success', 'Espaço criado!');
     }
 
+    /**
+     * Mostra o chat específico para professores.
+     * Cria o espaço "Chat Professores" se não existir.
+     */
     public function showProfessorChat()
     {
-        // Escolhe ou cria um espaço fixo para todos os professores
-        $space = \App\Models\Space::firstOrCreate(
+        // Cria ou recupera o espaço "Chat Professores"
+        $space = Space::firstOrCreate(
             ['name' => 'Chat Professores'],
             [
                 'description' => 'Espaço para troca de mensagens entre professores',
@@ -58,25 +62,59 @@ class SpaceController extends Controller
             ]
         );
 
-        // Garante que o usuário está na lista de membros
+        // Garante que o usuário atual é membro do espaço
         if (!$space->users->contains(auth()->id())) {
             $space->users()->attach(auth()->id());
         }
 
-        $space = \App\Models\Space::with([
-            'posts.user',          // autor das mensagens
-            'posts.comments.user', // autor dos comentários
-            'creator'              // criador do espaço
-        ])->firstOrCreate(
-            ['name' => 'Chat Professores'],
-            ['description' => 'Espaço para troca de mensagens entre professores', 'created_by' => auth()->id()]
-        );
+        // Carrega as relações necessárias
+        $space->load([
+            'posts.user',
+            'posts.comments.user',
+            'posts.attachments',  // se houver anexos
+            'creator'
+        ]);
 
-        // Carrega posts e comentários com os usuários
-        $space->load('posts.user', 'posts.comments.user', 'creator');
-
-        return view('spaces.show', compact('space'));
+        // Retorna a view específica para professores
+        return view('spaces.professor', compact('space'));
     }
 
+    /**
+     * Mostra o chat específico para parents.
+     * Verifica permissões e cria o espaço "Chat Parents" se não existir.
+     */
+    public function showParentChat()
+    {
+        $user = auth()->user();
 
+        // Verifica permissão de acesso: função Parent/Admin/Direction OU permissão individual chat_parent = true
+        if (!in_array($user->function, ['Parent', 'Admin', 'Direction']) && !$user->chat_parent) {
+            abort(403, 'Acesso restrito.');
+        }
+
+        // Cria ou recupera o espaço "Chat Parents"
+        $space = Space::firstOrCreate(
+            ['name' => 'Chat Parents'],
+            [
+                'description' => 'Espaço para troca de mensagens entre pais',
+                'created_by'  => $user->id
+            ]
+        );
+
+        // Garante que o usuário atual seja membro do espaço
+        if (!$space->users->contains($user->id)) {
+            $space->users()->attach($user->id);
+        }
+
+        // Carrega as relações necessárias
+        $space->load([
+            'posts.user',
+            'posts.comments.user',
+            'posts.attachments',
+            'creator'
+        ]);
+
+        // Retorna a view específica para parents
+        return view('spaces.parent', compact('space'));
+    }
 }
