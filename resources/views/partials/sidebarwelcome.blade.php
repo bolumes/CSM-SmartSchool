@@ -26,92 +26,36 @@ if ($user) {
          <a href="{{ route('anuncios.listanuncios') }}"><i class="fas fa-list"></i> {{ __('messages.List') }}</a>
      </div>
      <hr>
- 
 
-    <!-- Edifícios -->
-    <a class="has-submenu" onclick="toggleSubmenu(this)"><span class="icon">🏢</span> {{ __('messages.buildings') }}</a>
-    <div class="submenu">
-        <a href="{{ route('edificios.search') }}"><i class="fas fa-search"></i> {{ __('messages.Search') }}</a>
-        @if($isAdminOrDirection)
-            <a href="{{ route('edificios.create') }}"><i class="fas fa-plus"></i> {{ __('messages.Create') }}</a>
-        @endif
-        <a href="{{ route('edificios.listedificios') }}"><i class="fas fa-list"></i> {{ __('messages.List') }}</a>
-    </div>
+    <!-- Gestao Academica -->
+    <a href="{{ route('home.gestacad') }}"><span class="icon">📚</span> {{ __('messages.Manage') }}</a>
     <hr>
 
-    <!-- Salas -->
-    <a class="has-submenu" onclick="toggleSubmenu(this)"><span class="icon">🏫</span> {{ __('messages.Room') }}</a>
-    <div class="submenu">
-        <a href="{{ route('salas.search') }}"><i class="fas fa-search"></i> {{ __('messages.Search') }}</a>
-        @if($isAdminOrDirection)
-            <a href="{{ route('salas.create') }}"><i class="fas fa-plus"></i> {{ __('messages.Create') }}</a>
-        @endif
-        <a href="{{ route('salas.listsalas') }}"><i class="fas fa-list"></i> {{ __('messages.List') }}</a>
-    </div>
+    <!-- Gestao Eventos -->
+    <a href="{{ route('home.gesteventos') }}"><span class="icon">📅</span> {{ __('messages.ManageEvents') }}</a>
     <hr>
 
-    <!-- Classes -->
-    <a class="has-submenu" onclick="toggleSubmenu(this)"><span class="icon">📖</span> {{ __('messages.classes') }}</a>
-    <div class="submenu">
-        <a href="{{ route('classes.search') }}"><i class="fas fa-search"></i> {{ __('messages.Search') }}</a>
-        @if($isAdminOrDirection)
-            <a href="{{ route('classes.create') }}"><i class="fas fa-plus"></i> {{ __('messages.Create') }}</a>
-        @endif
-        <a href="{{ route('classes.listclasses') }}"><i class="fas fa-list"></i> {{ __('messages.List') }}</a>
-    </div>
+    <!-- Gestao Chat -->
+    <a href="{{ route('home.gestchat') }}"><span class="icon">💬</span> {{ __('messages.ManageChat') }}</a>
     <hr>
 
-    <!-- Matiere -->
-    <a class="has-submenu" onclick="toggleSubmenu(this)"><span class="icon">📖</span> {{ __('messages.subjects') }}</a>
-    <div class="submenu">
-        <a href="{{ route('matieres.search') }}"><i class="fas fa-search"></i> {{ __('messages.Search') }}</a>
-        @if($isAdminOrDirection)
-            <a href="{{ route('matieres.create') }}"><i class="fas fa-plus"></i> {{ __('messages.Create') }}</a>
-        @endif
-        <a href="{{ route('matieres.listmatieres') }}"><i class="fas fa-list"></i> {{ __('messages.List') }}</a>
-    </div>
-    <hr>
-
-    <!-- Professores -->
-    <a class="has-submenu" onclick="toggleSubmenu(this)">
-        <span class="icon">👨‍🏫</span> {{ __('messages.Professor') }}
-    </a>
-
-    <div class="submenu">
-
-        <a href="{{ route('professors.search') }}">
-            <i class="fas fa-search"></i> {{ __('messages.Search') }}
-        </a>
-
-        @if($isAdminOrDirection)
-            <a href="{{ route('professors.create') }}">
-                <i class="fas fa-plus"></i> {{ __('messages.Create') }}
-            </a>
-        @endif
-
-        <a href="{{ route('professors.listprofessors') }}">
-            <i class="fas fa-list"></i> {{ __('messages.List') }}
-        </a>
-
-        @if($canChatProfessor)
-            <a href="{{ route('spaces.professor') }}">
-                <i class="fas fa-comments"></i> {{ __('messages.Chat') }}
-            </a>
-        @endif
-
-    </div>
-
-    <hr>
-
-
-    <!-- Configurações -->
+    
+     <!-- Configurações -->
+     @if($isAdminOrDirection)
     <a href="{{ route('home.settings') }}"><span class="icon">⚙️</span> {{ __('messages.Settings') }}</a>
     <hr>
+    @endif  
 
+    <!-- Acesso Rápido -->
+    @if($isAdminOrDirection)
+    <a href="{{ route('home.acessrapide') }}"><span class="icon">🎯</span> {{ __('messages.quickAccess') }}</a>
+    <hr>
+    @endif
     
     <!-- Logout com modal -->
     <a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal" class="has-submenu">
         <span class="icon"><i class="fas fa-power-off"></i></span> {{ __('messages.Logout') }}
     </a>
-        <hr>
+    <hr>
+    
 </div>

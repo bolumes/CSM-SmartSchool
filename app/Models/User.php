@@ -23,6 +23,7 @@ class User extends Authenticatable
         'function',
         'email',
         'password',
+        'classe_id',
     ];
 
     /**
@@ -69,6 +70,12 @@ class User extends Authenticatable
     public function spaceComments()
     {
         return $this->hasMany(SpaceComment::class);
+    }
+
+    // Classe do aluno (relação opcional)
+    public function classe()
+    {
+        return $this->belongsTo(Classe::class);
     }
 
     /* =======================

@@ -166,6 +166,22 @@ return [
     'Elementary' => 'Siclo Básico',
     'Middle School' => 'Colegio',
     'High School' => 'Liceu',
-    'Physical Education' => 'Educação Física'
+    'Physical Education' => 'Educação Física',
+
+    // Permissions-related translations
+    'Permissions' => 'Permissões',
+
+    // Grade-related translations
+    'Grades' => 'Notas',
+    'Manage' => 'Gestão Acad',
+    'ManageEvents' => 'Gestão Even',
+    'ManageChat' => 'Gestão Chat',
+    'Administration' => 'Administration',
+    'Group' => 'Grupo',
+    'Private' => 'Privado',
+    'QuickAccess' => 'ACESSO RÁPIDO',
+    'quickAccess' => 'Acesso Rápido',
+    'AcademicManagement' => 'GESTÃO ACADEMICA',
+    'MagEvents' => 'GESTÃO ÉVÉNEMENTS',
 
 ];

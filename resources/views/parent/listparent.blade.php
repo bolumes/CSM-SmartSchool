@@ -46,7 +46,7 @@
 
 
     <!--partials sidebar-->
-    @include('partials.sidebarsettings')
+    @include('partials.sidebargestacad')
 
     <!-- Conteúdo Principal -->
     <div class="main-content">

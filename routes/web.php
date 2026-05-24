@@ -17,6 +17,7 @@ use App\Http\Controllers\UserLogController;
 use App\Http\Controllers\SpaceController;
 use App\Http\Controllers\SpacePostController;
 use App\Http\Controllers\EleveController;
+use App\Http\Controllers\NoteController;
 use App\Http\Controllers\SpaceCommentController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,7 +46,11 @@ Route::middleware(['auth'])->group(function () {
     })->name('dashboard');
     Route::get('/welcome', [UserController::class, 'welcome'])->name('home.welcome');
     Route::get('/home/settings', [UserController::class, 'settings'])->name('home.settings');
-
+    Route::get('/home/gestacad', [UserController::class, 'gestacad'])->name('home.gestacad');
+    Route::get('/home/gesteventos', [UserController::class, 'gesteventos'])->name('home.gesteventos');
+    Route::get('/home/gestchat', [UserController::class, 'gestchat'])->name('home.gestchat');
+    Route::get('/home/acessrapide', [UserController::class, 'acessrapide'])->name('home.acessrapide');
+    
     // Perfil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -61,17 +66,33 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/users/update/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/destroy/{user}', [UserController::class, 'destroy'])->name('users.destroy');
     Route::post('/users/export', [UserController::class, 'export'])->name('users.export');
+
+    // Rotas de direitos dos usuários
     Route::get('/users/droit', [UserController::class, 'droit'])->name('users.droits');
+    Route::get('/users/droitDirection', [UserController::class, 'droitDirection'])->name('users.droitDirection');
+    Route::get('/users/droitParent', [UserController::class, 'droitParent'])->name('users.droitParent');
+    Route::get('/users/droitEleve', [UserController::class, 'droitEleve'])->name('users.droitEleve');
+    Route::get('/users/droitProfessor', [UserController::class, 'droitProfessor'])->name('users.droitProfessor');
     Route::get('/users/showPermission/{user}', [UserController::class, 'showPermission'])->name('users.showPermission');
+    Route::get('/users/showPerDirection/{user}', [UserController::class, 'showPerDirection'])->name('users.showPerDirection');
+    Route::get('/users/showPerParent/{user}', [UserController::class, 'showPerParent'])->name('users.showPerParent');
+    Route::get('/users/showPerEleve/{user}', [UserController::class, 'showPerEleve'])->name('users.showPerEleve');
+    Route::get('/users/showPerProfessor/{user}', [UserController::class, 'showPerProfessor'])->name('users.showPerProfessor');
     Route::put('/users/chatUpdate/{user}', [UserController::class, 'chatUpdate'])->name('users.chatUpdate');
 
     // Alunos
-    Route::get('/eleve/search', [EleveController::class, 'search'])->name('eleve.search');
-    Route::get('/eleve/listeleve', [EleveController::class, 'listeleve'])->name('eleve.listeleve');
-    Route::put('/eleve/update/{user}', [EleveController::class, 'update'])->name('eleve.update');
-    Route::get('/eleve/show/{user}', [EleveController::class, 'show'])->name('eleve.show');
-    Route::get('/eleve/edit/{user}', [EleveController::class, 'edit'])->name('eleve.edit');
-    Route::post('/eleve/export', [EleveController::class, 'export'])->name('eleve.export');
+    Route::get('/eleve/search', [EleveController::class, 'search'])->name('eleves.search');
+    Route::get('/eleve/create', [EleveController::class, 'create'])->name('eleves.create');
+    Route::post('/eleve/store', [EleveController::class, 'store'])->name('eleves.store');
+    Route::get('/eleve/listeleve', [EleveController::class, 'listeleve'])->name('eleves.listeleve');
+    Route::put('/eleve/update/{user}', [EleveController::class, 'update'])->name('eleves.update');
+    Route::get('/eleve/show/{user}', [EleveController::class, 'show'])->name('eleves.show');
+    Route::get('/eleve/edit/{user}', [EleveController::class, 'edit'])->name('eleves.edit');
+    Route::post('/eleve/export', [EleveController::class, 'export'])->name('eleves.export');
+
+    // Notas
+    Route::get('/notes/create', [NoteController::class, 'create'])->name('notes.create');
+    Route::post('/notes/store', [NoteController::class, 'store'])->name('notes.store');
 
     // Responsáveis
     Route::get('/parent/search', [ParentController::class, 'search'])->name('parent.search');
@@ -168,6 +189,18 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/eleves/update/{eleve}', [EleveController::class, 'update'])->name('eleves.update');
     Route::delete('/eleves/destroy/{eleve}', [EleveController::class, 'destroy'])->name('eleves.destroy');
     Route::post('/eleves/export', [EleveController::class, 'export'])->name('eleves.export');
+    Route::get('/eleves-by-classe/{id}', [EleveController::class, 'getElevesByClasse']);
+    Route::get('/listenotes', [EleveController::class, 'index'])->name('notes.listenotes');
+    Route::get('/eleves/{id}/notes', [EleveController::class, 'notes'])->name('notes.notesEleves');
+    Route::get('/eleves/{id}/export-boletim', [EleveController::class, 'exportBoletim'])->name('eleves.exportBoletim');
+    
+    // Notas
+    Route::get('/notes/create', [NoteController::class, 'create'])->name('notes.create');
+    Route::post('/notes/store', [NoteController::class, 'store'])->name('notes.store');
+    Route::get('/matieres-by-niveau/{niveau}', [MatiereController::class, 'getMatieresByNiveau']);
+    Route::get('/notes', [NoteController::class, 'listenotes'])->name('notes.listenotes');
+    Route::get('/eleves/{id}/notes/edit', [NoteController::class, 'editByEleve']);
+    Route::post('/eleves/{id}/notes/update', [NoteController::class, 'updateByEleve']);
 
     // Pais
     Route::get('/parents/search', [ParentController::class, 'search'])->name('parents.search');

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes do Anúncio</title>
+    <title>CSM-SmartSchool</title>
 
     <link rel="stylesheet" href="{{ asset('css/styledroit.css') }}">
     <link rel="icon" href="{{ asset('img/books.png') }}">

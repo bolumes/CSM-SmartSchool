@@ -26,10 +26,10 @@ return [
     'User' => 'Utilisateur',
     'statistics' => 'Statistiques',
     'Events' => 'Événements',
-    'EventsPlanning' => 'Événements programmés',
+    'EventsPlanning' => 'Évén programmés',
     'Room' => 'Salle',
-    'RoomAvailability' => 'Salles disponibles',
-    'RoomInavailability' => 'Salles indisponibles',
+    'RoomAvailability' => 'Salles dispo',
+    'RoomInavailability' => 'Salles indispo',
     'Schedule' => 'Emploi du temps',
     'Logs' => 'Journaux',
     'Search' => 'Rechercher',
@@ -167,8 +167,24 @@ return [
     'Elementary' => 'Élémentaire',
     'Middle School' => 'Collège',
     'High School' => 'Lycée',
-    'Physical Education' => 'Éducation Physique et Sportive'
+    'Physical Education' => 'Éducation Physique et Sportive',
 
+    // Permissions-related translations
+    'Permissions' => 'Permissions',
+
+    // Grade-related translations
+    'Grades' => 'Notes',
+
+    'Manage' => 'Gestion Acad',
+    'ManageEvents' => 'Gestion Évén',
+    'ManageChat' => 'Gestion Chat',
+    'Administration' => 'Administration',
+    'Group' => 'Groupe',
+    'Private' => 'Privé',
+    'QuickAccess' => 'ACCESS RAPIDE',
+    'quickAccess' => 'Accès Rapide',
+    'AcademicManagement' => 'GESTION ACADEMIQUE',
+    'MagEvents' => 'GESTION ÉVÉNEMENTS',
 
 ];
 

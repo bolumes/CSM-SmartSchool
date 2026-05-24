@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Details Matière</title>
+    <title>CSM-SmartSchool</title>
     <link rel="stylesheet" href="{{ asset('css/styledroit.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="icon" href="{{ asset('img/books.png') }}">
@@ -44,7 +44,7 @@
     </div>
 </div>
 
-@include('partials.sidebarwelcome')
+@include('partials.sidebargestacad')
 
 <div class="main-content">
     <fieldset style="border-radius:8px; border:2px solid blue">

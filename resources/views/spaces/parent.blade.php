@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pla-moss - Chat Parents</title>
+    <title>CSM-SmartSchool</title>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style_chat.css') }}">
@@ -22,7 +22,7 @@
     </div>
 </div>
 
-@include('partials.sidebarwelcome')
+@include('partials.sidebargestchat')
 
 <!-- ================= CHAT PARENT ================= -->
 @php

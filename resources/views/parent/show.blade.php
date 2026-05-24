@@ -30,7 +30,7 @@
 
 </div>
 
-@include('partials.sidebarsettings')
+@include('partials.sidebargestacad')
 
 <div class="main-content">
 

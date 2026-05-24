@@ -15,4 +15,16 @@ class Classe extends Model
         'level',
         'description',
     ];
+
+    public function eleves()
+    {
+        return $this->hasMany(Eleve::class);
+    }   
+
+    public function matieres()
+    {
+        return $this->belongsToMany(Matiere::class, 'classe_matiere');
+    }
+
+
 }

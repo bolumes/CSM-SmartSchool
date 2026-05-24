@@ -4,33 +4,41 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pla-moss</title>
+    <title>CSM-SmartSchool</title>
     <link rel="stylesheet" href="{{ asset('css/style1.css') }}">
     <link rel="icon" href="../../img/books.png">
 </head>
 <style>
-      /* Estilo para a imagem */
-.form-image img {
-    height: 400px;         /* Altura fixa de 300px */
-    margin-left: 90px;    /* Margem à esquerda para centralização */
-    max-width: 100%;       /* A imagem não ultrapassará a largura do contêiner */
-    width: 700px;           /* Mantém a proporção da imagem */
-}
+       /* Container da imagem */
+        .form-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
 
-/* Responsividade: ajustar em telas menores */
-@media (max-width: 768px) {
-    .form-image img {
-        margin-left: 0;     /* Remove a margem à esquerda em telas menores */
-        height: auto;       /* A altura será ajustada automaticamente */
-        width: 100%;        /* Faz com que a imagem ocupe toda a largura da tela */
-    }
-}
+        /* Imagem responsiva */
+        .form-image img {
+            width: 100%;
+            max-width: 500px; /* limite máximo */
+            height: auto; /* mantém proporção */
+            object-fit: contain; /* evita deformação */
+            display: block;
+        }
 
-@media (max-width: 480px) {
-    .form-image img {
-        height: 200px;      /* Ajusta a altura para telas muito pequenas */
-    }
-}
+        /* Tablets */
+        @media (max-width: 768px) {
+            .form-image img {
+                max-width: 90%;
+            }
+        }
+
+        /* Telemóveis */
+        @media (max-width: 480px) {
+            .form-image img {
+                max-width: 95%;
+            }
+        }
 
 </style>
 <body>
@@ -58,7 +66,7 @@
         <div class="container">
             <!-- Seção da Imagem -->
             <div class="form-image">
-              <img src="../../img/sta1.jpg" alt="Imagem do Formulário">
+              <img src="../../img/parame1.png" alt="Imagem do Formulário">
             </div>
             
         </div>

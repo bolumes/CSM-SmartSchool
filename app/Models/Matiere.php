@@ -21,4 +21,9 @@ class Matiere extends Model
     {
         return $this->hasMany(Event::class);
     }
+
+    public function classes()
+    {
+        return $this->belongsToMany(Classe::class, 'classe_matiere');
+    }
 }

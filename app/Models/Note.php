@@ -32,7 +32,7 @@ class Note extends Model
     /**
      * Relacionamento com a tabela matieres (disciplina)
      */
-    public function materia()
+    public function matiere()
     {
         return $this->belongsTo(Matiere::class, 'matiere_id');
     }
@@ -44,4 +44,11 @@ class Note extends Model
     {
         return $this->belongsTo(Professor::class);
     }
+
+    public function classe()
+    {
+        return $this->belongsTo(Classe::class, 'classe_id');
+    }
+
+    
 }

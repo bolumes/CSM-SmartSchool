@@ -58,6 +58,34 @@ class UserController extends Controller
         return view('home.services'); 
     }
 
+    // Exibe a página de gestacad
+    public function gestacad()
+    {
+        //dd("gestacad foi acessado!");
+        return view('home.gestacad'); 
+    }
+
+    // Exibe a página de gestchat
+    public function gestchat()
+    {
+        //dd("gestchat foi acessado!");
+        return view('home.gestchat');
+    }
+
+    // Exibe a página de gesteventos
+    public function gesteventos()
+    {
+        //dd("gesteventos foi acessado!");
+        return view('home.gesteventos'); 
+    }
+
+    // Exibe a página de acess rapide
+    public function acessrapide()
+    {
+        //dd("acessrapide foi acessado!");
+        return view('home.acessrapide'); 
+    }
+
     // Exibe a página de login
     public function login() 
     {
@@ -175,25 +203,20 @@ class UserController extends Controller
 
 
     // Armazena os dados do usuário
-    public function store(UserRequest $request)
+   public function store(UserRequest $request)
     {
-        
-        // Valida os dados do formulário usando o UserRequest
-        $request->validated();
-        
-        // Cria um novo usuário com os dados validados
-        User::create([
-            'firstname' => $request->input('firstname'),
-            'lastname' => $request->input('lastname'),
-            'telephone' => $request->input('telephone'),
-            'address' => $request->input('address'),
-            'function' => $request->input('function'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
-        ]);
+        $data = $request->validated();
 
-        //dd($request);
-        return redirect()->route('users.create')->with('success', 'Usuário criado com sucesso!');
+        if ($data['function'] !== 'Eleve') {
+            $data['classe_id'] = null;
+        }
+
+        $data['password'] = bcrypt($data['password']);
+
+        User::create($data);
+
+        return redirect()->route('users.create')
+            ->with('success', 'Usuário criado com sucesso!');
     }
     
     // Exibe a lista de todos os usuários
@@ -208,6 +231,51 @@ class UserController extends Controller
     public function showPermission(User $user)
     {
         return view('users.showPermission', compact('user')); // Blade: show-permission.blade.php
+    }
+
+    // Mostra detalhes de um único usuário para a direção
+    public function showPerDirection()
+    {
+        $user = auth()->user(); // usuário autenticado
+
+        if (!in_array($user->function, ['Admin', 'Direction'])) {
+            abort(403, 'Acesso não permitido');
+        }
+
+        return view('users.showPerDirection', compact('user'));
+    }
+
+    // Mostra detalhes de um único usuário para os pais
+    public function showPerParent(User $user)
+    {
+        if($user->function !== 'Parent'){
+            abort(403, 'Acesso não permitido');
+        }
+
+        return view('users.showPerParent', compact('user'));
+    }
+
+    // Mostra detalhes de um único usuário para os alunos
+    public function showPerEleve(User $user)
+    {
+
+        if (strtolower(trim($user->function)) !== 'eleve') {
+            abort(403, 'Acesso negado');
+        }
+
+        // Passa apenas este usuário para a view
+        return view('users.showPerEleve', compact('user'));
+    }
+
+    // Mostra detalhes de um único usuário para os professores
+    public function showPerProfessor(User $user)
+    {
+        if ($user->function !== 'Professeur') {
+            abort(403, 'Acesso negado: usuário não é um professor.');
+        }
+
+        // Passa apenas este usuário para a view
+        return view('users.showPerProfessor', compact('user'));
     }
 
     // Edita os dados do usuário
@@ -260,7 +328,7 @@ class UserController extends Controller
         $user->save();
 
         return redirect()
-            ->route('users.show', $user)
+            ->route('users.showPermission', $user)
             ->with('success', 'Permissions chat mises à jour avec succès!');
     }
 
@@ -333,13 +401,48 @@ class UserController extends Controller
             }, $filename);
         }
 
-
+        // Exibe a página de direitos dos usuários
         public function droit()
         {
             $users = User::all(); // ou o filtro que quiser
 
             return view('users.droits', compact('users'));
         }
+
+        // Exibe a página de direitos dos usuários para a direção
+        public function droitDirection()
+        {
+            $users = User::whereIn('function', ['Admin', 'Direction'])->get();
+
+            return view('users.droitsDirection', compact('users'));
+        }
+
+        // Exibe a página de direitos dos usuários para os pais
+        public function droitParent()
+        {
+            $users = User::whereIn('function', ['Parent'])->get();
+
+            return view('users.droitsParent', compact('users'));
+        }
+
+        // Exibe a página de direitos dos usuários para os pais
+        public function droitEleve()
+        {
+            $users = User::whereIn('function', ['Eleve'])->get();
+
+            return view('users.droitsEleves', compact('users'));
+        }
+
+        // Exibe a página de direitos dos usuários para os pais
+        public function droitProfessor()
+        {
+            $users = User::whereIn('function', ['Professeur'])->get();
+
+            return view('users.droitsProfessor', compact('users'));
+        }
+
+
+
 
     
 }

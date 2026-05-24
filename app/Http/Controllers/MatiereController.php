@@ -149,5 +149,13 @@ class MatiereController extends Controller
         // Retorna o arquivo para download e apaga depois
         return response()->download($filename)->deleteFileAfterSend(true);
     }
+
+    // Listar as materias baseando no nivel
+    public function getMatieresByNiveau($niveau)
+    {
+        $matieres = Matiere::where('level', $niveau)->get();
+
+        return response()->json($matieres);
+    }
     
 }

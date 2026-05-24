@@ -166,7 +166,26 @@ return [
     'Elementary' => 'Elementary',
     'Middle School' => 'Middle School',
     'High School' => 'High School',
-    'Physical Education' => 'Physical Education'
+    'Physical Education' => 'Physical Education',
+
+    // Permissions-related translations
+    'permissions' => 'Permissions',
+
+    // Grade-related translations
+    'Grades' => 'Grades',
+
+    'Manage' => 'Manage',
+    'ManageEvents' => 'Manage Events',
+    'ManageChat' => 'Manage Chat',
+    'Administration' => 'Administration',
+    'Groups' => 'Group',
+    'Private' => 'Private',
+    'QuickAccess' => 'QUICK ACCESS',
+    'quickAccess' => 'Quick Access',
+    'AcademicManagement' => 'ACADEMIC MANAGEMENT',
+    'MagEvents' => 'MANAGE EVENTS',
+    
+    
 
 ];
 

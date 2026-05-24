@@ -4,7 +4,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pla-moss</title>
+    <title>CSM-SmartSchool</title>
     <link rel="stylesheet" href="../css/style1.css"> <!-- Link para o arquivo CSS externo -->
     <link rel="icon" href="../../img/books.png">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -51,7 +51,7 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">LISTE D'ELEVES</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">PERMISSIONS PROFESSEUR</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
@@ -70,7 +70,7 @@
                     <tr>
                         <th>Nom</th>
                         <th>Fonction</th>
-                        <th colspan="3">ACTIONS</th>
+                        <th>Permissions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -78,48 +78,22 @@
                         <tr>
                             <td align="center">{{ $user->firstname }}</td>
                             <td align="center">{{ $user->function }}</td>
-            
-                            {{-- Botão "Ver Detalhes" (todos podem ver) --}}
+
+                            {{-- PERMISSIONS --}}
                             <td align="center">
-                                <a href="{{ route('eleve.show', ['user' => $user]) }}">
-                                    <img src="../../img/det.png" alt="Ver" style="width: 30px; height: 30px;">
+                                <a href="{{ route('users.showPermission', ['user' => $user]) }}">
+                                    <img src="../../img/chat15.jpg" alt="Ver" style="width: 32px; height: 32px;">
                                 </a>
                             </td>
-            
-                            {{-- Botão "Editar" --}}
-                            @if ($isAdminOrDirection || $loggedInUserId === $user->id)
-                                <td align="center">
-                                    <a href="{{ route('eleve.edit', ['user' => $user]) }}">
-                                        <img src="../../img/modif02.png" alt="Editar" style="width: 30px; height: 30px;">
-                                    </a>
-                                </td>
-                            @else
-                                 <span style="color: #ccc;">—</span>
-                            @endif
-            
-                            {{-- Botão "Suprimir" --}}
-                            @if ($isAdminOrDirection || $loggedInUserId === $user->id)
-                                <td align="center">
-                                    <form id="delete-form-{{ $user->id }}" action="{{ route('users.destroy', ['user' => $user]) }}" method="POST" style="display: none;">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
-            
-                                    <button type="button" onclick="confirmDelete({{ $user->id }})" style="background: none; border: none; cursor: pointer;">
-                                        <img src="../../img/del0.png" alt="Suprimir" style="width: 30px; height: 30px;">
-                                    </button>
-                                </td>
-                            @else
-                                 <span style="color: #ccc;">—</span>
-                            @endif
                         </tr>
                     @endforeach
-                </tbody>
+                </tbody> 
+
             </table>
 
              <br>
  
-            <form action="{{ route('eleve.export') }}" method="POST">
+            <form action="{{ route('users.export') }}" method="POST">
                     @csrf
                <input type="submit" name="expo" value="EXPORTER EM EXCEL" style="">
            </form>
