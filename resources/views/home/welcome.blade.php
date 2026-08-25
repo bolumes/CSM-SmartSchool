@@ -320,6 +320,15 @@ s
         </div>
     </div>
 
+    <!-- Language - Direita -->
+    <div style="flex:1; display:flex; justify-content:flex-end;">
+        <div class="language-switcher">
+            <select onchange="changeLanguage(this.value)">
+                <option value="fr">🇫🇷</option>
+                <option value="pt">🇵🇹</option>
+                <option value="en">🇮🇳</option>
+            </select>
+        </div>
     </div>
 
 </div>
@@ -607,6 +616,25 @@ s
                 button.innerText = 'Ver mais';
             }
         }
+
+
+        //Função para mudar o idioma
+        function changeLanguage(lang) {
+            window.location.href = "?lang=" + lang;
+        }
+
+        // Marcar idioma atual no select ao carregar a página
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const params = new URLSearchParams(window.location.search);
+            const lang = params.get("lang");
+
+            if (lang) {
+                document.querySelector(".language-switcher select").value = lang;
+            }
+
+        });
+
     </script>
     
 

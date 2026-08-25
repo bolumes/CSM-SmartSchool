@@ -5,16 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Message;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    /**
-     * Os atributos que podem ser atribuídos em massa.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'firstname',
         'lastname',
@@ -26,21 +22,11 @@ class User extends Authenticatable
         'classe_id',
     ];
 
-    /**
-     * Os atributos que devem ser ocultos para arrays/JSON.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Os atributos que devem ser convertidos para tipos nativos.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -50,37 +36,81 @@ class User extends Authenticatable
     }
 
 
-        /* =======================
-     |  RELAÇÕES COM SPACES
-     ======================= */
+    /* =====================================================
+     | RELAÇÕES COM ELEVE
+     ===================================================== */
 
-    // Spaces criados pelo usuário (professor / direção)
-    public function spaces()
+    /**
+     * Perfil escolar deste utilizador quando é aluno.
+     */
+    public function eleve()
     {
-        return $this->hasMany(Space::class, 'created_by');
+        return $this->hasOne(
+            Eleve::class,
+            'user_id'
+        );
     }
 
-    // Posts criados pelo usuário
-    public function spacePosts()
+
+    /**
+     * Alunos associados a este utilizador quando é encarregado.
+     *
+     * Um encarregado pode ter vários alunos.
+     */
+    public function enfants()
     {
-        return $this->hasMany(SpacePost::class);
+        return $this->hasMany(
+            Eleve::class,
+            'parent_id'
+        );
     }
 
-    // Comentários criados pelo usuário
-    public function spaceComments()
-    {
-        return $this->hasMany(SpaceComment::class);
-    }
 
-    // Classe do aluno (relação opcional)
+    /* =====================================================
+     | RELAÇÃO COM CLASSE
+     ===================================================== */
+
+    /**
+     * Classe associada ao utilizador.
+     */
     public function classe()
     {
-        return $this->belongsTo(Classe::class);
+        return $this->belongsTo(
+            Classe::class
+        );
     }
 
-    /* =======================
-     |  PERMISSÕES SIMPLES
-     ======================= */
+
+    /* =====================================================
+     | RELAÇÕES COM SPACES
+     ===================================================== */
+
+    public function spaces()
+    {
+        return $this->hasMany(
+            Space::class,
+            'created_by'
+        );
+    }
+
+    public function spacePosts()
+    {
+        return $this->hasMany(
+            SpacePost::class
+        );
+    }
+
+    public function spaceComments()
+    {
+        return $this->hasMany(
+            SpaceComment::class
+        );
+    }
+
+
+    /* =====================================================
+     | PERMISSÕES
+     ===================================================== */
 
     public function isProfessor()
     {
@@ -102,5 +132,29 @@ class User extends Authenticatable
         return $this->function === 'admin';
     }
 
-}
+    public function isEleve()
+    {
+        return $this->function === 'eleve';
+    }
 
+
+    /* =====================================================
+     | MENSAGENS
+     ===================================================== */
+
+    public function sentMessages()
+    {
+        return $this->hasMany(
+            Message::class,
+            'sender_id'
+        );
+    }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany(
+            Message::class,
+            'receiver_id'
+        );
+    }
+}

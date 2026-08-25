@@ -143,7 +143,7 @@
                                 <td>{{ $professor->lastname }}</td>
 
                                 {{-- Ver Detalhes --}}
-                                <td class="action-icons">
+                                <td class="action-icons">sss
                                     <a href="{{ route('professors.show', $professor->id) }}" title="Ver Detalhes">
                                         <img src="{{ asset('img/det.png') }}" alt="Ver">
                                     </a>

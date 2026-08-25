@@ -88,13 +88,13 @@
 
                     <a href="{{ route('home.gesteventos') }}"><img src="../../img/ge.png" alt="Gestão Eventos"></a>
 
-                    <a href="{{ route('home.gestchat') }}"><img src="../../img/chat.png" alt="Gestão Chat"></a>
+                    <a href="{{ route('home.gestchat') }}"><img src="../../img/gestComunicaçao.png" alt="Gestão Comunicação"></a>
 
-                    <a href="{{ route('anuncios.listanuncios') }}"><img src="../../img/anu.png" alt="Gestão Chat"></a>
+                    <a href="{{ route('anuncios.listanuncios') }}"><img src="../../img/anu.png" alt="Gestão Anúncios"></a>
 
-                    <img src="../../img/par.png" alt="Parâmetros">
+                    <a href="{{ route('home.settings') }}"><img src="../../img/par.png" alt="Parâmetros"></a>
 
-                    <img src="../../img/chat3.png" alt="Gestão Eventos">
+                    <a href="{{ route('inscriptions.create') }}"><img src="../../img/gestInscriçao.png" alt="Gestão de Inscrições"></a>
 
                 </div>
             </div>

@@ -205,8 +205,70 @@ class UserController extends Controller
     // Armazena os dados do usuário
    public function store(UserRequest $request)
     {
+        $currentUser = auth()->user();
+
+        if (!$currentUser) {
+            abort(403, 'Acesso não autorizado.');
+        }
+
+        $allowedFunctions = match ($currentUser->function) {
+
+            // Admin pode criar tudo
+            'Admin' => [
+                'Admin',
+                'Direction',
+                'Se_Direction',
+                'Se_Administratif',
+                'Se_Financier',
+                'Professeur',
+                'Parent',
+                'Eleve',
+            ],
+
+            // Direção
+            'Direction' => [
+                'Se_Direction',
+                'Se_Administratif',
+                'Se_Financier',
+                'Professeur',
+                'Parent',
+                'Eleve',
+            ],
+
+            // Secretário Administrativo
+            'Se_Administratif' => [
+                'Se_Direction',
+                'Se_Financier',
+                'Professeur',
+                'Parent',
+                'Eleve',
+            ],
+
+            // Secretário de Direção
+            'Se_Direction' => [
+                'Parent',
+                'Eleve',
+            ],
+
+            // Secretário Financeiro
+            'Se_Financier' => [
+                'Parent',
+                'Eleve',
+            ],
+
+            default => [],
+        };
+
         $data = $request->validated();
 
+        // Verifica se pode criar esta função
+        if (!in_array($data['function'], $allowedFunctions)) {
+            return back()->withErrors([
+                'function' => 'Não possui permissão para criar este tipo de utilizador.'
+            ])->withInput();
+        }
+
+        // Apenas alunos possuem classe
         if ($data['function'] !== 'Eleve') {
             $data['classe_id'] = null;
         }
@@ -215,8 +277,9 @@ class UserController extends Controller
 
         User::create($data);
 
-        return redirect()->route('users.create')
-            ->with('success', 'Usuário criado com sucesso!');
+        return redirect()
+            ->route('users.create')
+            ->with('success', 'Utilizador criado com sucesso!');
     }
     
     // Exibe a lista de todos os usuários
@@ -281,29 +344,74 @@ class UserController extends Controller
     // Edita os dados do usuário
     public function edit(User $user)
     {
-        return view('users.edit', ['user' => $user]); // Retorna a view de edição com os dados do usuário
+        $currentUser = auth()->user();
+
+        // Não autenticado
+        if (!$currentUser) {
+            abort(403);
+        }
+
+        // Admin e Direction podem editar utilizadores
+        if (in_array($currentUser->function, ['Admin', 'Direction'])) {
+            return view('users.edit', compact('user'));
+        }
+
+        // Professor, Parent e Eleve só podem editar a própria conta
+        if (
+            in_array($currentUser->function, ['Professeur', 'Parent', 'Eleve'])
+            && $currentUser->id === $user->id
+        ) {
+            return view('users.edit', compact('user'));
+        }
+
+        // Qualquer outra tentativa
+        abort(403, 'Vous n\'êtes pas autorisé à modifier cet utilisateur.');
     }
 
     // Atualiza os dados do usuário
     public function update(UserRequest $request, User $user)
     {
-        // Valida os dados do formulário usando o UserRequest
+        $currentUser = auth()->user();
+
+        if (!$currentUser) {
+            abort(403);
+        }
+
+        // Professor / Parent / Eleve
+        // só podem alterar a própria conta
+        if (
+            in_array($currentUser->function, ['Professeur', 'Parent', 'Eleve'])
+            && $currentUser->id !== $user->id
+        ) {
+            abort(403, 'Vous ne pouvez modifier que votre propre compte.');
+        }
+
+        // Admin e Direction podem editar outros utilizadores
+        if (!in_array($currentUser->function, ['Admin', 'Direction'])) {
+
+            // Um utilizador normal NÃO pode alterar a própria função
+            $request->merge([
+                'function' => $user->function,
+            ]);
+        }
+
         $request->validated();
-        
-        // Atualiza os dados do usuário com os dados validados
+
         $user->update([
-            'firstname' => $request->input('firstname'),
-            'lastname' => $request->input('lastname'),
-            'telephone' => $request->input('telephone'),
-            'address' => $request->input('address'),
-            'function' => $request->input('function'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
+            'firstname'  => $request->input('firstname'),
+            'lastname'   => $request->input('lastname'),
+            'telephone'  => $request->input('telephone'),
+            'address'    => $request->input('address'),
+            'email'      => $request->input('email'),
+            'function'   => $request->input('function'),
+            'password'   => $request->filled('password')
+                ? bcrypt($request->input('password'))
+                : $user->password,
         ]);
 
-        //return redirect()->route('users.show')->with('success', 'Usuário atualizado com sucesso!');
-        return redirect()->route('users.show', $user)->with('success', 'Usuário atualizado com sucesso!');
-
+        return redirect()
+            ->route('users.show', $user)
+            ->with('success', 'Utilisateur mis à jour avec succès.');
     }
 
     // Atualiza as permissões de chat do usuário
@@ -336,27 +444,94 @@ class UserController extends Controller
 
 
     // Remove o usuário do banco de dados
-    public function destroy(User $user)
-    {
-        // Impede a exclusão de usuários com função "Admin" ou "Direction"
-        if (in_array($user->role, ['Admin', 'Direction'])) {
-            return redirect()->back()->with('error', 'Você não pode excluir um usuário com privilégio de Admin ou Direction.');
-        }
-    
-        $currentUser = auth()->user();
-    
-        // Remove o usuário do banco de dados
-        $user->delete();
-    
-        // Se o usuário deletado for o usuário autenticado, faz logout
-        if ($currentUser->id === $user->id) {
-            auth()->logout();
-            return redirect()->route('login')->with('success', 'Sua conta foi excluída com sucesso.');
-        }
-    
-        // Redireciona para a lista de usuários com mensagem de sucesso
-        return redirect()->route('users.listusers')->with('success', 'Usuário removido com sucesso!');
+    /**
+     * =====================================================================
+     * ELIMINAR USUÁRIO
+     * =====================================================================
+     */
+     /**
+ * =====================================================================
+ * ELIMINAR USUÁRIO
+ * =====================================================================
+ */
+public function destroy(User $user)
+{
+    // ================================================================
+    // 1. Obter o utilizador autenticado
+    // ================================================================
+    $currentUser = auth()->user();
+
+    // Se não houver utilizador autenticado
+    if (!$currentUser) {
+        abort(403, 'Acesso não autorizado.');
     }
+
+    // ================================================================
+    // 2. PROTEÇÃO ABSOLUTA DO ADMIN
+    // ================================================================
+    // NINGUÉM pode eliminar um utilizador com function = Admin.
+    if (strtolower(trim($user->function)) === 'admin') {
+
+        return redirect()
+            ->back()
+            ->with(
+                'error',
+                'Não é permitido eliminar uma conta Admin.'
+            );
+    }
+
+    // ================================================================
+    // 3. ADMIN / DIRECTION
+    // ================================================================
+    // Admin e Direction podem eliminar utilizadores que não sejam Admin.
+    if (in_array($currentUser->function, ['Admin', 'Direction'])) {
+
+        $user->delete();
+
+        return redirect()
+            ->route('users.listusers')
+            ->with(
+                'success',
+                'Usuário removido com sucesso!'
+            );
+    }
+
+    // ================================================================
+    // 4. PROFESSOR / PARENT / ELEVE
+    // ================================================================
+    // Estes utilizadores só podem eliminar a PRÓPRIA conta.
+    if ($currentUser->id !== $user->id) {
+
+        return redirect()
+            ->back()
+            ->with(
+                'error',
+                'Você só pode eliminar a sua própria conta.'
+            );
+    }
+
+    // ================================================================
+    // 5. ELIMINAR A PRÓPRIA CONTA
+    // ================================================================
+    $user->delete();
+
+    // Fazer logout depois de eliminar a própria conta
+    auth()->logout();
+
+    // Invalidar a sessão
+    request()->session()->invalidate();
+
+    // Regenerar o token da sessão
+    request()->session()->regenerateToken();
+
+    return redirect()
+        ->route('login')
+        ->with(
+            'success',
+            'Sua conta foi excluída com sucesso.'
+        );
+}
+
 
     // Exporta os dados dos usuários para CSV
     public function export(Request $request)

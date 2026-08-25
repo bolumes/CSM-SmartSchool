@@ -24,6 +24,7 @@ return [
 
     // Sidebar settings
     'User' => 'Usuário',
+    'Settings' => 'Definiçoes',
     'statistics' => 'Estatísticas',
     'Events' => 'Eventos',
     'EventsPlanning' => 'Event-Programados',
@@ -174,7 +175,7 @@ return [
     // Grade-related translations
     'Grades' => 'Notas',
     'Manage' => 'Gestão Acad',
-    'ManageEvents' => 'Gestão Even',
+    'ManageEvents' => 'Gestão de Eventos',
     'ManageChat' => 'Gestão Chat',
     'Administration' => 'Administration',
     'Group' => 'Grupo',
@@ -183,5 +184,12 @@ return [
     'quickAccess' => 'Acesso Rápido',
     'AcademicManagement' => 'GESTÃO ACADEMICA',
     'MagEvents' => 'GESTÃO ÉVÉNEMENTS',
-
+    'Attendance' => 'Assiduidade',
+    'Create Attendance'  => 'Registo de Assiduidade', 
+    'Absent' => 'Ausentes',
+    'Present' => 'Presentes',
+    'Late' => 'Atrasados',
+    'Excused' => 'Justificadas',
+    'Inscription' => 'Inscrição',
+    'Academic Year' => 'Ano Letivo',
 ];

@@ -131,6 +131,40 @@
                             @endforeach
                         </select>
                     </div>
+
+                    <div class="col-md-6">
+                        <label for="day_of_week" class="form-label">Dia da Semana</label>
+
+                        <select name="day_of_week" id="day_of_week" class="form-control" required>
+
+                            <option value="">-- Selecionar dia --</option>
+
+                            <option value="monday" {{ old('day_of_week') == 'monday' ? 'selected' : '' }}>
+                                Segunda-feira
+                            </option>
+
+                            <option value="tuesday" {{ old('day_of_week') == 'tuesday' ? 'selected' : '' }}>
+                                Terça-feira
+                            </option>
+
+                            <option value="wednesday" {{ old('day_of_week') == 'wednesday' ? 'selected' : '' }}>
+                                Quarta-feira
+                            </option>
+
+                            <option value="thursday" {{ old('day_of_week') == 'thursday' ? 'selected' : '' }}>
+                                Quinta-feira
+                            </option>
+
+                            <option value="friday" {{ old('day_of_week') == 'friday' ? 'selected' : '' }}>
+                                Sexta-feira
+                            </option>
+
+                            <option value="saturday" {{ old('day_of_week') == 'saturday' ? 'selected' : '' }}>
+                                Sábado
+                            </option>
+
+                        </select>
+                    </div>
                                         
                 
                     <button type="submit" class="mt-3">Enregistrer</button>

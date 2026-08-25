@@ -184,6 +184,14 @@ return [
     'quickAccess' => 'Quick Access',
     'AcademicManagement' => 'ACADEMIC MANAGEMENT',
     'MagEvents' => 'MANAGE EVENTS',
+    'Attendance' => 'Attendance', 
+    'Create Attendance'  => 'CREATE ATTENDANCE', 
+    'Absent' => 'Absent',
+    'Present' => 'Present',
+    'Late' => 'Late',
+    'Excused' => 'Excused',
+    'Inscription' => 'Inscription',
+    'Academic Year' => 'Academic Year',
     
     
 

@@ -154,19 +154,92 @@
                                 <input type="text" name="address" value="{{ old('address', $user->address) }}">
                             </td>
                         </tr>
-                        <tr>
-                            <td><strong>Fonction</strong></td>
-                            <td>
-                                <select name="function">
-                                    <option value="">Choisir...</option>
-                                    <option value="Admin" {{ old('function', $user->function) == 'Admin' ? 'selected' : '' }}>Admin</option>
-                                    <option value="Direction" {{ old('function', $user->function) == 'Direction' ? 'selected' : '' }}>Direction</option>
-                                    <option value="Professeur" {{ old('function', $user->function) == 'Professeur' ? 'selected' : '' }}>Professeur</option>
-                                    <option value="Parent" {{ old('function', $user->function) == 'Parent' ? 'selected' : '' }}>Parent</option>
-                                    <option value="Eleve" {{ old('function', $user->function) == 'Eleve' ? 'selected' : '' }}>Eleve</option>
-                                </select>
-                            </td>
-                        </tr>
+                        
+                        @php
+                            $currentUser = auth()->user();
+                        @endphp
+
+                        @if($currentUser && $currentUser->function === 'Admin')
+
+                            {{-- ADMIN PODE GERIR TODAS AS FUNÇÕES --}}
+                            <tr>
+                                <td>
+                                    <strong>Fonction</strong>
+                                </td>
+
+                                <td>
+                                    <select name="function" required>
+
+                                        <option value="">Choisir...</option>
+
+                                        <option value="Admin"
+                                            {{ old('function', $user->function) === 'Admin' ? 'selected' : '' }}>
+                                            Admin
+                                        </option>
+
+                                        <option value="Direction"
+                                            {{ old('function', $user->function) === 'Direction' ? 'selected' : '' }}>
+                                            Direction
+                                        </option>
+
+                                        <option value="Professeur"
+                                            {{ old('function', $user->function) === 'Professeur' ? 'selected' : '' }}>
+                                            Professeur
+                                        </option>
+
+                                        <option value="Parent"
+                                            {{ old('function', $user->function) === 'Parent' ? 'selected' : '' }}>
+                                            Parent
+                                        </option>
+
+                                        <option value="Eleve"
+                                            {{ old('function', $user->function) === 'Eleve' ? 'selected' : '' }}>
+                                            Eleve
+                                        </option>
+
+                                    </select>
+                                </td>
+                            </tr>
+
+                            @elseif($currentUser && $currentUser->function === 'Direction')
+
+                                {{-- DIRECTION NÃO PODE GERIR ADMIN --}}
+                                <tr>
+                                    <td>
+                                        <strong>Fonction</strong>
+                                    </td>
+
+                                    <td>
+                                        <select name="function" required>
+
+                                            <option value="">Choisir...</option>
+
+                                            <option value="Direction"
+                                                {{ old('function', $user->function) === 'Direction' ? 'selected' : '' }}>
+                                                Direction
+                                            </option>
+
+                                            <option value="Professeur"
+                                                {{ old('function', $user->function) === 'Professeur' ? 'selected' : '' }}>
+                                                Professeur
+                                            </option>
+
+                                            <option value="Parent"
+                                                {{ old('function', $user->function) === 'Parent' ? 'selected' : '' }}>
+                                                Parent
+                                            </option>
+
+                                            <option value="Eleve"
+                                                {{ old('function', $user->function) === 'Eleve' ? 'selected' : '' }}>
+                                                Eleve
+                                            </option>
+
+                                        </select>
+                                    </td>
+                                </tr>
+
+                            @endif
+
                         <tr>
                             <td><strong>Mot de Passe</strong></td>
                             <td>

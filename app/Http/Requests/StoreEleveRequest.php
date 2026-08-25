@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreEleveRequest extends FormRequest
 {
@@ -14,45 +15,176 @@ class StoreEleveRequest extends FormRequest
         return true;
     }
 
+
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * Validation rules.
      */
     public function rules(): array
     {
         return [
-            'classe_id' => 'required|exists:classes,id',
-            'matricula' => 'required|string|max:255|unique:eleves,matricula',
-            'nome' => 'required|string|max:255',
-            'apelido' => 'required|string|max:255',
-            'data_nascimento' => 'required|date',
-            'endereco' => 'nullable|string|max:255',
-            'telefone' => 'nullable|string|max:20',
+
+            /*
+            |--------------------------------------------------------------------------
+            | ENCARREGADO DE EDUCAÇÃO
+            |--------------------------------------------------------------------------
+            */
+
+            'parent_id' => [
+                'required',
+
+                Rule::exists('users', 'id')
+                    ->where(function ($query) {
+
+                        $query->where(
+                            'function',
+                            'Parent'
+                        );
+
+                    }),
+            ],
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | DADOS DO ALUNO
+            |--------------------------------------------------------------------------
+            */
+
+            'nome' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+
+            'apelido' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+
+            'sexo' => [
+                'required',
+                'string',
+                'max:20',
+            ],
+
+
+            'data_nascimento' => [
+                'required',
+                'date',
+            ],
+
+
+            'endereco' => [
+                'nullable',
+                'string',
+                'max:255',
+            ],
+
+
+            'telefone' => [
+                'nullable',
+                'string',
+                'max:50',
+            ],
+
         ];
     }
 
+
     /**
-     * Get custom attributes for validator errors.
-     *
-     * @return array<string, string>
+     * Custom validation messages.
      */
     public function messages(): array
     {
         return [
-            'classe_id.required' => 'A classe é obrigatória.',
-            'classe_id.exists' => 'A classe selecionada não existe.',
 
-            'matricula.required' => 'A matrícula é obrigatória.',
-            'matricula.unique' => '⚠️ Esta matrícula já está registada!',
+            /*
+            |--------------------------------------------------------------------------
+            | ENCARREGADO
+            |--------------------------------------------------------------------------
+            */
 
-            'nome.required' => 'O nome é obrigatório.',
-            'apelido.required' => 'O apelido é obrigatório.',
+            'parent_id.required' =>
+                'O encarregado de educação é obrigatório.',
 
-            'data_nascimento.required' => 'A data de nascimento é obrigatória.',
+            'parent_id.exists' =>
+                'O utilizador selecionado deve ser um encarregado de educação.',
 
-            'endereco.max' => 'O endereço não pode ter mais de 255 caracteres.',
-            'telefone.max' => 'O telefone não pode ter mais de 20 caracteres.',
+
+            /*
+            |--------------------------------------------------------------------------
+            | NOME
+            |--------------------------------------------------------------------------
+            */
+
+            'nome.required' =>
+                'O nome do aluno é obrigatório.',
+
+            'nome.max' =>
+                'O nome não pode ter mais de 255 caracteres.',
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | APELIDO
+            |--------------------------------------------------------------------------
+            */
+
+            'apelido.required' =>
+                'O apelido do aluno é obrigatório.',
+
+            'apelido.max' =>
+                'O apelido não pode ter mais de 255 caracteres.',
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | SEXO
+            |--------------------------------------------------------------------------
+            */
+
+            'sexo.required' =>
+                'O sexo do aluno é obrigatório.',
+
+            'sexo.max' =>
+                'O sexo não pode ter mais de 20 caracteres.',
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | DATA DE NASCIMENTO
+            |--------------------------------------------------------------------------
+            */
+
+            'data_nascimento.required' =>
+                'A data de nascimento é obrigatória.',
+
+            'data_nascimento.date' =>
+                'A data de nascimento não é válida.',
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | ENDEREÇO
+            |--------------------------------------------------------------------------
+            */
+
+            'endereco.max' =>
+                'O endereço não pode ter mais de 255 caracteres.',
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | TELEFONE
+            |--------------------------------------------------------------------------
+            */
+
+            'telefone.max' =>
+                'O telefone não pode ter mais de 50 caracteres.',
+
         ];
     }
 }

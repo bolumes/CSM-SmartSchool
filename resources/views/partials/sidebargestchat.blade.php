@@ -45,7 +45,7 @@ $canChatAdministration = $user?->chat_direction;
             </a>
 
             <!-- PRIVATE -->
-            <a href="#">
+            <a href="{{ route('chat.listParents') }}">
                 <i class="fas fa-comment-dots"></i>
                 {{ __('messages.Private') }}
             </a>
@@ -77,7 +77,7 @@ $canChatAdministration = $user?->chat_direction;
             </a>
 
             <!-- PRIVATE -->
-            <a href="#">
+            <a href="{{ route('chat.listProfesseurs') }}">
                 <i class="fas fa-comment-dots"></i>
                 {{ __('messages.Private') }}
             </a>

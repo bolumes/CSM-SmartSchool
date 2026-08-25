@@ -106,12 +106,13 @@ class ProgeventController extends Controller
         $data = $request->validated();
 
         // Atualiza o registro no banco
-        $progevent->update([
-            'date' => $request->input('date'),
-            'start' => $request->input('start'),
-            'end' => $request->input('end'),
-            'sala_id' => $request->input('sala_id'),
-            'event_id' => $request->input('event_id'),
+         Progevent::create([
+            'date' => $data['date'],
+            'start' => $data['start'],
+            'end' => $data['end'],
+            'sala_id' => $data['sala_id'],
+            'event_id' => $data['event_id'],
+            'day_of_week' => $data['day_of_week'],
         ]);
 
         // Redireciona com mensagem de sucesso

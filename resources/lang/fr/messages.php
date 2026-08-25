@@ -176,7 +176,7 @@ return [
     'Grades' => 'Notes',
 
     'Manage' => 'Gestion Acad',
-    'ManageEvents' => 'Gestion Évén',
+    'ManageEvents' => 'Gestion Événnement',
     'ManageChat' => 'Gestion Chat',
     'Administration' => 'Administration',
     'Group' => 'Groupe',
@@ -185,7 +185,15 @@ return [
     'quickAccess' => 'Accès Rapide',
     'AcademicManagement' => 'GESTION ACADEMIQUE',
     'MagEvents' => 'GESTION ÉVÉNEMENTS',
-
+    'Attendance' => 'Assiduité',
+    'Create Attendance'  => 'CREER ASSEDUITE', 
+    'Absent' => 'Absents',
+    'Present' => 'Présents',
+    'Late' => 'En retard',
+    'Excused' => 'Justifiées',
+    'Inscription' => 'Inscription',
+    'Academic Year' => 'Année Académique',
+    
 ];
 
 

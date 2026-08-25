@@ -12,6 +12,7 @@ class Progevent extends Model
         'date',
         'start',
         'end',
+        'day_of_week',
         'sala_id',
         'event_id',
     ];

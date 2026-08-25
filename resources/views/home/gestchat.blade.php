@@ -60,13 +60,13 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">GESTION CHAT</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">GESTION COMMUNICATION</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
             <!-- Seção da Imagem -->
             <div class="form-image">
-              <img src="../../img/gestchat1.png" alt="Imagem do Formulário">
+              <img src="../../img/gestComunicaçao.png" alt="Imagem do Formulário">
             </div>
             
         </div>

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Professor;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProfessorRequest;
 use App\Http\Requests\UpdateProfessorRequest;
 use Illuminate\Http\Request;
@@ -11,130 +10,288 @@ use Illuminate\Http\Request;
 class ProfessorController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Pesquisa professores.
      */
     public function search()
     {
-        // Implement the search logic here
-        // For example, you can return a view with a search form or handle search queries
-        $professors = Professor::all(); // Fetch all professors if needed
-        return view('professors.search', compact('professors')); // Adjust the view name as needed
+        $professors = Professor::all();
 
+        return view('professors.search', compact('professors'));
     }
 
+
     /**
-     * Show the form for creating a new resource.
+     * Formulário para criar professor.
      */
     public function create()
     {
-        // Return the view for creating a new professor
-        return view('professors.create'); // Adjust the view name as needed
+        return view('professors.create');
     }
 
+
     /**
-     * Store a newly created resource in storage.
+     * Guardar novo professor.
      */
     public function store(StoreProfessorRequest $request)
     {
-        // Validate and store the new professor data
         $validatedData = $request->validated();
-        
-        // Create a new professor record in the database
+
         Professor::create($validatedData);
 
-        // Redirect or return a response after storing the professor
-        return redirect()->route('professors.create')->with('success', 'Professor created successfully!');
+        return redirect()
+            ->route('professors.create')
+            ->with('success', 'Professor created successfully!');
     }
 
+
     /**
-     * Display a listing of the resource.
+     * Lista de professores.
      */
     public function listprofessors()
     {
-        // Fetch all professors from the database
         $professors = Professor::all();
 
-        // Return the view with the list of professors
-        return view('professors.listprofessors', compact('professors')); // Adjust the view name as needed
+        return view(
+            'professors.listprofessors',
+            compact('professors')
+        );
     }
 
+
     /**
-     * Display the specified resource.
+     * Mostrar professor.
      */
     public function show(Professor $professor)
     {
-        // Return the view to show the details of a specific professor
-        return view('professors.show', compact('professor')); // Adjust the view name as needed
+        return view(
+            'professors.show',
+            compact('professor')
+        );
     }
 
+
     /**
-     * Show the form for editing the specified resource.
+     * Formulário de edição.
      */
     public function edit(Professor $professor)
     {
-        // Return the view for editing a specific professor
-        return view('professors.edit', compact('professor')); // Adjust the view name as needed
+        /*
+        |--------------------------------------------------------------------------
+        | PROTEÇÃO
+        |--------------------------------------------------------------------------
+        | Admin e Direction não podem ser editados através
+        | do módulo de professores.
+        */
+
+        if (in_array($professor->function, ['Admin', 'Direction'])) {
+
+            abort(
+                403,
+                'Vous ne pouvez pas modifier un utilisateur Admin ou Direction.'
+            );
+        }
+
+        return view(
+            'professors.edit',
+            compact('professor')
+        );
     }
 
+
     /**
-     * Update the specified resource in storage.
+     * Atualizar professor.
      */
-    public function update(UpdateProfessorRequest $request, Professor $professor)
-    {
-        // Validate and update the professor data
+    public function update(
+        UpdateProfessorRequest $request,
+        Professor $professor
+    ) {
+
+        /*
+        |--------------------------------------------------------------------------
+        | PROTEÇÃO 1
+        |--------------------------------------------------------------------------
+        | Impede modificar Admin ou Direction.
+        */
+
+        if (in_array($professor->function, ['Admin', 'Direction'])) {
+
+            abort(
+                403,
+                'Vous ne pouvez pas modifier un utilisateur Admin ou Direction.'
+            );
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | VALIDAÇÃO
+        |--------------------------------------------------------------------------
+        */
+
         $validatedData = $request->validated();
 
-        // Update the professor record in the database
+
+        /*
+        |--------------------------------------------------------------------------
+        | ATUALIZAÇÃO
+        |--------------------------------------------------------------------------
+        |
+        | IMPORTANTE:
+        | Não atualizamos "function".
+        |
+        | Portanto esta página não pode transformar:
+        |
+        | Professor -> Admin
+        | Professor -> Direction
+        |
+        */
+
         $professor->update([
-            'firstname' => $request->input('firstname'),
-            'lastname' => $request->input('lastname'),
-            'email' => $request->input('email'),
-            'telephone' => $request->input('telephone'),
-            'address' => $request->input('address'),
+
+            'firstname' => $validatedData['firstname'],
+
+            'lastname' => $validatedData['lastname'],
+
+            'email' => $validatedData['email'],
+
+            'telephone' => $validatedData['telephone'] ?? null,
+
+            'address' => $validatedData['address'] ?? null,
+
         ]);
 
-        // Redirect or return a response after updating the professor
-        return redirect()->route('professors.show', $professor->id)->with('success', 'Professor updated successfully!');
+
+        /*
+        |--------------------------------------------------------------------------
+        | RETORNO
+        |--------------------------------------------------------------------------
+        */
+
+        return redirect()
+            ->route(
+                'professors.show',
+                $professor->id
+            )
+            ->with(
+                'success',
+                'Professor updated successfully!'
+            );
     }
 
+
     /**
-     * Remove the specified resource from storage.
+     * Eliminar professor.
      */
     public function destroy(Professor $professor)
     {
-        // Delete the specified professor from the database
+        /*
+        |--------------------------------------------------------------------------
+        | PROTEÇÃO ABSOLUTA
+        |--------------------------------------------------------------------------
+        | Admin e Direction nunca podem ser eliminados
+        | através deste controller.
+        */
+
+        if (in_array($professor->function, ['Admin', 'Direction'])) {
+
+            return redirect()
+                ->back()
+                ->with(
+                    'error',
+                    'Vous ne pouvez pas supprimer un utilisateur Admin ou Direction.'
+                );
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | ELIMINAR
+        |--------------------------------------------------------------------------
+        */
+
         $professor->delete();
 
-        // Redirect or return a response after deleting the professor
-        return redirect()->route('professors.index')->with('success', 'Professor deleted successfully!');
+
+        /*
+        |--------------------------------------------------------------------------
+        | RETORNO
+        |--------------------------------------------------------------------------
+        */
+
+        return redirect()
+            ->route('professors.listprofessors')
+            ->with(
+                'success',
+                'Professor deleted successfully!'
+            );
     }
 
+
+    /**
+     * Exportar professores para CSV.
+     */
     public function export(Request $request)
     {
-        $professors = Professor::all(); // Obtém todas as matérias do banco de dados
+        $professors = Professor::all();
 
-        // Cria um arquivo CSV
         $filename = 'professors.csv';
+
         $handle = fopen($filename, 'w+');
 
-        // Cabeçalho do CSV
-        fputcsv($handle, ['ID', 'First Name', 'Last Name', 'Email', 'Telephone', 'Address']);
+
+        /*
+        |--------------------------------------------------------------------------
+        | CABEÇALHO
+        |--------------------------------------------------------------------------
+        */
+
+        fputcsv($handle, [
+            'ID',
+            'First Name',
+            'Last Name',
+            'Email',
+            'Telephone',
+            'Address'
+        ]);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | DADOS
+        |--------------------------------------------------------------------------
+        */
 
         foreach ($professors as $professor) {
+
             fputcsv($handle, [
+
                 $professor->id,
+
                 $professor->firstname,
+
                 $professor->lastname,
+
                 $professor->email,
+
                 $professor->telephone,
+
                 $professor->address
+
             ]);
         }
 
+
         fclose($handle);
 
-        // Retorna o arquivo para download e apaga depois
-        return response()->download($filename)->deleteFileAfterSend(true);
+
+        /*
+        |--------------------------------------------------------------------------
+        | DOWNLOAD
+        |--------------------------------------------------------------------------
+        */
+
+        return response()
+            ->download($filename)
+            ->deleteFileAfterSend(true);
     }
-    
 }

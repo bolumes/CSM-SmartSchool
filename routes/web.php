@@ -20,6 +20,13 @@ use App\Http\Controllers\EleveController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\SpaceCommentController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\HorarioController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\InscriptionController;
+use App\Http\Controllers\AnneeScolaireController;
+
+
 
 // ==================== ROTAS PÚBLICAS ====================
 Route::get('/', [UserController::class, 'index'])->name('home.index');
@@ -81,14 +88,69 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/users/chatUpdate/{user}', [UserController::class, 'chatUpdate'])->name('users.chatUpdate');
 
     // Alunos
-    Route::get('/eleve/search', [EleveController::class, 'search'])->name('eleves.search');
-    Route::get('/eleve/create', [EleveController::class, 'create'])->name('eleves.create');
-    Route::post('/eleve/store', [EleveController::class, 'store'])->name('eleves.store');
-    Route::get('/eleve/listeleve', [EleveController::class, 'listeleve'])->name('eleves.listeleve');
-    Route::put('/eleve/update/{user}', [EleveController::class, 'update'])->name('eleves.update');
-    Route::get('/eleve/show/{user}', [EleveController::class, 'show'])->name('eleves.show');
-    Route::get('/eleve/edit/{user}', [EleveController::class, 'edit'])->name('eleves.edit');
-    Route::post('/eleve/export', [EleveController::class, 'export'])->name('eleves.export');
+    // ==========================================================
+// ALUNOS
+// ==========================================================
+
+Route::get(
+    '/eleve/search',
+    [EleveController::class, 'search']
+)->name('eleves.search');
+
+Route::get(
+    '/eleve/create',
+    [EleveController::class, 'create']
+)->name('eleves.create');
+
+Route::post(
+    '/eleve/store',
+    [EleveController::class, 'store']
+)->name('eleves.store');
+
+Route::get(
+    '/eleve/listeleve',
+    [EleveController::class, 'listeleves']
+)->name('eleves.listeleves');
+
+Route::get(
+    '/eleve/show/{eleve}',
+    [EleveController::class, 'show']
+)->name('eleves.show');
+
+Route::get(
+    '/eleve/edit/{eleve}',
+    [EleveController::class, 'edit']
+)->name('eleves.edit');
+
+Route::put(
+    '/eleve/update/{eleve}',
+    [EleveController::class, 'update']
+)->name('eleves.update');
+
+Route::delete(
+    '/eleve/destroy/{eleve}',
+    [EleveController::class, 'destroy']
+)->name('eleves.destroy');
+
+Route::post(
+    '/eleve/export',
+    [EleveController::class, 'export']
+)->name('eleves.export');
+
+Route::get(
+    '/eleve/notes/{id}',
+    [EleveController::class, 'notes']
+)->name('eleves.notes');
+
+Route::get(
+    '/eleve/export-boletim/{id}',
+    [EleveController::class, 'exportBoletim']
+)->name('eleves.exportBoletim');
+
+Route::get(
+    '/eleve/classe/{id}',
+    [EleveController::class, 'getElevesByClasse']
+)->name('eleves.byClasse');
 
     // Notas
     Route::get('/notes/create', [NoteController::class, 'create'])->name('notes.create');
@@ -193,6 +255,127 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/listenotes', [EleveController::class, 'index'])->name('notes.listenotes');
     Route::get('/eleves/{id}/notes', [EleveController::class, 'notes'])->name('notes.notesEleves');
     Route::get('/eleves/{id}/export-boletim', [EleveController::class, 'exportBoletim'])->name('eleves.exportBoletim');
+
+
+    // Inscrições
+Route::get('/inscriptions', [InscriptionController::class, 'index'])
+    ->name('inscriptions.index');
+
+Route::get('/inscriptions/create', [InscriptionController::class, 'create'])
+    ->name('inscriptions.create');
+
+Route::post('/inscriptions', [InscriptionController::class, 'store'])
+    ->name('inscriptions.store');
+
+Route::get('/inscriptions/classes/{level}', [InscriptionController::class, 'classesByLevel'])
+    ->name('inscriptions.classes');
+
+Route::get('/inscriptions/students/{classe}', [InscriptionController::class, 'studentsByClasse'])
+    ->name('inscriptions.students');
+
+// IMPORTANTE: antes de /{inscription}
+Route::get('/inscriptions/student-by-matricula', [InscriptionController::class, 'studentByMatricula'])
+    ->name('inscriptions.student-by-matricula');
+
+Route::get('/inscriptions/{inscription}', [InscriptionController::class, 'show'])
+    ->name('inscriptions.show');
+
+Route::get('/inscriptions/{inscription}/edit', [InscriptionController::class, 'edit'])
+    ->name('inscriptions.edit');
+
+Route::put('/inscriptions/{inscription}', [InscriptionController::class, 'update'])
+    ->name('inscriptions.update');
+
+Route::delete('/inscriptions/{inscription}', [InscriptionController::class, 'destroy'])
+    ->name('inscriptions.destroy');
+
+
+    // Anos Académicos ////////////////////////////////
+    //Route::resource('annees-scolaires', AnneeScolaireController::class);
+
+
+// ============================================================
+// ANOS ACADÉMICOS / ANOS LETIVOS
+// ============================================================
+
+// LISTAR
+Route::get(
+    '/annees-scolaires',
+    [AnneeScolaireController::class, 'index']
+)->name('annees-scolaires.index');
+
+
+// FORMULÁRIO DE CRIAÇÃO
+Route::get(
+    '/annees-scolaires/create',
+    [AnneeScolaireController::class, 'create']
+)->name('annees-scolaires.create');
+
+
+// GUARDAR NOVO ANO LETIVO
+Route::post(
+    '/annees-scolaires',
+    [AnneeScolaireController::class, 'store']
+)->name('annees-scolaires.store');
+
+
+// MOSTRAR ANO LETIVO
+Route::get(
+    '/annees-scolaires/{anneeScolaire}',
+    [AnneeScolaireController::class, 'show']
+)->name('annees-scolaires.show');
+
+
+// FORMULÁRIO DE EDIÇÃO
+Route::get(
+    '/annees-scolaires/{anneeScolaire}/edit',
+    [AnneeScolaireController::class, 'edit']
+)->name('annees-scolaires.edit');
+
+
+// ATUALIZAR ANO LETIVO
+Route::put(
+    '/annees-scolaires/{anneeScolaire}',
+    [AnneeScolaireController::class, 'update']
+)->name('annees-scolaires.update');
+
+
+// ATUALIZAR PARCIALMENTE
+Route::patch(
+    '/annees-scolaires/{anneeScolaire}',
+    [AnneeScolaireController::class, 'update']
+)->name('annees-scolaires.update.patch');
+
+
+// ELIMINAR ANO LETIVO
+Route::delete(
+    '/annees-scolaires/{anneeScolaire}',
+    [AnneeScolaireController::class, 'destroy']
+)->name('annees-scolaires.destroy');
+
+
+    // ATTENDANCE
+
+    // Página de registo
+    Route::get('/attendance/create', [AttendanceController::class, 'create'])->name('attendance.create');
+
+    // Guardar assiduidade
+    Route::post('/attendance/store', [AttendanceController::class, 'store'])->name('attendance.store');
+
+    // Página da lista de assiduidade
+    Route::get('/attendance', [AttendanceController::class, 'listAttendance'])->name('attendance.listAttendance');
+
+    // AJAX - Turmas por nível
+    Route::get('/attendance/classes-by-niveau/{niveau}', [AttendanceController::class, 'getClassesByNiveau']);
+
+    // AJAX - Matérias por nível
+    Route::get('/attendance/matieres-by-niveau/{niveau}', [AttendanceController::class, 'getMatieresByNiveau']);
+
+    // AJAX - Alunos por turma
+    Route::get('/attendance/eleves-by-classe/{classe}', [AttendanceController::class, 'getElevesByClasse']);
+
+    // AJAX - Lista de assiduidade por turma
+    Route::get('/attendance/attendance-by-classe/{classe}', [AttendanceController::class, 'getAttendanceByClasse']);
     
     // Notas
     Route::get('/notes/create', [NoteController::class, 'create'])->name('notes.create');
@@ -255,8 +438,39 @@ Route::middleware(['auth'])->group(function () {
     // Rotas de mensagens e comentários
     Route::post('/spaces/{space}/message', [SpacePostController::class, 'store'])->name('spaces.message.store');
     Route::post('/spaces/posts/{post}/comment', [SpaceCommentController::class, 'store'])->name('spaces.comment.store');
-        
-});
+
+    // Chat privado entre usuários
+    //Route::get('/chat/private/{user}', [MessageController::class, 'chat']) ->name('chat.private');
+    //Route::post('/chat/private/{user}', [MessageController::class, 'send']) ->name('chat.private.send');
+    //Route::get('/spaces/private', [SpaceController::class, 'showPrivateSpaces'])->name('spaces.private');
+
+    // Chat privado
+    Route::get('/chat/parents', [MessageController::class, 'listPar']) ->name('chat.listParents');
+
+    Route::get('/chat/professeurs', [MessageController::class, 'listProf']) ->name('chat.listProfesseurs');
+
+    Route::get('/chat/admins', [MessageController::class, 'listAdmin']) ->name('chat.listAdmin');
+
+    // abrir conversa com um user
+    Route::get('/chat/{user}', [MessageController::class, 'show'])->name('chat.show');
+
+    // enviar mensagem
+    Route::post('/chat/{user}', [MessageController::class, 'send'])->name('chat.send');
+
+    // Rota para exibir o horário dos professores
+    
+
+
+    // LISTA HORÁRIOS PROFESSORES
+    Route::get('/horarios/professores', [HorarioController::class, 'scheduleProf'])->name('horarios.professores');
+
+    // DOWNLOAD PDF INDIVIDUAL
+    Route::get('/horarios/professor/{id}/download', [HorarioController::class, 'downloadSchedule'])->name('horarios.download');
+
+    // DOWNLOAD PDF TODOS
+    Route::get('/horarios/professores/download-all', [HorarioController::class, 'downloadAll'])->name('horarios.downloadAll');
+                
+    });
 
 // Rota de logout
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');

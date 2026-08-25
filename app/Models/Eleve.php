@@ -12,32 +12,62 @@ class Eleve extends Model
     protected $table = 'eleves';
 
     protected $fillable = [
-    'classe_id',
-    'matricula',
-    'nome',
-    'apelido',
-    'data_nascimento',
-    'endereco',
-    'telefone',
+        'matricula',
+        'parent_id',
+        'nome',
+        'apelido',
+        'data_nascimento',
+        'sexo',
+        'endereco',
+        'telefone',
     ];
 
-    /*
-    |-----------------------------------
-    | RELAÇÃO: Eleve → Classe
-    |-----------------------------------
-    */
-    public function classe()
-    {
-        return $this->belongsTo(Classe::class);
-    }
+    protected $casts = [
+        'data_nascimento' => 'date',
+    ];
+
 
     /*
-    |-----------------------------------
-    | RELAÇÃO: Eleve → Notes
-    |-----------------------------------
+    |--------------------------------------------------------------------------
+    | Encarregado de educação
+    |--------------------------------------------------------------------------
     */
+
+    public function parent()
+    {
+        return $this->belongsTo(
+            User::class,
+            'parent_id'
+        );
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Inscrições
+    |--------------------------------------------------------------------------
+    */
+
+    public function inscriptions()
+    {
+        return $this->hasMany(
+            Inscription::class,
+            'eleve_id'
+        );
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Notas
+    |--------------------------------------------------------------------------
+    */
+
     public function notes()
     {
-        return $this->hasMany(Note::class);
+        return $this->hasMany(
+            Note::class,
+            'eleve_id'
+        );
     }
 }

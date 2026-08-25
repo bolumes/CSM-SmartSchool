@@ -70,7 +70,7 @@ if ($user) {
     <div class="submenu">
       <a href="#"><i class="fas fa-building"></i> Par Bâtiment</a>
       <a href="#"><i class="fas fa-door-open"></i> Par Salle</a>
-      <a href="#"><i class="fas fa-chalkboard-teacher"></i> Par Professeur</a>
+      <a href="{{ route('horarios.professores') }}"><i class="fas fa-chalkboard-teacher"></i> Par Professeur</a>
     </div>
     <hr>
 

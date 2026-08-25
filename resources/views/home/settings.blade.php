@@ -60,7 +60,7 @@
     <!-- Conteúdo Principal -->
     <div class="main-content">
         <fieldset style="border-radius: 8px; border: 2px solid blue">
-            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">S E T T I N G S</h3></legend>
+            <legend style="text-align: center;"><h3 style="text-align: center; color: blue;">{{ __('messages.Settings') }}</h3></legend>
         
         <!-- Container Principal com Imagem e Formulário -->
         <div class="container">
